@@ -16,10 +16,9 @@
 <br/>
 @Html.ActionLink("Details", "ContactUs", "Home") 
 <br />
-@Html.ActionLink("Add Issue", "Index", "Users")
- <div id="grid">
-     Table
- </div>
+@Html.ActionLink("Add Issue", "Index", "Issue")
+<div id="grid" style="width: auto; float: left">
+</div>
 
 @section scripts{
 <script type="text/javascript">
@@ -28,13 +27,18 @@
     $(document).ready(function () {
         $("#grid").kendoGrid({
             columns: [
+                
                 {
                     field: "Key",
-                    title: "Key"
+                    title: "Key",
+                    filterable: true,
+                    sortable: true
+                   
                 },
                 {
                     field: "Type",
                     title: "Type"
+                    
                 },
             {
                 field: "Summary",
@@ -49,11 +53,11 @@
                 title: "Status"
             },
             {
-                field: "DateCreated",
+                field: "Created",
                 title: "Date Created"
             },
             {
-                field: "DateUpdated",
+                field: "Updated",
                 title: "Date Updated"
             },
             {
@@ -65,92 +69,190 @@
                 title: "Due Date"
             }],
             dataSource: {
-                data: [
-                    {
-                        Key : "1",
-                        Type: "Bug",
-                        Summary: "Testing1",
-                        Priority: "High",
-                        Status: "In Progress",
-                        DateCreated:"10/09/2014",
-                        DateUpdated:"10/09/2014",
-                        DateResolved:"20/09/2014",
-                        DueDate: "20/09/2014"
-                    },
-                    {
-                        Key: "2",
-                        Type: "Bug",
-                        Summary: "Testing2",
-                        Priority: "High",
-                        Status: "In Progress",
-                        DateCreated: "10/09/2014",
-                        DateUpdated: "10/09/2014",
-                        DateResolved: "20/09/2014",
-                        DueDate: "20/09/2014"
-                    },
-                {
-                    Key: "22",
-                    Type: "Bug",
-                    Summary: "Testing3",
-                    Priority: "High",
-                    Status: "In Progress",
-                    DateCreated: "10/09/2014",
-                    DateUpdated: "10/09/2014",
-                    DateResolved: "20/09/2014",
-                    DueDate: "20/09/2014"
+
+                transport: {
+                    read: function (options) {
+
+                        
+
+                        $.ajax({
+                            url: "/Issue/GetIssues",
+                            dataType: "json",
+                            //data: that.parameterMap(options, "read"),
+                            error: function (data) {
+                                alert('error:' + data);
+                            },
+                            type: "GET",
+                            success: function (data) {
+
+                                // Call kendo success method
+                                options.success(data);
+
+                            }
+                        });
+                    }
                 },
-                {
-                    Key: "12",
-                    Type: "Bug",
-                    Summary: "Testing4",
-                    Priority: "High",
-                    Status: "In Progress",
-                    DateCreated: "10/09/2014",
-                    DateUpdated: "10/09/2014",
-                    DateResolved: "20/09/2014",
-                    DueDate: "20/09/2014"
+                schema: {
+                    model: {
+                        //id: "Id",
+                        fields: {
+                            Key: { type: "string" },
+                            Type: { type: "string" },
+                            Summary: { type: "string" },
+                            Priority: { type: "string" },
+                            Status: { type: "string" },
+                            Created: { type: "date" },
+                            Updated: { type: "date" },
+                            DateResolved: { type: "date" },
+                            DueDate: { type: "date" }
+                        }
+                    }
                 },
-                {
-                    Key: "123",
-                    Type: "Bug",
-                    Summary: "Testing5",
-                    Priority: "High",
-                    Status: "In Progress",
-                    DateCreated: "10/09/2014",
-                    DateUpdated: "10/09/2014",
-                    DateResolved: "20/09/2014",
-                    DueDate: "20/09/2014"
-                },
-                {
-                    Key: "16",
-                    Type: "Bug",
-                    Summary: "Testing6",
-                    Priority: "High",
-                    Status: "In Progress",
-                    DateCreated: "10/09/2014",
-                    DateUpdated: "10/09/2014",
-                    DateResolved: "20/09/2014",
-                    DueDate: "20/09/2014"
-                },
-                {
-                    Key: "165",
-                    Type: "Bug",
-                    Summary: "Testing7",
-                    Priority: "High",
-                    Status: "In Progress",
-                    DateCreated: "10/09/2014",
-                    DateUpdated: "10/09/2014",
-                    DateResolved: "20/09/2014",
-                    DueDate: "20/09/2014"
-                }]
+                //data: [
+                //    {
+                //        Key : "1",
+                //        Type: "Bug",
+                //        Summary: "Testing1",
+                //        Priority: "High",
+                //        Status: "In Progress",
+                //        DateCreated:"10/09/2014",
+                //        DateUpdated:"10/09/2014",
+                //        DateResolved:"20/09/2014",
+                //        DueDate: "20/09/2014"
+                //    },
+                //    {
+                //        Key: "2",
+                //        Type: "Bug",
+                //        Summary: "Testing2",
+                //        Priority: "High",
+                //        Status: "In Progress",
+                //        DateCreated: "10/09/2014",
+                //        DateUpdated: "10/09/2014",
+                //        DateResolved: "20/09/2014",
+                //        DueDate: "20/09/2014"
+                //    },
+                //{
+                //    Key: "22",
+                //    Type: "Bug",
+                //    Summary: "Testing3",
+                //    Priority: "High",
+                //    Status: "In Progress",
+                //    DateCreated: "10/09/2014",
+                //    DateUpdated: "10/09/2014",
+                //    DateResolved: "20/09/2014",
+                //    DueDate: "20/09/2014"
+                //},
+                //{
+                //    Key: "12",
+                //    Type: "Bug",
+                //    Summary: "Testing4",
+                //    Priority: "High",
+                //    Status: "In Progress",
+                //    DateCreated: "10/09/2014",
+                //    DateUpdated: "10/09/2014",
+                //    DateResolved: "20/09/2014",
+                //    DueDate: "20/09/2014"
+                //},
+                //{
+                //    Key: "123",
+                //    Type: "Bug",
+                //    Summary: "Testing5",
+                //    Priority: "High",
+                //    Status: "In Progress",
+                //    DateCreated: "10/09/2014",
+                //    DateUpdated: "10/09/2014",
+                //    DateResolved: "20/09/2014",
+                //    DueDate: "20/09/2014"
+                //},
+                //{
+                //    Key: "16",
+                //    Type: "Bug",
+                //    Summary: "Testing6",
+                //    Priority: "High",
+                //    Status: "In Progress",
+                //    DateCreated: "10/09/2014",
+                //    DateUpdated: "10/09/2014",
+                //    DateResolved: "20/09/2014",
+                //    DueDate: "20/09/2014"
+                //},
+                //{
+                //    Key: "165",
+                //    Type: "Bug",
+                //    Summary: "Testing7",
+                //    Priority: "High",
+                //    Status: "In Progress",
+                //    DateCreated: "10/09/2014",
+                //    DateUpdated: "10/09/2014",
+                //    DateResolved: "20/09/2014",
+                //    DueDate: "20/09/2014"
+                //}],
+                pageSize: 3
             },
             groupable: true,
-          
-            scrollable: true,
+            //filterable: true,
+            filterable: {
+                messages: {
+                    info: "Custom header text:", // sets the text on top of the filter menu
+                    filter: "CustomFilter", // sets the text for the "Filter" button
+                    clear: "CustomClear", // sets the text for the "Clear" button
+
+                    // when filtering boolean numbers
+                    isTrue: "custom is true", // sets the text for "isTrue" radio button
+                    isFalse: "custom is false", // sets the text for "isFalse" radio button
+
+                    //changes the text of the "And" and "Or" of the filter menu
+                    and: "CustomAnd",
+                    or: "CustomOr"
+                },
+                operators: {
+                    //filter menu for "string" type columns
+                    string: {
+                        eq: "Custom Equal to",
+                        neq: "Custom Not equal to",
+                        startswith: "Custom Starts with",
+                        contains: "Custom Contains",
+                        endswith: "Custom Ends with"
+                    },
+                    //filter menu for "number" type columns
+                    number: {
+                        eq: "Custom Equal to",
+                        neq: "Custom Not equal to",
+                        gte: "Custom Is greater than or equal to",
+                        gt: "Custom Is greater than",
+                        lte: "Custom Is less than or equal to",
+                        lt: "Custom Is less than"
+                    },
+                    //filter menu for "date" type columns
+                    date: {
+                        eq: "Custom Equal to",
+                        neq: "Custom Not equal to",
+                        gte: "Custom Is after or equal to",
+                        gt: "Custom Is after",
+                        lte: "Custom Is before or equal to",
+                        lt: "Custom Is before"
+                    },
+                    //filter menu for foreign key values
+                    enums: {
+                        eq: "custom Is Equal to",
+                        neq: "custom Is Not equal to"
+                    }
+                }
+            },
+            scrollable: false,
             sortable: true,
-            pageable: true
+            pageable: true,
+            editable: true,
+            //toolbar: ["create", "save", "cancel"],
+            reorderable: true,
+            resizable: true,
+            columnMenu: true
+            
         });
+
+
     });
+
+    
 </script>
 }
 

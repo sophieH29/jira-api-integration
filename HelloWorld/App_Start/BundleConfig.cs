@@ -17,7 +17,7 @@ namespace HelloWorld.App_Start
              "~/Scripts/kendo/kendo.grid.min.js",
             "~/Scripts/kendo/kendo.web.min.js"));
 
-            bundles.Add(new StyleBundle("~/Content/kendo/css").Include(
+            
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
               "~/Scripts/jquery-{version}.js",
               "~/Scripts/modernizr-*",
