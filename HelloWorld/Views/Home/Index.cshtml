@@ -1,0 +1,157 @@
+﻿@{
+    ViewBag.Title = "IECF";
+}
+<h2>Hello from the view.</h2>
+<link href="~/Content/Layout.css" rel="stylesheet" />
+        <link href="~/Content/kendo/kendo.common.min.css" rel="stylesheet" />
+        <link href="~/Content/kendo/kendo.default.min.css" rel="stylesheet" />
+        <script src="~/Scripts/kendo/kendo.core.min.js"></script>
+        <script src="~/Scripts/kendo/kendo.grid.min.js"></script>
+        <script src="~/Scripts/kendo/kendo.web.min.js"></script>
+<script src="~/Scripts/kendo/kendo.all.js"></script>
+
+<br />
+<i>@ViewBag.Message</i>
+<br/>
+<br/>
+@Html.ActionLink("Details", "ContactUs", "Home") 
+<br />
+@Html.ActionLink("Add Issue", "Index", "Users")
+ <div id="grid">
+     Table
+ </div>
+
+@section scripts{
+<script type="text/javascript">
+    document.getElementById("header").innerHTML 
+
+    $(document).ready(function () {
+        $("#grid").kendoGrid({
+            columns: [
+                {
+                    field: "Key",
+                    title: "Key"
+                },
+                {
+                    field: "Type",
+                    title: "Type"
+                },
+            {
+                field: "Summary",
+                title: "Summary"
+            },
+            {
+                field: "Priority",
+                title: "Priority"
+            },
+            {
+                field: "Status",
+                title: "Status"
+            },
+            {
+                field: "DateCreated",
+                title: "Date Created"
+            },
+            {
+                field: "DateUpdated",
+                title: "Date Updated"
+            },
+            {
+                field: "DateResolved",
+                title: "Date Resolved"
+            },
+            {
+                field: "DueDate",
+                title: "Due Date"
+            }],
+            dataSource: {
+                data: [
+                    {
+                        Key : "1",
+                        Type: "Bug",
+                        Summary: "Testing1",
+                        Priority: "High",
+                        Status: "In Progress",
+                        DateCreated:"10/09/2014",
+                        DateUpdated:"10/09/2014",
+                        DateResolved:"20/09/2014",
+                        DueDate: "20/09/2014"
+                    },
+                    {
+                        Key: "2",
+                        Type: "Bug",
+                        Summary: "Testing2",
+                        Priority: "High",
+                        Status: "In Progress",
+                        DateCreated: "10/09/2014",
+                        DateUpdated: "10/09/2014",
+                        DateResolved: "20/09/2014",
+                        DueDate: "20/09/2014"
+                    },
+                {
+                    Key: "22",
+                    Type: "Bug",
+                    Summary: "Testing3",
+                    Priority: "High",
+                    Status: "In Progress",
+                    DateCreated: "10/09/2014",
+                    DateUpdated: "10/09/2014",
+                    DateResolved: "20/09/2014",
+                    DueDate: "20/09/2014"
+                },
+                {
+                    Key: "12",
+                    Type: "Bug",
+                    Summary: "Testing4",
+                    Priority: "High",
+                    Status: "In Progress",
+                    DateCreated: "10/09/2014",
+                    DateUpdated: "10/09/2014",
+                    DateResolved: "20/09/2014",
+                    DueDate: "20/09/2014"
+                },
+                {
+                    Key: "123",
+                    Type: "Bug",
+                    Summary: "Testing5",
+                    Priority: "High",
+                    Status: "In Progress",
+                    DateCreated: "10/09/2014",
+                    DateUpdated: "10/09/2014",
+                    DateResolved: "20/09/2014",
+                    DueDate: "20/09/2014"
+                },
+                {
+                    Key: "16",
+                    Type: "Bug",
+                    Summary: "Testing6",
+                    Priority: "High",
+                    Status: "In Progress",
+                    DateCreated: "10/09/2014",
+                    DateUpdated: "10/09/2014",
+                    DateResolved: "20/09/2014",
+                    DueDate: "20/09/2014"
+                },
+                {
+                    Key: "165",
+                    Type: "Bug",
+                    Summary: "Testing7",
+                    Priority: "High",
+                    Status: "In Progress",
+                    DateCreated: "10/09/2014",
+                    DateUpdated: "10/09/2014",
+                    DateResolved: "20/09/2014",
+                    DueDate: "20/09/2014"
+                }]
+            },
+            groupable: true,
+          
+            scrollable: true,
+            sortable: true,
+            pageable: true
+        });
+    });
+</script>
+}
+
+ 

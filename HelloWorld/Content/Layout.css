@@ -1,0 +1,80 @@
+ <style type="text/css">            
+            body {
+                 margin:0; 
+                 padding:0;
+            }
+            table {
+	            border-width: 1px;
+	            border-spacing: 0px;
+	            border-style: solid;
+	            border-color: black;
+	            border-collapse: collapse;
+	            background-color: white;
+            }
+            table th {
+	            border-width: 1px;
+	            padding: 2px;
+	            border-style: solid;
+	            border-color: black;
+	            background-color: black;
+                color: white;
+            }
+            table th a{
+                color: white;
+            }
+            table td {
+	            border-width: 1px;
+	            padding: 2px;
+	            border-style: solid;
+	            border-color: black;
+	            background-color: white;
+            }          
+            #header_container {
+                 background: black; 
+                 color: white; 
+                 height:60px; 
+                 left:0; 
+                 position:fixed; 
+                 width:100%; 
+                 top:0;
+            }
+            #header {
+                 line-height:60px; 
+                 margin:0 auto; 
+                 padding-left: 50px; 
+                 font-weight: bold;
+                 font-size: 18pt;
+            }
+            #header a, #header a:valid, #header a:active, #header a:hover {
+                color: white;
+                padding-right: 50px;
+                padding-left: 50px;
+            }
+            #container {
+                 margin:0 auto; 
+                 overflow:auto; 
+                 padding:80px 0; 
+                 width:940px;
+            }
+            #container input[type=text], select, textarea  
+            {
+                width: 200px;
+                margin: 2px;
+                box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+            }
+            .control-label {
+                width: 100px;
+                display: inline-block;
+                vertical-align: top;
+            }
+            .field-validation-error {
+                color: red;
+                vertical-align: top;
+                padding-left: 5px;
+            }
+            .validation-summary-errors {
+                color: red;
+            }
+        </style>

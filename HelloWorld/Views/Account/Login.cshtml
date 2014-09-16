@@ -1,0 +1,24 @@
+﻿@model HelloWorld.Models.Login
+@{
+    ViewBag.Title = "Log in";
+}
+
+<h2>@ViewBag.Title</h2>
+<hr/>
+@Html.ValidationSummary(true)
+<br/>
+@using (Html.BeginForm(null, null, new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+{
+    @Html.LabelFor(m => m.UserName, new { @class = "control-label" })
+    @Html.TextBoxFor(m => m.UserName)
+    @Html.ValidationMessageFor(m => m.UserName)
+    <br/>
+    @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+    @Html.PasswordFor(m => m.Password)
+    @Html.ValidationMessageFor(m => m.Password)
+    <br/>    
+    @Html.LabelFor(m => m.RememberMe, new { @class = "control-label" })
+    @Html.CheckBoxFor(m => m.RememberMe)
+    <br/> 
+    <input type="submit" value="Log in" />
+}

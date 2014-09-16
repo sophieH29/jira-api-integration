@@ -1,0 +1,44 @@
+﻿@using HelloWorld.Code.Security
+@using System.Web
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+       <title> @ViewBag.Title</title>
+        <link href="~/Content/Layout.css" rel="stylesheet" />
+        <link href="~/Content/kendo/kendo.common.min.css" rel="stylesheet" />
+        <link href="~/Content/kendo/kendo.default.min.css" rel="stylesheet" />
+         <script type="text/javascript" src="~/Scripts/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/jquery.validate.js"></script>
+        <script type="text/javascript" src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+        <script src="~/Scripts/kendo/kendo.core.min.js"></script>
+        <script src="~/Scripts/kendo/kendo.grid.min.js"></script>
+        <script src="~/Scripts/kendo/kendo.web.min.js"></script>
+        <a href="~/Scripts/jquery-1.9.1.min.map">~/Scripts/jquery-1.9.1.min.map</a>
+
+        
+    </head>
+    <body>       
+        <div id="header_container">
+            <div id="header">
+                <i> IOS ENVI CUSTOMER FEEDBACK</i>
+                <span style="float:right; font-size: small;">@if (HttpContext.Current.User.Identity.IsAuthenticated)
+                                           {
+                                               var identity = HttpContext.Current.User.ToCustomPrincipal().CustomIdentity;
+                                               @Html.Label(string.Format("Welcome {0} {1}, you are logged as {2}", identity.FirstName, identity.LastName, identity.UserRoleName))
+                                               @Html.ActionLink("Log out", "Logout", "Account")
+                                           }</span>
+            </div>
+        </div>              
+        <div id="container">
+            <div id="content">
+                @RenderBody()    
+            </div>
+        </div>
+       
+        @RenderSection("scripts", required: false)
+
+       
+    </body>
+</html>
