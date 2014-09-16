@@ -1,12 +1,19 @@
 ﻿@using HelloWorld.Code.Security
 @using System.Web
+@using System.Web.Optimization
 
 
 <!DOCTYPE html>
 <html>
     <head>
+   
+    @Scripts.Render("~/bundles/kendo")
+    @Scripts.Render("~/bundles/jquery")
+         @Styles.Render("~/Content/css")
+        @Styles.Render("~/Content/kendo")
        <title> @ViewBag.Title</title>
         <link href="~/Content/Layout.css" rel="stylesheet" />
+        @* />
         <link href="~/Content/kendo/kendo.common.min.css" rel="stylesheet" />
         <link href="~/Content/kendo/kendo.default.min.css" rel="stylesheet" />
          <script type="text/javascript" src="~/Scripts/jquery-1.9.1.min.js"></script>
@@ -15,7 +22,7 @@
         <script src="~/Scripts/kendo/kendo.core.min.js"></script>
         <script src="~/Scripts/kendo/kendo.grid.min.js"></script>
         <script src="~/Scripts/kendo/kendo.web.min.js"></script>
-        <a href="~/Scripts/jquery-1.9.1.min.map">~/Scripts/jquery-1.9.1.min.map</a>
+        <a href="~/Scripts/jquery-1.9.1.min.map">~/Scripts/jquery-1.9.1.min.map</a>*@
 
         
     </head>

@@ -1,5 +1,4 @@
 ﻿using System.Web.Mvc;
-using HelloWorld.Code.DataAccess;
 using HelloWorld.Code.Security;
 using System.Web.Optimization;
 using UserRole = HelloWorld.Code.Security.UserRole;

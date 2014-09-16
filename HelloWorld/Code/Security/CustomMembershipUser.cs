@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Web.Security;
-using HelloWorld.Code.DataAccess;
+using HelloWorld.App_Data;
 
 namespace HelloWorld.Code.Security
 {

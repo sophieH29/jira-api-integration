@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Web.Mvc;
-using HelloWorld.Code.DataAccess;
 using HelloWorld.Code.Security;
-using HelloWorld.Code.Util;
 using HelloWorld.Models;
+using UserRole = HelloWorld.Code.Security.UserRole;
 
 namespace HelloWorld.Controllers
 {
-    [Authorize(Roles = "Administrator")]
+  //  [Authorize(Roles = "Administrator")]
+    [UserRoleAuthorize(UserRole.Administrator, UserRole.User)]
     public class UsersController : Controller
     {
         [HttpGet]

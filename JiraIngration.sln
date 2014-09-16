@@ -1,7 +1,7 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloWorld", "HelloWorld\HelloWorld.csproj", "{B60904EE-8002-4FAA-8B88-63109AB66143}"
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JiraGrid", "HelloWorld\JiraGrid.csproj", "{B60904EE-8002-4FAA-8B88-63109AB66143}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

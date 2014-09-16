@@ -5,7 +5,7 @@ using System.Data.Entity;
 using System.Web;
 using System.Web.Caching;
 using System.Web.Security;
-using HelloWorld.Code.DataAccess;
+using HelloWorld.App_Data;
 
 namespace HelloWorld.Code.Security
 {
