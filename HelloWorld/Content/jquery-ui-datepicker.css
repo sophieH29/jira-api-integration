@@ -1,0 +1,419 @@
+/*custom styles for jquery datepiker*/
+
+/* Layout helpers
+----------------------------------*/
+.dp-helper-hidden {
+	display: none;
+}
+.dp-helper-hidden-accessible {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+}
+.dp-helper-reset {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	line-height: 1.3;
+	text-decoration: none;
+	font-size: 100%;
+	list-style: none;
+}
+.dp-helper-clearfix:before,
+.dp-helper-clearfix:after {
+	content: "";
+	display: table;
+	border-collapse: collapse;
+}
+.dp-helper-clearfix:after {
+	clear: both;
+}
+.dp-helper-clearfix {
+	min-height: 0; /* support: IE7 */
+}
+.dp-helper-zfix {
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	position: absolute;
+	opacity: 0;
+	filter:Alpha(Opacity=0);
+}
+
+/* Interaction Cues
+----------------------------------*/
+.dp-state-disabled {
+	cursor: default !important;
+}
+
+/* Icons
+----------------------------------*/
+/* states and images */
+.dp-icon {
+	display: block;
+	text-indent: -99999px;
+	overflow: hidden;
+	background-repeat: no-repeat;
+}
+
+.dp-datepicker {
+	width: 206px; /*Edited by mkozak*/
+	padding: .2em .2em 0;
+	display: none;
+}
+.dp-datepicker .dp-datepicker-header {
+	position: relative;
+	padding: .2em 0;
+}
+.dp-datepicker .dp-datepicker-prev,
+.dp-datepicker .dp-datepicker-next {/*idoch*/
+	position: absolute;
+	top: 2px;
+	width: 1.8em;
+	height: 2em;
+    cursor: pointer;
+}
+.dp-datepicker .dp-datepicker-prev-hover,
+.dp-datepicker .dp-datepicker-next-hover {
+	top: 1px;
+}
+.dp-datepicker .dp-datepicker-prev {
+	left: 2px;
+}
+.dp-datepicker .dp-datepicker-next {
+	right: 2px;
+}
+.dp-datepicker .dp-datepicker-prev-hover {
+	left: 1px;
+}
+.dp-datepicker .dp-datepicker-next-hover {
+	right: 1px;
+}
+.dp-datepicker .dp-datepicker-prev span,
+.dp-datepicker .dp-datepicker-next span {
+	display: block;
+	position: absolute;
+	left: 50%;
+	margin-left: -8px;
+	top: 50%;
+	margin-top: -8px;
+}
+.dp-datepicker .dp-datepicker-title {
+	margin: 0 2.3em;
+	line-height: 1.8em;
+	text-align: center;
+    font-weight: bold;
+}
+.dp-datepicker .dp-datepicker-title select {
+	font-size: 1em;
+	margin: 1px 0;
+}
+.dp-datepicker select.dp-datepicker-month-year {
+	width: 100%;
+}
+.dp-datepicker select.dp-datepicker-month,
+.dp-datepicker select.dp-datepicker-year {
+	width: 49%;
+}
+.dp-datepicker table {/*idoch*/
+	width: 100%;
+	font-size: .9em;
+	border-collapse: collapse;
+	margin: 0 0 .4em;
+    border: 1px solid #d9d9d9;
+}
+.dp-datepicker th {/*idoch*/
+    padding: 4px 2px 4px 3px;
+    text-align: center;
+    font-weight: normal;
+    font-family: Arial, sans-serif;
+    border: 0px;
+    font-size: 9px;
+    background-color: #d9d9d9
+}
+.dp-datepicker td {/*idoch*/
+	/*border: 0;
+	padding: 1px;*/
+}
+.dp-datepicker td span,
+.dp-datepicker td a {/*idoch*/
+	display: block;
+	padding: 7px 4px 7px 4px;
+	text-align: center;
+	text-decoration: none;
+}
+.dp-datepicker .dp-datepicker-buttonpane {
+	background-image: none;
+	margin: .7em 0 0 0;
+	padding: 0 .2em;
+	border-left: 0;
+	border-right: 0;
+	border-bottom: 0;
+}
+.dp-datepicker .dp-datepicker-buttonpane button {
+	float: right;
+	margin: .5em .2em .4em;
+	cursor: pointer;
+	padding: .2em .6em .3em .6em;
+	width: auto;
+	overflow: visible;
+}
+.dp-datepicker .dp-datepicker-buttonpane button.dp-datepicker-current {
+	float: left;
+}
+
+.dp-datepicker-week-end{
+    color: #ff4d4d!important;
+}
+
+.dp-datepicker-week-end a{
+    color: #ff4d4d!important;
+}
+
+/* with multiple calendars */
+.dp-datepicker.dp-datepicker-multi {
+	width: auto;
+}
+.dp-datepicker-multi .dp-datepicker-group {
+	float: left;
+}
+.dp-datepicker-multi .dp-datepicker-group table {
+	width: 95%;
+	margin: 0 auto .4em;
+}
+.dp-datepicker-multi-2 .dp-datepicker-group {
+	width: 50%;
+}
+.dp-datepicker-multi-3 .dp-datepicker-group {
+	width: 33.3%;
+}
+.dp-datepicker-multi-4 .dp-datepicker-group {
+	width: 25%;
+}
+.dp-datepicker-multi .dp-datepicker-group-last .dp-datepicker-header,
+.dp-datepicker-multi .dp-datepicker-group-middle .dp-datepicker-header {
+	border-left-width: 0;
+}
+.dp-datepicker-multi .dp-datepicker-buttonpane {
+	clear: left;
+}
+.dp-datepicker-row-break {
+	clear: both;
+	width: 100%;
+	font-size: 0;
+}
+
+/* RTL support */
+.dp-datepicker-rtl {
+	direction: rtl;
+}
+.dp-datepicker-rtl .dp-datepicker-prev {
+	right: 2px;
+	left: auto;
+}
+.dp-datepicker-rtl .dp-datepicker-next {
+	left: 2px;
+	right: auto;
+}
+.dp-datepicker-rtl .dp-datepicker-prev:hover {
+	right: 1px;
+	left: auto;
+}
+.dp-datepicker-rtl .dp-datepicker-next:hover {
+	left: 1px;
+	right: auto;
+}
+.dp-datepicker-rtl .dp-datepicker-buttonpane {
+	clear: right;
+}
+.dp-datepicker-rtl .dp-datepicker-buttonpane button {
+	float: left;
+}
+.dp-datepicker-rtl .dp-datepicker-buttonpane button.dp-datepicker-current,
+.dp-datepicker-rtl .dp-datepicker-group {
+	float: right;
+}
+.dp-datepicker-rtl .dp-datepicker-group-last .dp-datepicker-header,
+.dp-datepicker-rtl .dp-datepicker-group-middle .dp-datepicker-header {
+	border-right-width: 0;
+	border-left-width: 1px;
+}
+/* Component containers
+----------------------------------*/
+.dp-widget {
+	font-family: Verdana,Arial,sans-serif;
+	font-size: 1.1em;
+}
+.dp-widget .dp-widget {
+	font-size: 1em;
+}
+.dp-widget input,
+.dp-widget select,
+.dp-widget textarea,
+.dp-widget button {
+	font-family: Verdana,Arial,sans-serif;
+	font-size: 1em;
+}
+.dp-widget-content {
+	color: #222222;
+}
+.dp-widget-header {
+	color: #222222;
+	font-weight: bold;
+}
+.dp-widget-header a {
+	color: #222222;
+}
+
+/* Interaction states
+----------------------------------*/
+ .dp-state-default {/*idoch*/
+	border: 1px solid transparent;
+	font-weight: bold;
+	color: #595b5b;
+}
+.dp-state-default a{
+	color: #595b5b;
+	text-decoration: none;
+}
+.dp-state-hover,
+.dp-widget-content .dp-state-hover,
+.dp-widget-header .dp-state-hover,
+.dp-state-focus,
+.dp-widget-content .dp-state-focus,
+.dp-widget-header .dp-state-focus 
+{ 
+    color: #0070a3; 
+}
+
+.dp-state-hover-nav{
+    border: 0px solid transparent;
+    background: #c3c3c3; 
+}
+
+
+.dp-state-hover a,
+.dp-state-hover a:hover,
+.dp-state-hover a:link,
+.dp-state-hover a:visited {
+	color: #212121;
+	text-decoration: none;
+}
+.dp-state-active,
+.dp-widget-content .dp-state-active,
+.dp-widget-header .dp-state-active {/*idoch*/
+    background-color: #ced0d2;
+    font-weight: bold;
+    color: #242424;
+    padding: 5px 1px 5px 1px;
+    margin: 1px 1px 1px 1px;
+    border: 1px solid #ced0d2;
+}
+.dp-state-active a,
+.dp-state-active a:link,
+.dp-state-active a:visited {
+	color: #212121;
+	text-decoration: none;
+}
+
+/* Interaction Cues
+----------------------------------*/
+.dp-state-highlight,
+.dp-widget-content .dp-state-highlight,
+.dp-widget-header .dp-state-highlight { /*idoch*/
+    color: #363636;
+    border: 1px solid #bbb;
+    padding: 6px 1px 5px 1px;
+    margin: 1px 0px 1px 1px;
+}
+.dp-state-highlight a,
+.dp-widget-content .dp-state-highlight a,
+.dp-widget-header .dp-state-highlight a {
+	color: #363636;
+}
+.dp-priority-secondary,
+.dp-widget-content .dp-priority-secondary,
+.dp-widget-header .dp-priority-secondary {
+	opacity: .7;
+	filter:Alpha(Opacity=70);
+	font-weight: normal;
+}
+.dp-state-disabled,
+.dp-widget-content .dp-state-disabled,
+.dp-widget-header .dp-state-disabled {
+	opacity: .35;
+	filter:Alpha(Opacity=35);
+	background-image: none;
+}
+.dp-state-disabled .dp-icon {
+	filter:Alpha(Opacity=35); /* For IE8 - See #6059 */
+}
+
+/* Icons
+----------------------------------*/
+
+/* states and images */
+.dp-icon {
+	width: 16px;
+	height: 16px;
+}
+.dp-icon,
+.dp-widget-content .dp-icon {
+	background-image: url(/Content/Images/ui-icons_222222_256x240.png);
+}
+.dp-widget-header .dp-icon {
+	background-image: url(/Content/Images/ui-icons_222222_256x240.png);
+}
+.dp-state-default .dp-icon {
+	background-image: url(/Content/Images/ui-icons_888888_256x240.png);
+}
+.dp-state-hover .dp-icon,
+.dp-state-focus .dp-icon {
+	background-image: url(/Content/Images/ui-icons_222222_256x240.png);
+}
+.dp-state-active .dp-icon {
+	background-image: url(/Content/Images/ui-icons_222222_256x240.png);
+}
+.dp-state-highlight .dp-icon {
+	background-image: url(/Content/Images/ui-icons_2e83ff_256x240.png);
+}
+
+/* positioning */
+ .dp-icon-circle-triangle-e { background-position: -32px 0px; }
+ .dp-icon-circle-triangle-w { background-position: -98px 0px; }
+
+/* Misc visuals
+----------------------------------*/
+
+/* Corner radius */
+.dp-corner-all,
+.dp-corner-top,
+.dp-corner-left,
+.dp-corner-tl {
+	border-top-left-radius: 0px;
+}
+.dp-corner-all,
+.dp-corner-top,
+.dp-corner-right,
+.dp-corner-tr {
+	border-top-right-radius: 0px;
+}
+.dp-corner-all,
+.dp-corner-bottom,
+.dp-corner-left,
+.dp-corner-bl {
+	border-bottom-left-radius: 0px;
+}
+.dp-corner-all,
+.dp-corner-bottom,
+.dp-corner-right,
+.dp-corner-br {
+	border-bottom-right-radius: 0px;
+}

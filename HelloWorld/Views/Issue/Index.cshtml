@@ -1,0 +1,81 @@
+﻿@using HelloWorld.Models
+@model HelloWorld.Models.Issue
+
+@{
+    ViewBag.Title = "Create Issue";
+}
+
+<h2>@ViewBag.Title</h2>
+@*@using (Html.BeginForm("Index", "Issue", FormMethod.Post, new {id = "frmSearch"}))
+{       
+    
+        @Html.LabelFor(model => model.Type, new { @class = "control-label" })
+        @Html.TextBoxFor(model => model.Type)
+        @Html.ValidationMessageFor(model => model.Type)
+        <br/>
+        @Html.LabelFor(model => model.Summary, new { @class = "control-label" })
+        @Html.TextBoxFor(model => model.Summary)
+        @Html.ValidationMessageFor(model => model.Summary)
+        <br/>
+        @Html.LabelFor(model => model.Priority, new { @class = "control-label" })
+        @Html.TextBoxFor(model => model.Priority)
+        @Html.ValidationMessageFor(model => model.Priority)
+        <br/>
+        
+        @Html.LabelFor(model => model.Description, new { @class = "control-label" })
+        @Html.TextBoxFor(model => model.Description)
+        @Html.ValidationMessageFor(model => model.Description)
+        <br/>
+}*@
+
+<form style="text-align: left">
+    <div style="width: 85%;">
+
+        <div>
+            <label>Type:</label>
+            <select class="input-validation-valid" id="type">
+                <option>Bug</option>
+                <option>New Feature</option>
+            </select>
+        </div>
+
+        <div>
+            <label>Summary:</label>
+            <input type="text" class="input-validation-valid" id="summary">                       
+            </input>
+        </div>
+        <div>
+            <label>Priority:</label>
+            <select class="input-validation-valid" id="priority">
+                <option>High</option>
+                <option>Immediate</option>
+                <option>Medium</option>
+                <option>Low</option>
+                <option>On Hold</option>
+            </select>
+        </div>
+
+        <div>
+            <label>Description:</label>
+            <input type="text" class="input-validation-valid" id="description">                       
+            </input>
+        </div>
+    </div>
+
+</form>
+<div id="buttons" style="width: 85%; display: inline-block">
+    <input type="submit" name="Save" value="Save" />
+    <a href="@Url.Action("Index", "Home")">
+        <input type="button" value="Cancel" />
+    </a>
+</div>
+
+
+
+
+
+
+
+
+
+

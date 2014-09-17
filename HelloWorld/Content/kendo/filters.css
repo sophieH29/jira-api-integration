@@ -1,0 +1,75 @@
+﻿#filterSwitch {
+    height: 30px;
+    font-size: 18px;
+    font-style: italic;
+    margin-top: 5px;
+    padding: 5px;
+    color: #222222;
+    border: 1px solid grey;
+    -ms-border-radius: 3px 4px;
+    border-radius: 3px 4px;
+	cursor: pointer;
+	background: #cccccc url(/Content/img/ui-bg_highlight-soft_75_cccccc_1x100.png) 50% 50% repeat-x;
+}
+
+#tabs {
+    min-height: 580px;
+    max-height: 620px;
+    margin: 5px 0;
+}
+
+#filterPane {
+    margin-top: 3px;
+    border: 1px solid grey;
+    -ms-border-radius: 3px 4px;
+    border-radius: 3px 4px;
+}
+
+
+/*label {
+    max-width: 100px;
+    height: 22px;
+    font-size: 13px;
+    color: rgb(68, 68, 68);
+}*/
+
+
+
+
+
+#type, #status, #priority, #dateFrom, #dateTo {
+    width: 85px;
+}
+
+
+
+form div {
+    display: inline-block;
+    margin: 5px;
+}
+
+
+.ui-tabs .ui-tabs-nav li a {
+    padding: .3em 1em;
+}
+
+.ui-widget-header {
+    font-weight: normal;
+    height: 32px;
+    padding: .1em;
+}
+
+.ui-tabs-anchor {
+    font-weight: normal;
+    height: 26px;
+}
+
+.form-control {
+    height: 28px;
+    padding: 4px;
+}
+
+.input-group-addon {
+    padding: 4px;
+    font-size: 13px;
+}

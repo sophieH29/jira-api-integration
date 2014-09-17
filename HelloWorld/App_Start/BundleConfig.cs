@@ -26,7 +26,11 @@ namespace HelloWorld.App_Start
               "~/Scripts/jquery-1.9.1-vsdoc.js",
               "~/Scripts/jquery.validate-vsdoc.js",
               "~/Scripts/jquery.validate.js",
-              "~/Scripts/jquery.validate.unobtrusive.js"));
+              "~/Scripts/jquery.validate.js",
+              "~/Scripts/jquery.ui.datepicker.js"));
+             bundles.Add(new ScriptBundle("~/bundles/grid").Include(
+                 "~/Scripts/Grid/grid.js"
+                 ));
 
             bundles.Add(new StyleBundle("~/Content/kendo").Include(
             "~/Content/kendo/kendo.common.min.css",
@@ -36,6 +40,7 @@ namespace HelloWorld.App_Start
 
              bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/jquery-ui-datepicker.css",
                       "~/Content/site.css"));
         }
 

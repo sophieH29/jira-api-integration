@@ -1,259 +1,191 @@
-﻿@{
+﻿@using System.Web
+@using System.Web.Optimization
+
+@{
     ViewBag.Title = "IECF";
 }
-<h2>Hello from the view.</h2>
+<h2>Hello from Jira view.</h2>
+@Scripts.Render("~/bundles/grid")
+
 <link href="~/Content/Layout.css" rel="stylesheet" />
-        <link href="~/Content/kendo/kendo.common.min.css" rel="stylesheet" />
-        <link href="~/Content/kendo/kendo.default.min.css" rel="stylesheet" />
-        <script src="~/Scripts/kendo/kendo.core.min.js"></script>
-        <script src="~/Scripts/kendo/kendo.grid.min.js"></script>
-        <script src="~/Scripts/kendo/kendo.web.min.js"></script>
+<link href="~/Content/kendo/kendo.common.min.css" rel="stylesheet" />
+<link href="~/Content/kendo/kendo.default.min.css" rel="stylesheet" />
+
+<link href="~/Content/kendo/filters.css" rel="stylesheet" />
+<script src="~/Scripts/kendo/kendo.core.min.js"></script>
+<script src="~/Scripts/kendo/kendo.grid.min.js"></script>
+<script src="~/Scripts/kendo/kendo.web.min.js"></script>
 <script src="~/Scripts/kendo/kendo.all.js"></script>
+<link href="~/Content/kendo/kendo.dataviz.css" rel="stylesheet" />
+<link href="~/Content/kendo/kendo.dataviz.default.css" rel="stylesheet" />
+
 
 <br />
-<i>@ViewBag.Message</i>
-<br/>
-<br/>
-@Html.ActionLink("Details", "ContactUs", "Home") 
+
 <br />
-@Html.ActionLink("Add Issue", "Index", "Issue")
-<div id="grid" style="width: auto; float: left">
+
+<div id="filterSwitch">Show/Hide Filters</div>
+<div id="filterPane">
+    <form style="text-align: left">
+        <div style="width: 85%; display: inline-block">
+            <div>
+                <div>
+                    <label>Type:</label>
+                    <select class="input-validation-valid" id="type">
+                        <option></option>
+                        <option>Bug</option>
+                        <option>New Feature</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Priority:</label>
+                    <select class="input-validation-valid" id="priority">
+                        <option></option>
+                        <option>High</option>
+                        <option>Immediate</option>
+                        <option>Medium</option>
+                        <option>Low</option>
+                        <option>On Hold</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Status:</label>
+                    <select class="input-validation-valid" id="status">
+                        <option></option>
+                        <option>Open</option>
+                        <option>In Progress</option>
+                        <option>Reopened</option>
+                        <option>Resolved</option>
+                        <option>Closed</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>Created From: </label>
+                    <input type="text" id="dateFrom" class="input-validation-valid" placeholder="Created From..." />
+                </div>
+
+                <div>
+                    <label>Created To: </label>
+                    <input type="text" id="dateTo" class="input-validation-valid" placeholder="Created To..." />
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+</div>
+<div id="buttons" style="width: 85%; display: inline-block">
+    <input type="button" id="refresh" value="Refresh" />
+    <a href="@Url.Action("Index", "Issue")">
+        <input type="button" value="Create Issue" />
+    </a>
+</div>
+
+<div id="tabs">
+    <ul>
+        <li><a href="#tabs-1">Table</a></li>
+        <li><a href="#tabs-2">Details</a></li>
+    </ul>
+    <div id="tabs-1">
+        <div id="grid">
+            <table id="dataTable" style="width: auto; float: left">
+            </table>
+        </div>
+    </div>
+    <div id="tabs-2">
+        <div id="details">
+            <div>
+                <div>
+                    <label>Key:</label>                     
+            <input type="text"  id="det_key">                       
+            </input>
+                </div>
+
+                 <div>
+                    <label>Type:</label>                     
+            <input type="text"  id="det_type">                       
+            </input>
+                </div>
+
+                <div>
+                    <label>Summary:</label>                     
+            <input type="text"  id="det_summary">                       
+            </input>
+                </div>
+
+                 <div>
+                    <label>Description:</label>                     
+            <input type="text"  id="det_description">                       
+            </input>
+                </div>
+
+                <div>
+                    <label>Status:</label>                     
+            <input type="text"  id="det_status">                       
+            </input>
+                </div>
+
+                <div>
+                    <label>Priority:</label>                     
+            <input type="text"  id="det_priority">                       
+            </input>
+                </div>
+
+                <div>
+                    <label>Created:</label>                     
+            <input type="text"  id="det_created">                       
+            </input>
+                </div>
+
+                <div>
+                    <label>Updated:</label>                     
+            <input type="text"  id="det_updated">                       
+            </input>
+                </div>
+
+                 <div>
+                    <label>Resolved:</label>                     
+            <input type="text"  id="det_resolved">                       
+            </input>
+                </div>
+
+                <div>
+                    <label>Due:</label>                     
+            <input type="text"  id="det_due">                       
+            </input>
+                </div>
+
+               
+        </div>
+    </div>
+        <div id="buttons2" style="width: 85%; display: inline-block">
+    <input type="button" id="edit" value="Edit" />
+    <a href="@Url.Action("Index", "Home")">
+        <input type="button" value="Back to table" />
+    </a>
+</div>
+
 </div>
 
 @section scripts{
-<script type="text/javascript">
-    document.getElementById("header").innerHTML 
+    <script type="text/javascript">
+        document.getElementById("header").innerHTML
+        $(document).ready(function () {
+            // create DatePicker from input HTML element
+            $("#dateFrom, #dateTo").kendoDatePicker({
+                format: "yyyy-MM-dd"
+            });
 
-    $(document).ready(function () {
-        $("#grid").kendoGrid({
-            columns: [
-                
-                {
-                    field: "Key",
-                    title: "Key",
-                    filterable: true,
-                    sortable: true
-                   
-                },
-                {
-                    field: "Type",
-                    title: "Type"
-                    
-                },
-            {
-                field: "Summary",
-                title: "Summary"
-            },
-            {
-                field: "Priority",
-                title: "Priority"
-            },
-            {
-                field: "Status",
-                title: "Status"
-            },
-            {
-                field: "Created",
-                title: "Date Created"
-            },
-            {
-                field: "Updated",
-                title: "Date Updated"
-            },
-            {
-                field: "DateResolved",
-                title: "Date Resolved"
-            },
-            {
-                field: "DueDate",
-                title: "Due Date"
-            }],
-            dataSource: {
-
-                transport: {
-                    read: function (options) {
-
-                        
-
-                        $.ajax({
-                            url: "/Issue/GetIssues",
-                            dataType: "json",
-                            //data: that.parameterMap(options, "read"),
-                            error: function (data) {
-                                alert('error:' + data);
-                            },
-                            type: "GET",
-                            success: function (data) {
-
-                                // Call kendo success method
-                                options.success(data);
-
-                            }
-                        });
-                    }
-                },
-                schema: {
-                    model: {
-                        //id: "Id",
-                        fields: {
-                            Key: { type: "string" },
-                            Type: { type: "string" },
-                            Summary: { type: "string" },
-                            Priority: { type: "string" },
-                            Status: { type: "string" },
-                            Created: { type: "date" },
-                            Updated: { type: "date" },
-                            DateResolved: { type: "date" },
-                            DueDate: { type: "date" }
-                        }
-                    }
-                },
-                //data: [
-                //    {
-                //        Key : "1",
-                //        Type: "Bug",
-                //        Summary: "Testing1",
-                //        Priority: "High",
-                //        Status: "In Progress",
-                //        DateCreated:"10/09/2014",
-                //        DateUpdated:"10/09/2014",
-                //        DateResolved:"20/09/2014",
-                //        DueDate: "20/09/2014"
-                //    },
-                //    {
-                //        Key: "2",
-                //        Type: "Bug",
-                //        Summary: "Testing2",
-                //        Priority: "High",
-                //        Status: "In Progress",
-                //        DateCreated: "10/09/2014",
-                //        DateUpdated: "10/09/2014",
-                //        DateResolved: "20/09/2014",
-                //        DueDate: "20/09/2014"
-                //    },
-                //{
-                //    Key: "22",
-                //    Type: "Bug",
-                //    Summary: "Testing3",
-                //    Priority: "High",
-                //    Status: "In Progress",
-                //    DateCreated: "10/09/2014",
-                //    DateUpdated: "10/09/2014",
-                //    DateResolved: "20/09/2014",
-                //    DueDate: "20/09/2014"
-                //},
-                //{
-                //    Key: "12",
-                //    Type: "Bug",
-                //    Summary: "Testing4",
-                //    Priority: "High",
-                //    Status: "In Progress",
-                //    DateCreated: "10/09/2014",
-                //    DateUpdated: "10/09/2014",
-                //    DateResolved: "20/09/2014",
-                //    DueDate: "20/09/2014"
-                //},
-                //{
-                //    Key: "123",
-                //    Type: "Bug",
-                //    Summary: "Testing5",
-                //    Priority: "High",
-                //    Status: "In Progress",
-                //    DateCreated: "10/09/2014",
-                //    DateUpdated: "10/09/2014",
-                //    DateResolved: "20/09/2014",
-                //    DueDate: "20/09/2014"
-                //},
-                //{
-                //    Key: "16",
-                //    Type: "Bug",
-                //    Summary: "Testing6",
-                //    Priority: "High",
-                //    Status: "In Progress",
-                //    DateCreated: "10/09/2014",
-                //    DateUpdated: "10/09/2014",
-                //    DateResolved: "20/09/2014",
-                //    DueDate: "20/09/2014"
-                //},
-                //{
-                //    Key: "165",
-                //    Type: "Bug",
-                //    Summary: "Testing7",
-                //    Priority: "High",
-                //    Status: "In Progress",
-                //    DateCreated: "10/09/2014",
-                //    DateUpdated: "10/09/2014",
-                //    DateResolved: "20/09/2014",
-                //    DueDate: "20/09/2014"
-                //}],
-                pageSize: 3
-            },
-            groupable: true,
-            //filterable: true,
-            filterable: {
-                messages: {
-                    info: "Custom header text:", // sets the text on top of the filter menu
-                    filter: "CustomFilter", // sets the text for the "Filter" button
-                    clear: "CustomClear", // sets the text for the "Clear" button
-
-                    // when filtering boolean numbers
-                    isTrue: "custom is true", // sets the text for "isTrue" radio button
-                    isFalse: "custom is false", // sets the text for "isFalse" radio button
-
-                    //changes the text of the "And" and "Or" of the filter menu
-                    and: "CustomAnd",
-                    or: "CustomOr"
-                },
-                operators: {
-                    //filter menu for "string" type columns
-                    string: {
-                        eq: "Custom Equal to",
-                        neq: "Custom Not equal to",
-                        startswith: "Custom Starts with",
-                        contains: "Custom Contains",
-                        endswith: "Custom Ends with"
-                    },
-                    //filter menu for "number" type columns
-                    number: {
-                        eq: "Custom Equal to",
-                        neq: "Custom Not equal to",
-                        gte: "Custom Is greater than or equal to",
-                        gt: "Custom Is greater than",
-                        lte: "Custom Is less than or equal to",
-                        lt: "Custom Is less than"
-                    },
-                    //filter menu for "date" type columns
-                    date: {
-                        eq: "Custom Equal to",
-                        neq: "Custom Not equal to",
-                        gte: "Custom Is after or equal to",
-                        gt: "Custom Is after",
-                        lte: "Custom Is before or equal to",
-                        lt: "Custom Is before"
-                    },
-                    //filter menu for foreign key values
-                    enums: {
-                        eq: "custom Is Equal to",
-                        neq: "custom Is Not equal to"
+            $("#tabs").kendoTabStrip({
+                animation: {
+                    open: {
+                        effects: "fadeIn"
                     }
                 }
-            },
-            scrollable: false,
-            sortable: true,
-            pageable: true,
-            editable: true,
-            //toolbar: ["create", "save", "cancel"],
-            reorderable: true,
-            resizable: true,
-            columnMenu: true
-            
+            });
         });
 
-
-    });
-
-    
-</script>
+    </script>
 }
 
- 

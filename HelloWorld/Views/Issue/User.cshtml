@@ -1,0 +1,54 @@
+﻿@model HelloWorld.Code.DataAccess.User
+@{
+    ViewBag.Title = ViewBag.IsNewUser ? "Add a new user" : "Edit user";
+}
+
+<h2>@ViewBag.Title</h2>
+<hr/>
+@if (ViewBag.Error != null && !string.IsNullOrEmpty(ViewBag.Error))
+{
+    <p style="color: red">@ViewBag.Error</p>
+}
+else if (ViewBag.Message != null && !string.IsNullOrEmpty(ViewBag.Message))
+{
+    <p style="color: green">@ViewBag.Message</p>
+}
+else
+{            
+    using (Html.BeginForm(ViewBag.IsNewUser ? "Add" : "Edit", "Users", FormMethod.Post))
+    {       
+        @Html.HiddenFor(model => model.UserId)
+        @Html.HiddenFor(model => model.UrlReferrer)        
+    
+        @Html.LabelFor(model => model.FirstName, new { @class = "control-label" })
+        @Html.TextBoxFor(model => model.FirstName)
+        @Html.ValidationMessageFor(model => model.FirstName)
+        <br/>
+        @Html.LabelFor(model => model.LastName, new { @class = "control-label" })
+        @Html.TextBoxFor(model => model.LastName)
+        @Html.ValidationMessageFor(model => model.LastName)
+        <br/>
+        @Html.LabelFor(model => model.Email, new { @class = "control-label" })
+        @Html.TextBoxFor(model => model.Email)
+        @Html.ValidationMessageFor(model => model.Email)
+        <br/>
+        @Html.LabelFor(model => model.Username, new { @class = "control-label" })
+        @Html.TextBoxFor(model => model.Username)
+        @Html.ValidationMessageFor(model => model.Username)
+        <br/>
+        @Html.LabelFor(model => model.Password, new { @class = "control-label" })
+        @Html.TextBoxFor(model => model.Password)
+        @Html.ValidationMessageFor(model => model.Password)
+        <br/>
+        @Html.LabelFor(model => model.UserRoleId, new { @class = "control-label" })
+        @Html.DropDownListFor(model => model.UserRoleId, Model.UserRolesList)
+        @Html.ValidationMessageFor(model => model.UserRoleId)
+        <br/>
+        <input type="submit" name="Save" value="Save" />
+    }
+}
+<br/>
+@if (!string.IsNullOrEmpty(Model.UrlReferrer))
+{
+    <a href="@Model.UrlReferrer">Go back</a>
+}
