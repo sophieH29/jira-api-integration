@@ -32,31 +32,31 @@
                 <div>
                     <label>Type:</label>
                     <select class="input-validation-valid" id="type">
-                        <option></option>
-                        <option>Bug</option>
-                        <option>New Feature</option>
+                        <option value="">All</option>
+                        <option value="Bug">Bug</option>
+                        <option value="New Feature">New Feature</option>
                     </select>
                 </div>
                 <div>
                     <label>Priority:</label>
                     <select class="input-validation-valid" id="priority">
-                        <option></option>
-                        <option>High</option>
-                        <option>Immediate</option>
-                        <option>Medium</option>
-                        <option>Low</option>
-                        <option>On Hold</option>
+                        <option value="">All</option>
+                        <option value="High">High</option>
+                        <option value="Immediate">Immediate</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Low">Low</option>
+                        <option value="On Hold">On Hold</option>
                     </select>
                 </div>
                 <div>
                     <label>Status:</label>
                     <select class="input-validation-valid" id="status">
-                        <option></option>
-                        <option>Open</option>
-                        <option>In Progress</option>
-                        <option>Reopened</option>
-                        <option>Resolved</option>
-                        <option>Closed</option>
+                        <option value="">All</option>
+                        <option value="Open">Open</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Reopened">Reopened</option>
+                        <option value="Resolved">Resolved</option>
+                        <option value="Closed">Closed</option>
                     </select>
                 </div>
 
@@ -70,121 +70,115 @@
                     <input type="text" id="dateTo" class="input-validation-valid" placeholder="Created To..." />
                 </div>
             </div>
+            <input  style="width: auto" type="button" id="refresh" value="Apply" />
         </div>
-
+        
     </form>
 
 </div>
+
+
 <div id="buttons" style="width: 85%; display: inline-block">
-    <input type="button" id="refresh" value="Refresh" />
+    
     <a href="@Url.Action("Index", "Issue")">
         <input type="button" value="Create Issue" />
     </a>
 </div>
 
-<div id="tabs">
-    <ul>
+
+
+   @* <ul>
         <li><a href="#tabs-1">Table</a></li>
         <li><a href="#tabs-2">Details</a></li>
-    </ul>
+    </ul>*@
+
     <div id="tabs-1">
         <div id="grid">
-            <table id="dataTable" style="width: auto; float: left">
+            <table id="dataTable" style="width: auto; float: left;">
             </table>
         </div>
     </div>
     <div id="tabs-2">
         <div id="details">
+
             <div>
-                <div>
-                    <label>Key:</label>                     
-            <input type="text"  id="det_key">                       
-            </input>
-                </div>
+                <label>Key:</label>
+                <input type="text" id="det_key" />
 
-                 <div>
-                    <label>Type:</label>                     
-            <input type="text"  id="det_type">                       
-            </input>
-                </div>
+            </div>
 
-                <div>
-                    <label>Summary:</label>                     
-            <input type="text"  id="det_summary">                       
-            </input>
-                </div>
+            <div>
+                <label>Type:</label>
+                <input type="text" id="det_type" />
 
-                 <div>
-                    <label>Description:</label>                     
-            <input type="text"  id="det_description">                       
-            </input>
-                </div>
+            </div>
 
-                <div>
-                    <label>Status:</label>                     
-            <input type="text"  id="det_status">                       
-            </input>
-                </div>
+            <div>
+                <label>Summary:</label>
+                <input type="text" id="det_summary" />
 
-                <div>
-                    <label>Priority:</label>                     
-            <input type="text"  id="det_priority">                       
-            </input>
-                </div>
+            </div>
 
-                <div>
-                    <label>Created:</label>                     
-            <input type="text"  id="det_created">                       
-            </input>
-                </div>
+            <div>
+                <label>Description:</label>
+                <input type="text" id="det_description" />
 
-                <div>
-                    <label>Updated:</label>                     
-            <input type="text"  id="det_updated">                       
-            </input>
-                </div>
+            </div>
 
-                 <div>
-                    <label>Resolved:</label>                     
-            <input type="text"  id="det_resolved">                       
-            </input>
-                </div>
+            <div>
+                <label>Status:</label>
+                <input type="text" id="det_status" />
 
-                <div>
-                    <label>Due:</label>                     
-            <input type="text"  id="det_due">                       
-            </input>
-                </div>
+            </div>
 
-               
+            <div>
+                <label>Priority:</label>
+                <input type="text" id="det_priority" />
+
+            </div>
+
+            <div>
+                <label>Created:</label>
+                <input type="text" id="det_created" />
+
+            </div>
+
+            <div>
+                <label>Updated:</label>
+                <input type="text" id="det_updated" />
+
+            </div>
+
+            <div>
+                <label>Resolved:</label>
+                <input type="text" id="det_resolved" />
+
+            </div>
+
+            <div>
+                <label>Due:</label>
+                <input type="text" id="det_due" />
+
+            </div>
+              <br>
+            <br>
+            <div id="buttons2" style="width: 85%; display: inline-block">
+                <input type="button" id="edit" value="Edit" />
+                <input id="hide_det" type="button" value="Hide details" />
+                
+            </div>
+
+          
         </div>
     </div>
-        <div id="buttons2" style="width: 85%; display: inline-block">
-    <input type="button" id="edit" value="Edit" />
-    <a href="@Url.Action("Index", "Home")">
-        <input type="button" value="Back to table" />
-    </a>
-</div>
 
-</div>
+
+
 
 @section scripts{
     <script type="text/javascript">
         document.getElementById("header").innerHTML
-        $(document).ready(function () {
-            // create DatePicker from input HTML element
-            $("#dateFrom, #dateTo").kendoDatePicker({
-                format: "yyyy-MM-dd"
-            });
 
-            $("#tabs").kendoTabStrip({
-                animation: {
-                    open: {
-                        effects: "fadeIn"
-                    }
-                }
-            });
-        });
 
     </script>
 }

@@ -4,13 +4,21 @@
 $(function () {
     grid = new Grid();
     grid.initialize();
-
+    $('#filterPane').toggle("fold");
     $('#filterSwitch').click(function () {
         $('#filterPane').toggle("fold");
         if ($('#error_message_span').length)
-            $('#error_message_span').toggle("fold");
-    });    
-
+            $('#error_message_span').toggle("show");
+    });
+    // create DatePicker from input HTML element
+    $("#dateFrom, #dateTo").kendoDatePicker({
+        format: "yyyy-MM-dd"
+    });
+    
+    $("#hide_det").click(function () {
+        $("#tabs-2").toggle("fold");
+    });
+    $("#tabs-2").toggle("fold");
 });
 
 function Grid() {
@@ -19,17 +27,12 @@ function Grid() {
     var countOfTrId = 0;
     _this.initialize = function () {
 
-
-         _this.GetIssues();
-
-       // _this.GetJiraIssues();
+        _this.GetIssues();
         $("#refresh").click(function () {
             $("#tableBody").empty();
             $("#grid").empty();
             $("#grid").append("<table id='dataTable'></table>");
             _this.GetIssues();
-           // _this.GetJiraIssues();
-
         });
 
     };
@@ -68,7 +71,7 @@ function Grid() {
         for (var i = 0; i < res.length; i++) {
 
             // Append <tr><td> tags with datas
-            $("#dataTable").append("<tr  id= '" + countOfTrId++  + "'><td>" + res[i].Key +
+            $("#dataTable").append("<tr  id= '" + countOfTrId++ + "'><td>" + res[i].Key +
                 "</td><td>" + res[i].Type +
                 "</td><td>" + res[i].Summary +
                 "</td><td>" + res[i].Priority +
@@ -87,60 +90,60 @@ function Grid() {
                      {
                          field: "Key",
                          title: "Key",
-                         width: 150
+                         width: 162
 
                      },
                      {
                          field: "Type",
                          title: "Type",
-                         width: 150
+                         width: 162
 
                      },
                  {
                      field: "Summary",
                      title: "Summary",
-                     width: 150
+                     width: 162
                  },
                  {
                      field: "Priority",
                      title: "Priority",
-                     width: 150
+                     width: 162
                  },
                  {
                      field: "Status",
                      title: "Status",
-                     width: 150
+                     width: 162
                  },
                  {
                      field: "Created",
                      title: "Date Created",
-                     width: 150
+                     width: 162
                  },
                  {
                      field: "Updated",
                      title: "Date Updated",
-                     width: 150
+                     width: 162
                  },
                  {
                      field: "DateResolved",
                      title: "Date Resolved",
-                     width: 150
+                     width: 162
                  },
                  {
                      field: "DueDate",
                      title: "Due Date",
-                     width: 150
+                     width: 162
                  }],
             dataSource: {
 
-                pageSize: 3
+                pageSize: 5
             },
             serverPaging: true,
             serverFiltering: true,
             serverSorting: true,
             dataBound: onDataBound,
             scrollable: false,
-            selectable: "multiple cell",
+            selectable: "multiple",
             sortable: true,
             pageable: {
                 refresh: true,
@@ -158,29 +161,6 @@ function Grid() {
                 var row = $(this).closest("tr");
                 var rowIdx = $("tr", grid.tbody).index(row);
                 var colIdx = $("td", row).index(this);
-            //    //alert(res[rowIdx].Type + '-' + res[rowIdx].Description + '-' + res[rowIdx].Summary)
-            //    $("#details").text(" Key:" + res[rowIdx].Key +
-            //        "                                             "+
-            //        "Type:" + res[rowIdx].Type +
-            //         "                                             " +
-            //        "Summary:" + res[rowIdx].Summary +
-            //         "                                             " +
-            //        "Description:" + res[rowIdx].Description +
-            //         "                                             " +
-            //        "Priority:" + res[rowIdx].Priority +
-            //         "                                             " +
-            //        "Status:" + res[rowIdx].Status +
-            //         "                                             " +
-            //        "Created:" + res[rowIdx].Created +
-            //         "                                             " +
-            //         "Updated:" + res[rowIdx].Updated +
-            //          "                                             " +
-            //        "Resolved:" + res[rowIdx].DateResolved +
-            //         "                                             " +
-
-                //        "Due Date:" + res[rowIdx].DueDate);
-
-
 
                 $("#det_key").val(res[rowIdx].Key);
                 $("#det_type").val(res[rowIdx].Type);
@@ -192,133 +172,133 @@ function Grid() {
                 $("#det_updated").val(res[rowIdx].Updated);
                 $("#det_resolved").val(res[rowIdx].DateResolved);
                 $("#det_due").val(res[rowIdx].DueDate);
-                });          
-                
-
-
                
-                
+               // $("#tabs-1").toggle("fold");
+                $("#tabs-2").show();
+            });
+           
+           
+
+
         }
     };
 
 
-        _this.GetJiraIssues = function () {
-            var data = {
-                type: $("#type").val(),
-                status: $("#status").val(),
-                priority: $("#priority").val(),
-                createdFrom: $("#dateFrom").val(),
-                createdTo: $("#dateTo").val(),
+    //_this.GetJiraIssues = function () {
+    //    var data = {
+    //        type: $("#type").val(),
+    //        status: $("#status").val(),
+    //        priority: $("#priority").val(),
+    //        createdFrom: $("#dateFrom").val(),
+    //        createdTo: $("#dateTo").val(),
 
-            };
-            $("#dataTable").kendoGrid({
-                columns: [
+    //    };
+    //    $("#dataTable").kendoGrid({
+    //        columns: [
 
-                    {
-                        field: "Key",
-                        title: "Key",                        
-                        width: 150
+    //            {
+    //                field: "Key",
+    //                title: "Key",
+    //                width: 150
 
-                    },
-                    {
-                        field: "Type",
-                        title: "Type",
-                        width: 150
+    //            },
+    //            {
+    //                field: "Type",
+    //                title: "Type",
+    //                width: 150
 
-                    },
-                {
-                    field: "Summary",
-                    title: "Summary",
-                    width: 150
-                },
-                {
-                    field: "Priority",
-                    title: "Priority",
-                    width: 150
-                },
-                {
-                    field: "Status",
-                    title: "Status",
-                    width: 150
-                },
-                {
-                    field: "Created",
-                    title: "Date Created",
-                    width: 150
-                },
-                {
-                    field: "Updated",
-                    title: "Date Updated",
-                    width: 150
-                },
-                {
-                    field: "DateResolved",
-                    title: "Date Resolved",
-                    width: 150
-                },
-                {
-                    field: "DueDate",
-                    title: "Due Date",
-                    width: 150
-                }],
-                dataSource: {
+    //            },
+    //        {
+    //            field: "Summary",
+    //            title: "Summary",
+    //            width: 150
+    //        },
+    //        {
+    //            field: "Priority",
+    //            title: "Priority",
+    //            width: 150
+    //        },
+    //        {
+    //            field: "Status",
+    //            title: "Status",
+    //            width: 150
+    //        },
+    //        {
+    //            field: "Created",
+    //            title: "Date Created",
+    //            width: 150
+    //        },
+    //        {
+    //            field: "Updated",
+    //            title: "Date Updated",
+    //            width: 150
+    //        },
+    //        {
+    //            field: "DateResolved",
+    //            title: "Date Resolved",
+    //            width: 150
+    //        },
+    //        {
+    //            field: "DueDate",
+    //            title: "Due Date",
+    //            width: 150
+    //        }],
+    //        dataSource: {
 
-                    transport: {
-                        read: function (options) {
-                            $.ajax({
-                                url: "/Issue/GetIssues",
-                                dataType: "json",
-                                data: data,
-                                error: function (data) {
-                                    alert('error:' + data);
-                                },
-                                type: "POST",
-                                success: function (data) {
+    //            transport: {
+    //                read: function (options) {
+    //                    $.ajax({
+    //                        url: "/Issue/GetIssues",
+    //                        dataType: "json",
+    //                        data: data,
+    //                        error: function (data) {
+    //                            alert('error:' + data);
+    //                        },
+    //                        type: "POST",
+    //                        success: function (data) {
 
-                                    // Call kendo success method
-                                    options.success(data);
-                                }
-                            });
-                        }
-                    },
-                    schema: {
-                        model: {
-                            //id: "Id",
-                            fields: {
-                                Key: { type: "string" },
-                                Type: { type: "string" },
-                                Summary: { type: "string" },
-                                Priority: { type: "string" },
-                                Status: { type: "string" },
-                                Created: { type: "string" },
-                                Updated: { type: "string" },
-                                DateResolved: { type: "string" },
-                                DueDate: { type: "string" }
-                            }
-                        }
-                    },
+    //                            // Call kendo success method
+    //                            options.success(data);
+    //                        }
+    //                    });
+    //                }
+    //            },
+    //            schema: {
+    //                model: {                       
+    //                    fields: {
+    //                        Key: { type: "string" },
+    //                        Type: { type: "string" },
+    //                        Summary: { type: "string" },
+    //                        Priority: { type: "string" },
+    //                        Status: { type: "string" },
+    //                        Created: { type: "string" },
+    //                        Updated: { type: "string" },
+    //                        DateResolved: { type: "string" },
+    //                        DueDate: { type: "string" }
+    //                    }
+    //                }
+    //            },
 
-                    pageSize: 3
-                },
-                
-                scrollable: false,
-                selectable: "multiple cell",
-                sortable: true,
-                pageable: {
-                    refresh: true,
-                    pageSizes: true
-                },                
-                reorderable: true,
-                resizable: true,
-                columnMenu: true
+    //            pageSize: 3
+    //        },
+    //        selectable: "multiple",
+    //        scrollable: false,
+    //        sortable: true,
+    //        pageable: {
+    //            refresh: true,
+    //            pageSizes: true
+    //        },
+    //        reorderable: true,
+    //        resizable: true,
+    //        columnMenu: true
 
-            });
+    //    });
 
 
-        };
+    //};
 
 
 
-    
+
 
 };
