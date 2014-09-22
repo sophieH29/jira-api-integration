@@ -6,34 +6,15 @@
 }
 
 <h2>@ViewBag.Title</h2>
-@*@using (Html.BeginForm("Index", "Issue", FormMethod.Post, new {id = "frmSearch"}))
-{       
-    
-        @Html.LabelFor(model => model.Type, new { @class = "control-label" })
-        @Html.TextBoxFor(model => model.Type)
-        @Html.ValidationMessageFor(model => model.Type)
-        <br/>
-        @Html.LabelFor(model => model.Summary, new { @class = "control-label" })
-        @Html.TextBoxFor(model => model.Summary)
-        @Html.ValidationMessageFor(model => model.Summary)
-        <br/>
-        @Html.LabelFor(model => model.Priority, new { @class = "control-label" })
-        @Html.TextBoxFor(model => model.Priority)
-        @Html.ValidationMessageFor(model => model.Priority)
-        <br/>
-        
-        @Html.LabelFor(model => model.Description, new { @class = "control-label" })
-        @Html.TextBoxFor(model => model.Description)
-        @Html.ValidationMessageFor(model => model.Description)
-        <br/>
-}*@
+
+<script src="~/Scripts/Grid/CreateIssue.js"></script>
 
 <form style="text-align: left">
     <div style="width: 85%;">
 
         <div>
             <label>Type:</label>
-            <select class="input-validation-valid" id="type">
+            <select class="input-validation-valid" id="type_to_create">
                 <option>Bug</option>
                 <option>New Feature</option>
             </select>
@@ -41,12 +22,12 @@
 
         <div>
             <label>Summary:</label>
-            <input type="text" class="input-validation-valid" id="summary">                       
-            </input>
+            <input type="text" class="input-validation-valid" id="summary_to_create"/>                       
+            
         </div>
         <div>
             <label>Priority:</label>
-            <select class="input-validation-valid" id="priority">
+            <select class="input-validation-valid" id="priority_to_create">
                 <option>High</option>
                 <option>Immediate</option>
                 <option>Medium</option>
@@ -57,16 +38,17 @@
 
         <div>
             <label>Description:</label>
-            <input type="text" class="input-validation-valid" id="description">                       
-            </input>
+            <input type="text" class="input-validation-valid" id="description_to_create"/>                       
+            
         </div>
     </div>
 
 </form>
+<br>
 <div id="buttons" style="width: 85%; display: inline-block">
-    <input type="submit" name="Save" value="Save" />
+    <input type="submit" name="Save" value="Save" id ="save"/>
     <a href="@Url.Action("Index", "Home")">
-        <input type="button" value="Cancel" />
+        <input type="button" value="Cancel / Back to table" />
     </a>
 </div>
 

@@ -57,6 +57,9 @@
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="ServiceStack.Text">
+      <HintPath>C:\Users\shuts\Documents\Visual Studio 2012\Projects\JiraPost\packages\ServiceStack.Text.4.0.31\lib\net40\ServiceStack.Text.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -159,6 +162,17 @@
     </Compile>
     <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\Issue.cs" />
+    <Compile Include="Models\JiraModels\ArrivalType.cs" />
+    <Compile Include="Models\JiraModels\Assignee.cs" />
+    <Compile Include="Models\JiraModels\EditFields.cs" />
+    <Compile Include="Models\JiraModels\FieldsForBug.cs" />
+    <Compile Include="Models\JiraModels\FieldsForFeature.cs" />
+    <Compile Include="Models\JiraModels\IssueToCreate.cs" />
+    <Compile Include="Models\JiraModels\IssueToCreateBug.cs" />
+    <Compile Include="Models\JiraModels\IssueToEdit.cs" />
+    <Compile Include="Models\JiraModels\IssueType.cs" />
+    <Compile Include="Models\JiraModels\Priority.cs" />
+    <Compile Include="Models\JiraModels\Project.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -391,7 +405,7 @@
     <Content Include="Content\kendo\2014.1.318\images\kendoui.ttf" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Grid\grid.js" />
-    <Content Include="Scripts\Grid\list_pc.js" />
+    <Content Include="Scripts\Grid\CreateIssue.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\jquery-1.9.1-vsdoc.js" />

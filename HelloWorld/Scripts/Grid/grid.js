@@ -35,6 +35,11 @@ function Grid() {
             _this.GetIssues();
         });
 
+        $("#edit").click(function(){
+            _this.EditIssues();
+           
+    });
+
     };
 
 
@@ -61,6 +66,37 @@ function Grid() {
             },
             type: "POST",
             success: _this.ShowTable
+        });
+
+    };
+
+    _this.EditIssues = function () {
+
+       
+        var data = {
+            key: $("#det_key").val(),
+            description: $("#det_description").val(),
+            summary: $("#det_summary").val(),
+            priority: $("#det_priority").val()          
+
+        };
+
+        $.ajax({
+            url: "/Issue/EditIssue",
+            data: data,
+            dataType: "json",
+            type: "POST",
+            error: function (data) {
+                alert('error:' + data);
+            },
+            type: "POST",
+            success: function (res) {
+                alert('success:' + res);
+                $("#tableBody").empty();
+                $("#grid").empty();
+                $("#grid").append("<table id='dataTable'></table>");
+                _this.GetIssues();
+            }
         });
 
     };
@@ -136,14 +172,15 @@ function Grid() {
                  }],
             dataSource: {
 
-                pageSize: 5
+                pageSize: 4
             },
             serverPaging: true,
             serverFiltering: true,
             serverSorting: true,
             dataBound: onDataBound,
             scrollable: false,
-            selectable: "multiple",
+            selectable: "multiple, row",
+            change: onDataChange,
             sortable: true,
             pageable: {
                 refresh: true,
@@ -155,31 +192,53 @@ function Grid() {
 
         });
 
+        function onDataChange(e)
+        {
+            var selectedRows = this.select();
+            var selectedDataItems = [];
+            for (var i = 0; i < selectedRows.length; i++) {
+                var dataItem = this.dataItem(selectedRows[i]);
+                selectedDataItems.push(dataItem);
+
+                $("#det_key").val(selectedDataItems[i].Key);
+                $("#det_type").val(selectedDataItems[i].Type);
+                $("#det_summary").val(selectedDataItems[i].Summary);
+                $("#det_description").val(selectedDataItems[i].Description);
+                $("#det_priority").val(selectedDataItems[i].Priority);
+                $("#det_status").val(selectedDataItems[i].Status);
+                $("#det_created").val(selectedDataItems[i].Created);
+                $("#det_updated").val(selectedDataItems[i].Updated);
+                $("#det_resolved").val(selectedDataItems[i].DateResolved);
+                $("#det_due").val(selectedDataItems[i].DueDate);
+            }
+
+                $("#tabs-2").show();
+        };
+
         function onDataBound(e) {
             var grid = $("#dataTable").data("kendoGrid");
+            var currentPage = grid.dataSource.page();
             $(grid.tbody).on("click", "td", function (e) {
                 var row = $(this).closest("tr");
                 var rowIdx = $("tr", grid.tbody).index(row);
                 var colIdx = $("td", row).index(this);
+                rowIdx = rowIdx;
 
-                $("#det_key").val(res[rowIdx].Key);
-                $("#det_type").val(res[rowIdx].Type);
-                $("#det_summary").val(res[rowIdx].Summary);
-                $("#det_description").val(res[rowIdx].Description);
-                $("#det_priority").val(res[rowIdx].Priority);
-                $("#det_status").val(res[rowIdx].Status);
-                $("#det_created").val(res[rowIdx].Created);
-                $("#det_updated").val(res[rowIdx].Updated);
-                $("#det_resolved").val(res[rowIdx].DateResolved);
-                $("#det_due").val(res[rowIdx].DueDate);
+                //$("#det_key").val(res[rowIdx].Key);
+                //$("#det_type").val(res[rowIdx].Type);
+                //$("#det_summary").val(res[rowIdx].Summary);
+                //$("#det_description").val(res[rowIdx].Description);
+                //$("#det_priority").val(res[rowIdx].Priority);
+                //$("#det_status").val(res[rowIdx].Status);
+                //$("#det_created").val(res[rowIdx].Created);
+                //$("#det_updated").val(res[rowIdx].Updated);
+                //$("#det_resolved").val(res[rowIdx].DateResolved);
+                //$("#det_due").val(res[rowIdx].DueDate);
                
                // $("#tabs-1").toggle("fold");
-                $("#tabs-2").show();
-            });
+                //$("#tabs-2").show();
+            });        
            
-           
-
-
         }
     };
 

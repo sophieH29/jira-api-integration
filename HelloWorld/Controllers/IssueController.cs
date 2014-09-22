@@ -8,6 +8,8 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Web.Mvc;
 using Newtonsoft.Json;
+using HelloWorld.Models.JiraModels;
+using ServiceStack.Text;
 
 namespace HelloWorld.Controllers
 {
@@ -27,6 +29,55 @@ namespace HelloWorld.Controllers
         {
 
             return View();
+        }
+
+
+         [HttpPost]
+        public JsonResult CreateIssue(string type, string priority, string summary, string description)
+        {
+            string postBody = "";
+            if (type == "New Feature")
+            {
+                var data = new IssueToCreate();
+                data.fields.project.key = "IECF";
+                data.fields.summary = summary;
+                data.fields.description = description;
+                data.fields.issuetype.name = type;
+                data.fields.priority.name = priority;
+                data.fields.assignee.name = "enviuser";
+
+                postBody = ServiceStack.Text.JsonSerializer.SerializeToString(data);
+            }
+            if (type == "Bug")
+            {
+                var data = new IssueToCreateBug();
+                data.fields.project.key = "IECF";
+                data.fields.summary = summary;
+                data.fields.description = description;
+                data.fields.issuetype.name = type;
+                data.fields.priority.name = priority;
+                data.fields.assignee.name = "enviuser";
+                data.fields.customfield_11410.value = "Rooted";
+
+                postBody = ServiceStack.Text.JsonSerializer.SerializeToString(data);
+            }
+            HttpClient client = PrepareHttpClient();
+
+           // string postBody = ServiceStack.Text.JsonSerializer.SerializeToString(data);
+
+            System.Net.Http.HttpContent content = new System.Net.Http.StringContent(postBody, Encoding.UTF8, "application/json");
+
+            System.Net.Http.HttpResponseMessage response = client.PostAsync("issue", content).Result;
+
+            var key = "";
+            if (response.IsSuccessStatusCode)
+            {
+                dynamic jsonResponse = JsonConvert.DeserializeObject(response.Content.ReadAsStringAsync().Result);
+                key = jsonResponse.key.ToString();                
+                                   
+            }
+
+            return Json(key, JsonRequestBehavior.AllowGet);        
         }
 
         [HttpPost]
@@ -75,6 +126,35 @@ namespace HelloWorld.Controllers
             return Json(issues, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public JsonResult EditIssue(string key, string priority, string summary, string description)
+        {
+                         
+                var data = new IssueToEdit();
+               // data.fields.project.key = "IECF";
+                data.fields.summary = summary;
+                data.fields.description = description;
+                //data.fields.issuetype.name = type;
+                data.fields.priority.name = priority;
+                data.fields.assignee.name = "enviuser";
+            
+            HttpClient client = PrepareHttpClient();
+
+            string postBody = ServiceStack.Text.JsonSerializer.SerializeToString(data);
+
+            System.Net.Http.HttpContent content = new System.Net.Http.StringContent(postBody, Encoding.UTF8, "application/json");
+            
+            System.Net.Http.HttpResponseMessage response = client.PutAsync("issue/"+ key, content).Result;
+
+            var res = "";
+            if (response.IsSuccessStatusCode)
+            {
+                res = "Successfully edited!";
+            }
+
+            return Json(res, JsonRequestBehavior.AllowGet);
+        }
+
         private HttpClient PrepareHttpClient()
         {
             string username = "enviuser";
@@ -87,5 +167,7 @@ namespace HelloWorld.Controllers
 
             return client;
         }
+
+        public string key { get; set; }
     }
 }

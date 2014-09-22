@@ -29,7 +29,8 @@ namespace HelloWorld.App_Start
               "~/Scripts/jquery.validate.js",
               "~/Scripts/jquery.ui.datepicker.js"));
              bundles.Add(new ScriptBundle("~/bundles/grid").Include(
-                 "~/Scripts/Grid/grid.js"
+                 "~/Scripts/Grid/grid.js",
+                 "~/Scripts/Grid/CreateIssue.js"
                  ));
 
             bundles.Add(new StyleBundle("~/Content/kendo").Include(
