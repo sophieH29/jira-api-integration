@@ -1,1 +1,5 @@
 */obj/*
+HelloWorld/bin/
+_ReSharper.JiraIngration/
+*.user
+*.suo
