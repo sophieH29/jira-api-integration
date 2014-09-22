@@ -27,6 +27,10 @@ namespace HelloWorld.App_Start
               "~/Scripts/jquery.validate-vsdoc.js",
               "~/Scripts/jquery.validate.js",
               "~/Scripts/jquery.validate.js",
+              "~/Scripts/jquery.editable.min.js",
+              "~/Scripts/jquery.editable.js",
+               "~/Scripts/jquery.autosize.min.js",
+              "~/Scripts/jquery.autosize.js",
               "~/Scripts/jquery.ui.datepicker.js"));
              bundles.Add(new ScriptBundle("~/bundles/grid").Include(
                  "~/Scripts/Grid/grid.js",

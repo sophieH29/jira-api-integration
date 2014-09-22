@@ -9,11 +9,11 @@
 
 <script src="~/Scripts/Grid/CreateIssue.js"></script>
 
-<form style="text-align: left">
+<form id="creatingForm" style="text-align: left">
     <div style="width: 85%;">
 
         <div>
-            <label>Type:</label>
+            <label style="width:100px">Type:</label>
             <select class="input-validation-valid" id="type_to_create">
                 <option>Bug</option>
                 <option>New Feature</option>
@@ -21,12 +21,12 @@
         </div>
 
         <div>
-            <label>Summary:</label>
+            <label style="width:100px">Summary:</label>
             <input type="text" class="input-validation-valid" id="summary_to_create"/>                       
             
         </div>
         <div>
-            <label>Priority:</label>
+            <label style="width:100px">Priority:</label>
             <select class="input-validation-valid" id="priority_to_create">
                 <option>High</option>
                 <option>Immediate</option>
@@ -37,7 +37,7 @@
         </div>
 
         <div>
-            <label>Description:</label>
+            <label style="width:100px">Description:</label>
             <input type="text" class="input-validation-valid" id="description_to_create"/>                       
             
         </div>
@@ -49,6 +49,7 @@
     <input type="submit" name="Save" value="Save" id ="save"/>
     <a href="@Url.Action("Index", "Home")">
         <input type="button" value="Cancel / Back to table" />
+        <span  id="messageForCreate" style="color:green"></span>
     </a>
 </div>
 

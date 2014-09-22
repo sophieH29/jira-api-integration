@@ -10,7 +10,8 @@
 <link href="~/Content/Layout.css" rel="stylesheet" />
 <link href="~/Content/kendo/kendo.common.min.css" rel="stylesheet" />
 <link href="~/Content/kendo/kendo.default.min.css" rel="stylesheet" />
-
+<script src="~/Scripts/jquery.autosize.js"></script>
+<script src="~/Scripts/jquery.autosize.min.js"></script>
 <link href="~/Content/kendo/filters.css" rel="stylesheet" />
 <script src="~/Scripts/kendo/kendo.core.min.js"></script>
 <script src="~/Scripts/kendo/kendo.grid.min.js"></script>
@@ -99,74 +100,79 @@
         </div>
     </div>
     <div id="tabs-2">
+        <h4>Details</h4>
         <div id="details">
 
             <div>
-                <label>Key:</label>
+                <label style="width:100px">Key:</label>
                 <input type="text" id="det_key" />
 
             </div>
 
             <div>
-                <label>Type:</label>
+                <label style="width:100px">Type:</label>
                 <input type="text" id="det_type" />
 
             </div>
 
-            <div>
-                <label>Summary:</label>
+            <div >
+                <label style="width:100px">Summary:</label>
                 <input type="text" id="det_summary" />
+                
 
             </div>
 
             <div>
-                <label>Description:</label>
-                <input type="text" id="det_description" />
+                <label style="width:100px">Description:</label>                
+                <textarea  id="det_description"></textarea>
+                
 
             </div>
 
             <div>
-                <label>Status:</label>
+                <label style="width:100px">Status:</label>
                 <input type="text" id="det_status" />
 
             </div>
 
             <div>
-                <label>Priority:</label>
+                <label style="width:100px">Priority:</label>
                 <input type="text" id="det_priority" />
 
             </div>
 
             <div>
-                <label>Created:</label>
+                <label style="width:100px">Created:</label>
                 <input type="text" id="det_created" />
 
             </div>
 
             <div>
-                <label>Updated:</label>
+                <label style="width:100px">Updated:</label>
                 <input type="text" id="det_updated" />
 
             </div>
 
             <div>
-                <label>Resolved:</label>
+                <label style="width:100px">Resolved:</label>
                 <input type="text" id="det_resolved" />
 
             </div>
 
             <div>
-                <label>Due:</label>
+                <label style="width:100px">Due:</label>
                 <input type="text" id="det_due" />
 
             </div>
               <br>
             <br>
             <div id="buttons2" style="width: 85%; display: inline-block">
-                <input type="button" id="edit" value="Edit" />
-                <input id="hide_det" type="button" value="Hide details" />
-                
+                <input id="hide_det" type="button" value="Hide details" />                
+                <input type="button" id="edit_mode" value="Edit" />
+                <input type="button" id="edit" value="Save" />
+                 <span  id="message" style="color:green"></span>
             </div>
+            
 
           
         </div>

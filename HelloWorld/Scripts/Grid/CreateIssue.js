@@ -38,9 +38,16 @@ function Issue() {
                 alert('error:' + data);
             },
             type: "POST",
-            success: function (res) {
-                alert('succes:' + res);
+            success: function (msg) {
+                $('#messageForCreate').hide().html("Successfully created issue with key: " + msg).fadeIn(500, function () {
+                    $(this).delay(3000).fadeOut(500);
+                });
             }
+        }).done(function () {
+            $("#type_to_create").val("");
+            $("#summary_to_create").val("");
+            $("#description_to_create").val("");
+            $("#priority_to_create").val("");
         });
     };
 

@@ -414,6 +414,10 @@
     <Content Include="Scripts\jquery-ui-1.8.24.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
     <Content Include="Scripts\jquery-ui.min.js" />
+    <Content Include="Scripts\jquery.autosize.js" />
+    <Content Include="Scripts\jquery.autosize.min.js" />
+    <Content Include="Scripts\jquery.editable.js" />
+    <Content Include="Scripts\jquery.editable.min.js" />
     <Content Include="Scripts\jquery.ui.datepicker.js" />
     <Content Include="Scripts\jquery.ui.tabs.js" />
     <Content Include="Scripts\jquery.validate-vsdoc.js" />

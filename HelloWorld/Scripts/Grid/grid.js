@@ -19,6 +19,41 @@ $(function () {
         $("#tabs-2").toggle("fold");
     });
     $("#tabs-2").toggle("fold");
+
+    $("#det_description").autosize();
+
+    $("#det_summary").prop('readonly', true);
+    $("#det_summary").css("border-color", "transparent");
+
+    $("#det_key").prop('readonly', true);
+    $("#det_key").css("border-color", "transparent");
+
+    $("#det_type").prop('readonly', true);
+    $("#det_type").css("border-color", "transparent");
+
+    $("#det_priority").prop('readonly', true);
+    $("#det_priority").css("border-color", "transparent");
+
+    $("#det_status").prop('readonly', true);
+    $("#det_status").css("border-color", "transparent");
+
+    $("#det_description").prop('readonly', true);
+    $("#det_description").css("border-color", "transparent");
+
+    $("#det_resolved").prop('readonly', true);
+    $("#det_resolved").css("border-color", "transparent");
+
+    $("#det_created").prop('readonly', true);
+    $("#det_created").css("border-color", "transparent");
+
+    $("#det_due").prop('readonly', true);
+    $("#det_due").css("border-color", "transparent");
+
+    $("#det_updated").prop('readonly', true);
+    $("#det_updated").css("border-color", "transparent");
+
+    
+
 });
 
 function Grid() {
@@ -40,6 +75,16 @@ function Grid() {
            
     });
 
+        $("#edit_mode").click(function () {
+            $("#det_summary").prop('readonly', false);
+            $("#det_summary").css("border-color", "grey");
+
+            $("#det_priority").prop('readonly', false);
+            $("#det_priority").css("border-color", "grey");          
+
+            $("#det_description").prop('readonly', false);
+            $("#det_description").css("border-color", "grey");
+        });
     };
 
 
@@ -90,13 +135,45 @@ function Grid() {
                 alert('error:' + data);
             },
             type: "POST",
-            success: function (res) {
-                alert('success:' + res);
+            success: function (msg) {               
+                $('#message').hide().html(msg).fadeIn(500, function () {
+                    $(this).delay(3000).fadeOut(500);
+                });
                 $("#tableBody").empty();
                 $("#grid").empty();
                 $("#grid").append("<table id='dataTable'></table>");
                 _this.GetIssues();
             }
+        }).done(function () {
+            $("#det_summary").prop('readonly', true);
+            $("#det_summary").css("border-color", "transparent");
+
+            $("#det_key").prop('readonly', true);
+            $("#det_key").css("border-color", "transparent");
+
+            $("#det_type").prop('readonly', true);
+            $("#det_type").css("border-color", "transparent");
+
+            $("#det_priority").prop('readonly', true);
+            $("#det_priority").css("border-color", "transparent");
+
+            $("#det_status").prop('readonly', true);
+            $("#det_status").css("border-color", "transparent");
+
+            $("#det_description").prop('readonly', true);
+            $("#det_description").css("border-color", "transparent");
+
+            $("#det_resolved").prop('readonly', true);
+            $("#det_resolved").css("border-color", "transparent");
+
+            $("#det_created").prop('readonly', true);
+            $("#det_created").css("border-color", "transparent");
+
+            $("#det_due").prop('readonly', true);
+            $("#det_due").css("border-color", "transparent");
+
+            $("#det_updated").prop('readonly', true);
+            $("#det_updated").css("border-color", "transparent");
         });
 
     };
@@ -114,7 +191,7 @@ function Grid() {
                 "</td><td>" + res[i].Status +
                 "</td><td>" + res[i].Created +
                 "</td><td>" + res[i].Updated +
-                 "</td><td>" + res[i].DateResolved +
+                "</td><td>" + res[i].DateResolved +
                 "</td><td>" + res[i].DueDate + "</td></tr>");
 
         }
@@ -172,7 +249,7 @@ function Grid() {
                  }],
             dataSource: {
 
-                pageSize: 4
+                pageSize: 5
             },
             serverPaging: true,
             serverFiltering: true,
@@ -182,10 +259,7 @@ function Grid() {
             selectable: "multiple, row",
             change: onDataChange,
             sortable: true,
-            pageable: {
-                refresh: true,
-                pageSizes: true
-            },
+            pageable: true,
             reorderable: true,
             resizable: true,
             columnMenu: true
@@ -196,47 +270,47 @@ function Grid() {
         {
             var selectedRows = this.select();
             var selectedDataItems = [];
-            for (var i = 0; i < selectedRows.length; i++) {
-                var dataItem = this.dataItem(selectedRows[i]);
-                selectedDataItems.push(dataItem);
+            //for (var i = 0; i < selectedRows.length; i++) {
+            //    var dataItem = this.dataItem(selectedRows[i]);
+            //    selectedDataItems.push(dataItem);
 
-                $("#det_key").val(selectedDataItems[i].Key);
-                $("#det_type").val(selectedDataItems[i].Type);
-                $("#det_summary").val(selectedDataItems[i].Summary);
-                $("#det_description").val(selectedDataItems[i].Description);
-                $("#det_priority").val(selectedDataItems[i].Priority);
-                $("#det_status").val(selectedDataItems[i].Status);
-                $("#det_created").val(selectedDataItems[i].Created);
-                $("#det_updated").val(selectedDataItems[i].Updated);
-                $("#det_resolved").val(selectedDataItems[i].DateResolved);
-                $("#det_due").val(selectedDataItems[i].DueDate);
-            }
+            //    $("#det_key").val(selectedDataItems[i].Key);
+            //    $("#det_type").val(selectedDataItems[i].Type);
+            //    $("#det_summary").val(selectedDataItems[i].Summary);
+            //    $("#det_description").val(selectedDataItems[i].Description);
+            //    $("#det_priority").val(selectedDataItems[i].Priority);
+            //    $("#det_status").val(selectedDataItems[i].Status);
+            //    $("#det_created").val(selectedDataItems[i].Created);
+            //    $("#det_updated").val(selectedDataItems[i].Updated);
+            //    $("#det_resolved").val(selectedDataItems[i].DateResolved);
+            //    $("#det_due").val(selectedDataItems[i].DueDate);
+               
 
-                $("#tabs-2").show();
+            //    $("#tabs-2").show();
         };
 
         function onDataBound(e) {
             var grid = $("#dataTable").data("kendoGrid");
             var currentPage = grid.dataSource.page();
+            var pageSize = grid.dataSource.pageSize();
             $(grid.tbody).on("click", "td", function (e) {
                 var row = $(this).closest("tr");
                 var rowIdx = $("tr", grid.tbody).index(row);
                 var colIdx = $("td", row).index(this);
-                rowIdx = rowIdx;
+                rowIdx = rowIdx + (currentPage - 1) * pageSize;
 
-                //$("#det_key").val(res[rowIdx].Key);
-                //$("#det_type").val(res[rowIdx].Type);
-                //$("#det_summary").val(res[rowIdx].Summary);
-                //$("#det_description").val(res[rowIdx].Description);
-                //$("#det_priority").val(res[rowIdx].Priority);
-                //$("#det_status").val(res[rowIdx].Status);
-                //$("#det_created").val(res[rowIdx].Created);
-                //$("#det_updated").val(res[rowIdx].Updated);
-                //$("#det_resolved").val(res[rowIdx].DateResolved);
-                //$("#det_due").val(res[rowIdx].DueDate);
-               
-               // $("#tabs-1").toggle("fold");
-                //$("#tabs-2").show();
+                $("#det_key").val(res[rowIdx].Key);
+                $("#det_type").val(res[rowIdx].Type);
+                $("#det_summary").val(res[rowIdx].Summary);
+                $("#det_description").val(res[rowIdx].Description);
+                $("#det_priority").val(res[rowIdx].Priority);
+                $("#det_status").val(res[rowIdx].Status);
+                $("#det_created").val(res[rowIdx].Created);
+                $("#det_updated").val(res[rowIdx].Updated);
+                $("#det_resolved").val(res[rowIdx].DateResolved);
+                $("#det_due").val(res[rowIdx].DueDate);                
+                //$("#tabs-1").toggle("fold");
+                $("#tabs-2").show();
             });        
            
         }
