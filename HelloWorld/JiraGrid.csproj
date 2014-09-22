@@ -50,9 +50,6 @@
     <Reference Include="Antlr3.Runtime">
       <HintPath>..\ASP_NET_MVC_Bundling\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="Dynamic">
-      <HintPath>..\packages\DynamicQuery.1.0\lib\35\Dynamic.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
