@@ -22,37 +22,7 @@ $(function () {
 
     $("#det_description").autosize();
 
-    $("#det_summary").prop('readonly', true);
-    $("#det_summary").css("border-color", "transparent");
-
-    $("#det_key").prop('readonly', true);
-    $("#det_key").css("border-color", "transparent");
-
-    $("#det_type").prop('readonly', true);
-    $("#det_type").css("border-color", "transparent");
-
-    $("#det_priority").prop('readonly', true);
-    $("#det_priority").css("border-color", "transparent");
-
-    $("#det_status").prop('readonly', true);
-    $("#det_status").css("border-color", "transparent");
-
-    $("#det_description").prop('readonly', true);
-    $("#det_description").css("border-color", "transparent");
-
-    $("#det_resolved").prop('readonly', true);
-    $("#det_resolved").css("border-color", "transparent");
-
-    $("#det_created").prop('readonly', true);
-    $("#det_created").css("border-color", "transparent");
-
-    $("#det_due").prop('readonly', true);
-    $("#det_due").css("border-color", "transparent");
-
-    $("#det_updated").prop('readonly', true);
-    $("#det_updated").css("border-color", "transparent");
-
-    
+    _this.DisableFields();
 
 });
 
@@ -145,37 +115,8 @@ function Grid() {
                 _this.GetIssues();
             }
         }).done(function () {
-            $("#det_summary").prop('readonly', true);
-            $("#det_summary").css("border-color", "transparent");
-
-            $("#det_key").prop('readonly', true);
-            $("#det_key").css("border-color", "transparent");
-
-            $("#det_type").prop('readonly', true);
-            $("#det_type").css("border-color", "transparent");
-
-            $("#det_priority").prop('readonly', true);
-            $("#det_priority").css("border-color", "transparent");
-
-            $("#det_status").prop('readonly', true);
-            $("#det_status").css("border-color", "transparent");
-
-            $("#det_description").prop('readonly', true);
-            $("#det_description").css("border-color", "transparent");
-
-            $("#det_resolved").prop('readonly', true);
-            $("#det_resolved").css("border-color", "transparent");
-
-            $("#det_created").prop('readonly', true);
-            $("#det_created").css("border-color", "transparent");
-
-            $("#det_due").prop('readonly', true);
-            $("#det_due").css("border-color", "transparent");
-
-            $("#det_updated").prop('readonly', true);
-            $("#det_updated").css("border-color", "transparent");
+            _this.DisableFields();            
         });
-
     };
 
     // Get list of data, and append it into table
@@ -431,7 +372,37 @@ function Grid() {
     //};
 
 
+    _this.DisableFields = function () {
+        $("#det_summary").prop('readonly', true);
+        $("#det_summary").css("border-color", "transparent");
 
+        $("#det_key").prop('readonly', true);
+        $("#det_key").css("border-color", "transparent");
+
+        $("#det_type").prop('readonly', true);
+        $("#det_type").css("border-color", "transparent");
+
+        $("#det_priority").prop('readonly', true);
+        $("#det_priority").css("border-color", "transparent");
+
+        $("#det_status").prop('readonly', true);
+        $("#det_status").css("border-color", "transparent");
+
+        $("#det_description").prop('readonly', true);
+        $("#det_description").css("border-color", "transparent");
+
+        $("#det_resolved").prop('readonly', true);
+        $("#det_resolved").css("border-color", "transparent");
+
+        $("#det_created").prop('readonly', true);
+        $("#det_created").css("border-color", "transparent");
+
+        $("#det_due").prop('readonly', true);
+        $("#det_due").css("border-color", "transparent");
+
+        $("#det_updated").prop('readonly', true);
+        $("#det_updated").css("border-color", "transparent");
+    };
 
 
 };
