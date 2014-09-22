@@ -22,7 +22,7 @@ $(function () {
 
     $("#det_description").autosize();
 
-    _this.DisableFields();
+    
 
 });
 
@@ -31,7 +31,7 @@ function Grid() {
     var _this = this;
     var countOfTrId = 0;
     _this.initialize = function () {
-
+        _this.DisableFields();
         _this.GetIssues();
         $("#refresh").click(function () {
             $("#tableBody").empty();
