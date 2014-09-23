@@ -185,6 +185,7 @@
     <Content Include="Content\fonts\segoeuii.svg" />
     <Content Include="Content\fonts\segoeuil.svg" />
     <Content Include="Content\fonts\segoeuisb.svg" />
+    <Content Include="Content\img\ajax_loader_large.gif" />
     <Content Include="Content\img\calendar_button.png" />
     <Content Include="Content\img\calendar_off.png" />
     <Content Include="Content\img\calendar_on.png" />

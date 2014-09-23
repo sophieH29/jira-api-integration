@@ -49,8 +49,9 @@ function Grid() {
             $("#det_summary").prop('readonly', false);
             $("#det_summary").css("border-color", "grey");
 
-            $("#det_priority").prop('readonly', false);
-            $("#det_priority").css("border-color", "grey");          
+            
+            $("#det_priority").css("border-color", "grey");
+            $("#det_priority").prop('disabled', false);
 
             $("#det_description").prop('readonly', false);
             $("#det_description").css("border-color", "grey");
@@ -76,6 +77,7 @@ function Grid() {
             data: data,
             dataType: "json",
             type: "POST",
+            beforeSend: _this.AjaxLoaderVisibility(true),
             error: function (data) {
                 alert('error:' + data);
             },
@@ -121,7 +123,7 @@ function Grid() {
 
     // Get list of data, and append it into table
     _this.ShowTable = function (res) {
-
+        _this.AjaxLoaderVisibility(false);
         for (var i = 0; i < res.length; i++) {
 
             // Append <tr><td> tags with datas
@@ -142,49 +144,49 @@ function Grid() {
                      {
                          field: "Key",
                          title: "Key",
-                         width: 162
+                         width: 165
 
                      },
                      {
                          field: "Type",
                          title: "Type",
-                         width: 162
+                         width: 165
 
                      },
                  {
                      field: "Summary",
                      title: "Summary",
-                     width: 162
+                     width: 165
                  },
                  {
                      field: "Priority",
                      title: "Priority",
-                     width: 162
+                     width: 165
                  },
                  {
                      field: "Status",
                      title: "Status",
-                     width: 162
+                     width: 165
                  },
                  {
                      field: "Created",
                      title: "Date Created",
-                     width: 162
+                     width: 165
                  },
                  {
                      field: "Updated",
                      title: "Date Updated",
-                     width: 162
+                     width: 165
                  },
                  {
                      field: "DateResolved",
                      title: "Date Resolved",
-                     width: 162
+                     width: 165
                  },
                  {
                      field: "DueDate",
                      title: "Due Date",
-                     width: 162
+                     width: 165
                  }],
             dataSource: {
 
@@ -371,8 +373,9 @@ function Grid() {
 
 
     _this.DisableFields = function () {
+       // $("#det_summary").prop('readonly', true);
         $("#det_summary").prop('readonly', true);
-        $("#det_summary").css("border-color", "transparent");
+        $("#det_summary").css("border-color", "transparent");        
 
         $("#det_key").prop('readonly', true);
         $("#det_key").css("border-color", "transparent");
@@ -380,8 +383,9 @@ function Grid() {
         $("#det_type").prop('readonly', true);
         $("#det_type").css("border-color", "transparent");
 
-        $("#det_priority").prop('readonly', true);
+        $("#det_priority").prop('disabled', true);        
         $("#det_priority").css("border-color", "transparent");
+        $("#det_priority").css("color", "black");
 
         $("#det_status").prop('readonly', true);
         $("#det_status").css("border-color", "transparent");
@@ -400,5 +404,14 @@ function Grid() {
 
         $("#det_updated").prop('readonly', true);
         $("#det_updated").css("border-color", "transparent");
+    };
+
+    _this.AjaxLoaderVisibility = function (display) {
+        if (display) {
+            $('.ajax-loading-block-window').show();
+        }
+        else {
+            $('.ajax-loading-block-window').hide('slow');
+        }
     };
 };

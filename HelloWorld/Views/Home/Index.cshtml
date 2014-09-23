@@ -92,8 +92,10 @@
         <li><a href="#tabs-1">Table</a></li>
         <li><a href="#tabs-2">Details</a></li>
     </ul>*@
-
-    <div id="tabs-1">
+<div class="ajax-loading-block-window"> 
+    <div class="loading-image"></div>
+</div>
+    <div id="tabs-1">      
         <div id="grid">
             <table id="dataTable" style="width: auto; float: left;">
             </table>
@@ -136,8 +138,14 @@
             </div>
 
             <div>
-                <label style="width:100px">Priority:</label>
-                <input type="text" id="det_priority" />
+                <label style="width:100px">Priority:</label>                
+                <select class="input-validation-valid" id="det_priority">                        
+                        <option value="High">High</option>
+                        <option value="Immediate">Immediate</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Low">Low</option>
+                        <option value="On Hold">On Hold</option>
+               </select>
 
             </div>
 

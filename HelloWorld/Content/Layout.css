@@ -86,5 +86,17 @@ input[type=button], input[type=submit] {
     margin-top: 50px;
 }
 
+/*#ajaxLoader {
+    visibility: hidden;
+    margin:0 auto;
+     z-index:15;
+     top:50%;
+     left:50%;
+}*/
+
+.ajax-loading-block-window{position:fixed;top:50%;left:50%;width:128px;height:128px;overflow:hidden;z-index:1104;}
+.ajax-loading-block-window .loading-image{position:absolute;top:0;left:0;width:128px;height:128px;background-image:url('img/ajax_loader_large.gif');}
+
+
 
       
