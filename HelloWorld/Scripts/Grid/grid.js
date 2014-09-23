@@ -39,22 +39,21 @@ function Grid() {
         });
 
         $("#edit").click(function(){
-            _this.EditIssues();
-           
+            _this.EditIssues();           
     });
         $("#cancel_edit").click(function () {
             _this.DisableFields();
         });
         $("#edit_mode").click(function () {
             $("#det_summary").prop('readonly', false);
-            $("#det_summary").css("border-color", "grey");
+            $("#det_summary").css("border", "1px dashed grey");
 
             
-            $("#det_priority").css("border-color", "grey");
+            $("#det_priority").css("border", "1px dashed grey");
             $("#det_priority").prop('disabled', false);
 
             $("#det_description").prop('readonly', false);
-            $("#det_description").css("border-color", "grey");
+            $("#det_description").css("border", "1px dashed grey");
         });
     };
 
@@ -87,17 +86,36 @@ function Grid() {
 
     };
 
-    _this.EditIssues = function () {
+    _this.GetComments = function (key) {
 
+        countOfTrId = 0;
+
+        var data = {
+            key: key            
+        };
+
+        $.ajax({
+            url: "Issue/GetComments",
+            data: data,
+            dataType: "json",
+            type: "POST",           
+            error: function (data) {
+                alert('error:' + data);
+            },
+            type: "POST",
+            success: _this.ShowTableWithComments
+        });
+    };
+
+    _this.EditIssues = function () {
        
         var data = {
             key: $("#det_key").val(),
             description: $("#det_description").val(),
             summary: $("#det_summary").val(),
-            priority: $("#det_priority").val()          
+            priority: $("#det_priority").val()       
 
         };
-
         $.ajax({
             url: "Issue/EditIssue",
             data: data,
@@ -121,6 +139,60 @@ function Grid() {
         });
     };
 
+    // Get list of data, and append it into table
+    _this.ShowTableWithComments = function (res) {
+        for (var i = 0; i < res.length; i++) {
+
+            // Append <tr><td> tags with datas
+            $("#commentsTable").append("<tr  id= '" + countOfTrId++ + "'><td>" + res[i].Created +
+                "</td><td>" + res[i].Updated +
+                "</td><td>" + res[i].Author +
+                "</td><td>" + res[i].Body +
+                 "</td></tr>");
+        }
+
+        $("#commentsTable").kendoGrid({
+
+            columns: [
+
+                     {
+                         field: "Created",
+                         title: "Created",
+                         width: 173
+
+                     },
+                     {
+                         field: "Updated",
+                         title: "Updated",
+                         width: 173
+
+                     },
+                 {
+                     field: "Author",
+                     title: "Author",
+                     width: 173
+                 },
+                 {
+                     field: "Body",
+                     title: "Body",
+                     width: 1000
+                 }],
+            dataSource: {
+                pageSize: 5
+            },
+            serverPaging: true,
+            serverFiltering: true,
+            serverSorting: true,
+            scrollable: false,
+            selectable: "multiple, row",
+            sortable: true,
+            pageable: true,
+            reorderable: true,
+            resizable: true,
+            columnMenu: true
+
+        });
+    };
     // Get list of data, and append it into table
     _this.ShowTable = function (res) {
         _this.AjaxLoaderVisibility(false);
@@ -211,23 +283,17 @@ function Grid() {
         {
             var selectedRows = this.select();
             var selectedDataItems = [];
-            //for (var i = 0; i < selectedRows.length; i++) {
-            //    var dataItem = this.dataItem(selectedRows[i]);
-            //    selectedDataItems.push(dataItem);
+            for (var i = 0; i < selectedRows.length; i++) {
+                var dataItem = this.dataItem(selectedRows[i]);
+                selectedDataItems.push(dataItem);
 
-            //    $("#det_key").val(selectedDataItems[i].Key);
-            //    $("#det_type").val(selectedDataItems[i].Type);
-            //    $("#det_summary").val(selectedDataItems[i].Summary);
-            //    $("#det_description").val(selectedDataItems[i].Description);
-            //    $("#det_priority").val(selectedDataItems[i].Priority);
-            //    $("#det_status").val(selectedDataItems[i].Status);
-            //    $("#det_created").val(selectedDataItems[i].Created);
-            //    $("#det_updated").val(selectedDataItems[i].Updated);
-            //    $("#det_resolved").val(selectedDataItems[i].DateResolved);
-            //    $("#det_due").val(selectedDataItems[i].DueDate);
-               
+                // $("#det_key").val(selectedDataItems[i].Key);
+                $("#comments").empty();
+                $("#grid2").empty();
+                $("#grid2").append("<table id='commentsTable'></table>");
+                _this.GetComments(selectedDataItems[i].Key);
+            }
 
-            //    $("#tabs-2").show();
         };
 
         function onDataBound(e) {
@@ -249,10 +315,11 @@ function Grid() {
                 $("#det_created").val(res[rowIdx].Created);
                 $("#det_updated").val(res[rowIdx].Updated);
                 $("#det_resolved").val(res[rowIdx].DateResolved);
-                $("#det_due").val(res[rowIdx].DueDate);                
+                $("#det_due").val(res[rowIdx].DueDate);
+               
                 //$("#tabs-1").toggle("fold");
-                $("#tabs-2").show();
-            });        
+                $("#tabs-2").show();                
+            });      
            
         }
     };

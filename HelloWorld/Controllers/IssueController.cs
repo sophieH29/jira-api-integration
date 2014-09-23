@@ -127,6 +127,34 @@ namespace HelloWorld.Controllers
         }
 
         [HttpPost]
+        public JsonResult GetComments(string key)
+        {            
+            string queryString = "issue/" + key + "/comment?expand";
+            HttpClient client = PrepareHttpClient();
+            HttpResponseMessage response = client.GetAsync(queryString).Result;
+
+            var comments = new List<Comment>();
+            if (response.IsSuccessStatusCode)
+            {
+                dynamic jsonResponse = JsonConvert.DeserializeObject(response.Content.ReadAsStringAsync().Result);
+                var issuesList = jsonResponse.comments;
+
+                for (int i = 0; i != issuesList.Count; i++)
+                {
+                    comments.Add(new Comment
+                    {                       
+                        Created = issuesList[i].created.ToString(),
+                        Updated = issuesList[i].updated.ToString(),
+                        Author = issuesList[i].author["displayName"].ToString(),
+                        Body = issuesList[i].body.ToString()
+                    });
+                }
+            }
+
+            return Json(comments, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
         public JsonResult EditIssue(string key, string priority, string summary, string description)
         {
                          

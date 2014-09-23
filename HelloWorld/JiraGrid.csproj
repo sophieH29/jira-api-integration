@@ -162,6 +162,7 @@
     <Compile Include="Models\Issue.cs" />
     <Compile Include="Models\JiraModels\ArrivalType.cs" />
     <Compile Include="Models\JiraModels\Assignee.cs" />
+    <Compile Include="Models\JiraModels\Comment.cs" />
     <Compile Include="Models\JiraModels\EditFields.cs" />
     <Compile Include="Models\JiraModels\FieldsForBug.cs" />
     <Compile Include="Models\JiraModels\FieldsForFeature.cs" />

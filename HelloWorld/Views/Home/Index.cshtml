@@ -71,121 +71,128 @@
                     <input type="text" id="dateTo" class="input-validation-valid" placeholder="Created To..." />
                 </div>
             </div>
-            <input  style="width:150px" type="button" id="refresh" value="Apply" />
+            <input style="width: 150px" type="button" id="refresh" value="Apply" />
         </div>
-        
+
     </form>
 
 </div>
 
 
 <div id="buttons" style="width: 85%; display: inline-block">
-    
+
     <a href="@Url.Action("Index", "Issue")">
         <input type="button" value="Create Issue" />
     </a>
 </div>
-
-
-
-   @* <ul>
-        <li><a href="#tabs-1">Table</a></li>
-        <li><a href="#tabs-2">Details</a></li>
-    </ul>*@
-<div class="ajax-loading-block-window"> 
+<div class="ajax-loading-block-window">
     <div class="loading-image"></div>
 </div>
-    <div id="tabs-1">      
-        <div id="grid">
-            <table id="dataTable" style="width: auto; float: left;">
-            </table>
-        </div>
+<div id="tabs-1">
+    <div id="grid">
+        <table id="dataTable" style="width: auto; float: left;">
+        </table>
     </div>
-    <div id="tabs-2">
-        <h4>Details</h4>
+</div>
+<div id="tabs-2">
+
+    <ul>
+        <li class="k-state-active">Details
+        </li>
+        <li>Comments
+        </li>       
+    </ul>
+    <div id="tabs-2-1">
         <div id="details">
 
             <div>
-                <label style="width:100px">Key:</label>
+                <label style="width: 100px">Key:</label>
                 <input type="text" id="det_key" />
 
             </div>
 
             <div>
-                <label style="width:100px">Type:</label>
+                <label style="width: 100px">Type:</label>
                 <input type="text" id="det_type" />
 
             </div>
 
-            <div >
-                <label style="width:100px">Summary:</label>
-                <input type="text" id="det_summary" />
-                
+            <div>
+                <label style="width: 100px">Summary:</label>
+                <input type="text" id="det_summary" style="width: 210px" />
+
 
             </div>
 
             <div>
-                <label style="width:100px">Description:</label>                
-                <textarea  id="det_description"></textarea>
-                
+                <label style="width: 100px">Description:</label>
+                <textarea id="det_description" style="width: 204px"></textarea>
+
 
             </div>
 
             <div>
-                <label style="width:100px">Status:</label>
+                <label style="width: 100px">Status:</label>
                 <input type="text" id="det_status" />
 
             </div>
 
             <div>
-                <label style="width:100px">Priority:</label>                
-                <select class="input-validation-valid" id="det_priority">                        
-                        <option value="High">High</option>
-                        <option value="Immediate">Immediate</option>
-                        <option value="Medium">Medium</option>
-                        <option value="Low">Low</option>
-                        <option value="On Hold">On Hold</option>
-               </select>
+                <label style="width: 100px">Priority:</label>
+                <select class="input-validation-valid" id="det_priority" style="width: 208px">
+                    <option value="High">High</option>
+                    <option value="Immediate">Immediate</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Low">Low</option>
+                    <option value="On Hold">On Hold</option>
+                </select>
 
             </div>
 
             <div>
-                <label style="width:100px">Created:</label>
+                <label style="width: 100px">Created:</label>
                 <input type="text" id="det_created" />
 
             </div>
 
             <div>
-                <label style="width:100px">Updated:</label>
+                <label style="width: 100px">Updated:</label>
                 <input type="text" id="det_updated" />
 
             </div>
 
             <div>
-                <label style="width:100px">Resolved:</label>
+                <label style="width: 100px">Resolved:</label>
                 <input type="text" id="det_resolved" />
 
             </div>
 
             <div>
-                <label style="width:100px">Due:</label>
+                <label style="width: 100px">Due:</label>
                 <input type="text" id="det_due" />
 
             </div>
-              <br>
+            <br>
             <br>
             <div id="buttons2" style="width: 85%; display: inline-block">
-                <input id="hide_det" type="button" value="Hide details" />                
+                <input id="hide_det" type="button" value="Hide details" />
                 <input type="button" id="edit_mode" value="Edit" />
                 <input type="button" id="cancel_edit" value="Cancel" />
                 <input type="button" id="edit" value="Save" />
-                 <span  id="message" style="color:green"></span>
-            </div>
-            
+                <span id="message" style="color: green"></span>
 
-          
+            </div>
+
         </div>
     </div>
+
+    <div id="tabs-2_2">
+        <div id="grid2">
+      <table id="commentsTable"></table>
+            </div>
+    </div>
+</div>
+
 
 
 
@@ -193,7 +200,14 @@
 @section scripts{
     <script type="text/javascript">
         document.getElementById("header").innerHTML
-
+        $("#tabs-2").kendoTabStrip({
+            animation:  {
+                open: {
+                    effects: "fadeIn"
+                }
+            }
+        });
+       
 
     </script>
 }
