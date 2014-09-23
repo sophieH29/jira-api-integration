@@ -20,9 +20,7 @@ $(function () {
     });
     $("#tabs-2").toggle("fold");
 
-    $("#det_description").autosize();
-
-    
+    $("#det_description").autosize();   
 
 });
 
@@ -44,7 +42,9 @@ function Grid() {
             _this.EditIssues();
            
     });
-
+        $("#cancel_edit").click(function () {
+            _this.DisableFields();
+        });
         $("#edit_mode").click(function () {
             $("#det_summary").prop('readonly', false);
             $("#det_summary").css("border-color", "grey");
@@ -134,9 +134,7 @@ function Grid() {
                 "</td><td>" + res[i].Updated +
                 "</td><td>" + res[i].DateResolved +
                 "</td><td>" + res[i].DueDate + "</td></tr>");
-
         }
-
         $("#dataTable").kendoGrid({
 
             columns: [
