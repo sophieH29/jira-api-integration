@@ -72,7 +72,7 @@ function Grid() {
         };
 
         $.ajax({
-            url: "/Issue/GetIssues",
+            url: "Issue/GetIssues",
             data: data,
             dataType: "json",
             type: "POST",
@@ -97,7 +97,7 @@ function Grid() {
         };
 
         $.ajax({
-            url: "/Issue/EditIssue",
+            url: "Issue/EditIssue",
             data: data,
             dataType: "json",
             type: "POST",
@@ -401,6 +401,4 @@ function Grid() {
         $("#det_updated").prop('readonly', true);
         $("#det_updated").css("border-color", "transparent");
     };
-
-
 };

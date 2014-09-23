@@ -5,37 +5,38 @@
 
 <!DOCTYPE html>
 <html>
-    <head>
-   
+<head>
+
     @Scripts.Render("~/bundles/kendo")
     @Scripts.Render("~/bundles/jquery")
-         
-         @Styles.Render("~/Content/css")
-        @Styles.Render("~/Content/kendo")
-       <title> @ViewBag.Title</title>
-        <link href="~/Content/Layout.css" rel="stylesheet" />
-       
-    </head>
-    <body>       
-        <div id="header_container">
-            <div id="header">
-                <i> IOS ENVI CUSTOMER FEEDBACK</i>
-                <span style="float:right; font-size: small;">@if (HttpContext.Current.User.Identity.IsAuthenticated)
-                                           {
-                                               var identity = HttpContext.Current.User.ToCustomPrincipal().CustomIdentity;
-                                               @Html.Label(string.Format("Welcome {0} {1}, you are logged as {2}", identity.FirstName, identity.LastName, identity.UserRoleName))
-                                               @Html.ActionLink("Log out", "Logout", "Account")
-                                           }</span>
-            </div>
-        </div>              
-        <div id="container">
-            <div id="content">
-                @RenderBody()    
-            </div>
-        </div>
-       
-        @RenderSection("scripts", required: false)
 
-       
-    </body>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/kendo")
+
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/Layout.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div id="header_container">
+        <div id="header">
+            <i>IOS ENVI CUSTOMER FEEDBACK</i>
+            <span style="float: right; font-size: small;">@if (HttpContext.Current.User.Identity.IsAuthenticated)
+                                                          {
+                                                              var identity = HttpContext.Current.User.ToCustomPrincipal().CustomIdentity;
+                @Html.Label(string.Format("Welcome {0} {1}, you are logged as {2}", identity.FirstName, identity.LastName, identity.UserRoleName))
+                @Html.ActionLink("Log out", "Logout", "Account")
+                                                          }</span>
+        </div>
+    </div>
+    <div id="container">
+        <div id="content">
+            @RenderBody()
+        </div>
+    </div>
+
+    @RenderSection("scripts", required: false)
+
+
+</body>
 </html>

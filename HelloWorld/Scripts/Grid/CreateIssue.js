@@ -30,7 +30,7 @@ function Issue() {
         };
 
         $.ajax({
-            url: "/Issue/CreateIssue",
+            url: "Issue/CreateIssue",
             data: data,
             dataType: "json",
             type: "POST",

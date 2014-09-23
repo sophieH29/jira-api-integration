@@ -2,6 +2,7 @@
             body {
                  margin:0; 
                  padding:0;
+              
             }
             table {
 	            border-width: 1px;
@@ -26,15 +27,14 @@
 	            border-width: 1px;
 	            padding: 2px;
 	            border-style: solid;
-	            border-color: black;
-	            background-color: white;
+	            border-color: black;	          
             }          
             #header_container {
-                 background: black; 
+                 background: #678597; 
                  color: white; 
                  height:60px; 
                  left:0; 
-                 position:fixed; 
+                 position:relative; 
                  width:100%; 
                  top:0;
             }
@@ -53,19 +53,21 @@
             #container {
                  margin:0 auto; 
                  overflow:auto; 
-                 padding:40px 0; 
-                 width:1460px;
+                 padding:0px; 
+                 width:auto;
+                 position:relative;
+                 left:12%;
+                 
             }
-            #container input[type=text], select, textarea  
+            #container input[type=text], input[type=password], select, textarea  
             {
-                width: 200px;
-                margin: 2px;
+                width: 200px;               
                 box-sizing: border-box;
                 -moz-box-sizing: border-box;
                 -webkit-box-sizing: border-box;
             }
             .control-label {
-                width: 100px;
+                width: 120px;
                 display: inline-block;
                 vertical-align: top;
             }
@@ -77,4 +79,12 @@
             .validation-summary-errors {
                 color: red;
             }
+input[type=button], input[type=submit] {
+    width: 120px;
+}
+.create-form {
+    margin-top: 50px;
+}
+
+
       

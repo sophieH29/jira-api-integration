@@ -1,15 +1,15 @@
 ﻿#filterSwitch {
     height: 30px;
-    font-size: 18px;
-    font-style: italic;
+    font-size: 18px;    
     margin-top: 5px;
     padding: 5px;
-    color: #222222;
+    color: white;
     border: 1px solid grey;
     -ms-border-radius: 3px 4px;
     border-radius: 3px 4px;
     cursor: pointer;
-    background: #cccccc url(/Content/img/ui-bg_highlight-soft_75_cccccc_1x100.png) 50% 50% repeat-x;
+    /*background: #cccccc url(/Content/img/ui-bg_highlight-soft_75_cccccc_1x100.png) 50% 50% repeat-x;*/
+    background-color: #678597;
 }
 
 #tabs {
@@ -82,7 +82,10 @@
 
 
 #type, #status, #priority, #dateFrom, #dateTo {
-    width: 85px;
+    width: 150px;    
+}
+#type, #status, #priority {
+    height: 27px;
 }
 
 

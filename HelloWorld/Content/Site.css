@@ -1,7 +1,7 @@
 ﻿body {
     padding-top: 20px;
     padding-bottom: 20px;
-    font-family: monospace
+    font-family: SegoeUI;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -40,4 +40,14 @@ input[type="checkbox"].input-validation-error {
 
 .validation-summary-valid {
     display: none;
+}
+@font-face {
+    font-family: 'SegoeUI';
+    font-weight: normal !important;
+    font-style: normal;
+    src: url(fonts/segoeui.eot);
+    src: url("fonts/segoeui.eot#iefix") format('embedded-opentype'),
+    url("fonts/segoeui.woff") format('woff'),
+    url("fonts/segoeui.ttf") format('truetype'),
+    url("fonts/segoeui.svg#SegoeUI") format('svg');
 }

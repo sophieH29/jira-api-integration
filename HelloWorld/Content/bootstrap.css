@@ -498,8 +498,9 @@ h6 small,
 h1,
 h2,
 h3 {
-  margin-top: 20px;
-  margin-bottom: 10px;
+  margin-top: 50px;
+  margin-bottom: -20px;
+  color: #678597;
 }
 
 h4,

@@ -15,7 +15,7 @@
     <AssemblyName>HelloWorld</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <SccProjectName>
     </SccProjectName>
     <SccLocalPath>
@@ -180,6 +180,11 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\fonts\segoeui.svg" />
+    <Content Include="Content\fonts\segoeuib.svg" />
+    <Content Include="Content\fonts\segoeuii.svg" />
+    <Content Include="Content\fonts\segoeuil.svg" />
+    <Content Include="Content\fonts\segoeuisb.svg" />
     <Content Include="Content\img\calendar_button.png" />
     <Content Include="Content\img\calendar_off.png" />
     <Content Include="Content\img\calendar_on.png" />
@@ -373,9 +378,9 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Libraries\ServiceStack.Text.dll" />
-    <Content Include="Scripts\bootstrap-3.1.1.min.js" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\libs\bootstrap-3.1.1.min.js" />
+    <Content Include="Scripts\libs\bootstrap.js" />
+    <Content Include="Scripts\libs\bootstrap.min.js" />
     <Content Include="Content\kendo\common\adaptive.less" />
     <Content Include="Content\kendo\common\all.less" />
     <Content Include="Content\kendo\common\base.less" />
@@ -402,28 +407,43 @@
     <Content Include="Content\kendo\common\window.less" />
     <Content Include="Content\kendo\2014.1.318\images\kendoui.woff" />
     <Content Include="Content\kendo\2014.1.318\images\kendoui.ttf" />
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Content\fonts\segoeui.eot" />
+    <Content Include="Content\fonts\segoeui.ttf" />
+    <Content Include="Content\fonts\segoeui.woff" />
+    <Content Include="Content\fonts\segoeuib.eot" />
+    <Content Include="Content\fonts\segoeuib.ttf" />
+    <Content Include="Content\fonts\segoeuib.woff" />
+    <Content Include="Content\fonts\segoeuii.eot" />
+    <Content Include="Content\fonts\segoeuii.ttf" />
+    <Content Include="Content\fonts\segoeuii.woff" />
+    <Content Include="Content\fonts\segoeuil.eot" />
+    <Content Include="Content\fonts\segoeuil.ttf" />
+    <Content Include="Content\fonts\segoeuil.woff" />
+    <Content Include="Content\fonts\segoeuisb.eot" />
+    <Content Include="Content\fonts\segoeuisb.ttf" />
+    <Content Include="Content\fonts\segoeuisb.woff" />
+    <None Include="Scripts\libs\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Grid\grid.js" />
     <Content Include="Scripts\Grid\CreateIssue.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
-    <Content Include="Scripts\jquery-1.9.1-vsdoc.js" />
-    <Content Include="Scripts\jquery-1.9.1.js" />
-    <Content Include="Scripts\jquery-1.9.1.min.js" />
-    <Content Include="Scripts\jquery-ui-1.8.24.js" />
-    <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
-    <Content Include="Scripts\jquery-ui.min.js" />
-    <Content Include="Scripts\jquery.autosize.js" />
-    <Content Include="Scripts\jquery.autosize.min.js" />
-    <Content Include="Scripts\jquery.editable.js" />
-    <Content Include="Scripts\jquery.editable.min.js" />
-    <Content Include="Scripts\jquery.ui.datepicker.js" />
-    <Content Include="Scripts\jquery.ui.tabs.js" />
-    <Content Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\libs\jquery-1.10.2.js" />
+    <Content Include="Scripts\libs\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\libs\jquery-1.9.1-vsdoc.js" />
+    <Content Include="Scripts\libs\jquery-1.9.1.js" />
+    <Content Include="Scripts\libs\jquery-1.9.1.min.js" />
+    <Content Include="Scripts\libs\jquery-ui-1.8.24.js" />
+    <Content Include="Scripts\libs\jquery-ui-1.8.24.min.js" />
+    <Content Include="Scripts\libs\jquery-ui.min.js" />
+    <Content Include="Scripts\libs\jquery.autosize.js" />
+    <Content Include="Scripts\libs\jquery.autosize.min.js" />
+    <Content Include="Scripts\libs\jquery.editable.js" />
+    <Content Include="Scripts\libs\jquery.editable.min.js" />
+    <Content Include="Scripts\libs\jquery.ui.datepicker.js" />
+    <Content Include="Scripts\libs\jquery.ui.tabs.js" />
+    <Content Include="Scripts\libs\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\libs\jquery.validate.js" />
+    <Content Include="Scripts\libs\jquery.validate.min.js" />
+    <Content Include="Scripts\libs\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\libs\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\kendo\2014.1.318\cultures\kendo.culture.af-ZA.min.js" />
     <Content Include="Scripts\kendo\2014.1.318\cultures\kendo.culture.af.min.js" />
     <Content Include="Scripts\kendo\2014.1.318\cultures\kendo.culture.am-ET.min.js" />
@@ -850,10 +870,10 @@
     <Content Include="Scripts\kendo\kendo.datepicker.js" />
     <Content Include="Scripts\kendo\kendo.grid.min.js" />
     <Content Include="Scripts\kendo\kendo.web.min.js" />
-    <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\respond.js" />
-    <Content Include="Scripts\respond.min.js" />
-    <Content Include="Scripts\_references.js" />
+    <Content Include="Scripts\libs\modernizr-2.6.2.js" />
+    <Content Include="Scripts\libs\respond.js" />
+    <Content Include="Scripts\libs\respond.min.js" />
+    <Content Include="Scripts\libs\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -950,11 +970,8 @@
     </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\ContactUs.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <None Include="Scripts\jquery-1.9.1.min.map" />
+    <Content Include="Scripts\libs\jquery-1.10.2.min.map" />
+    <None Include="Scripts\libs\jquery-1.9.1.min.map" />
     <Content Include="Views\Issue\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
   </ItemGroup>
@@ -975,12 +992,11 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>12317</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>
-          </IISUrl>
+          <IISUrl>http://localhost:12317/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -19,19 +19,19 @@ namespace HelloWorld.App_Start
 
             
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-              "~/Scripts/jquery-{version}.js",
-              "~/Scripts/modernizr-*",
-              "~/Scripts/bootstrap.js",
-              "~/Scripts/respond.js",
-              "~/Scripts/jquery-1.9.1-vsdoc.js",
-              "~/Scripts/jquery.validate-vsdoc.js",
-              "~/Scripts/jquery.validate.js",
-              "~/Scripts/jquery.validate.js",
-              "~/Scripts/jquery.editable.min.js",
-              "~/Scripts/jquery.editable.js",
-               "~/Scripts/jquery.autosize.min.js",
-              "~/Scripts/jquery.autosize.js",
-              "~/Scripts/jquery.ui.datepicker.js"));
+              "~/Scripts/libs/jquery-{version}.js",
+              "~/Scripts/libs/modernizr-*",
+              "~/Scripts/libs/bootstrap.js",
+              "~/Scripts/libs/respond.js",
+              "~/Scripts/libs/jquery-1.9.1-vsdoc.js",
+              "~/Scripts/libs/jquery.validate-vsdoc.js",
+              "~/Scripts/libs/jquery.validate.js",
+              "~/Scripts/libs/jquery.validate.js",
+              "~/Scripts/libs/jquery.editable.min.js",
+              "~/Scripts/libs/jquery.editable.js",
+               "~/Scripts/libs/jquery.autosize.min.js",
+              "~/Scripts/libs/jquery.autosize.js",
+              "~/Scripts/libs/jquery.ui.datepicker.js"));
              bundles.Add(new ScriptBundle("~/bundles/grid").Include(
                  "~/Scripts/Grid/grid.js",
                  "~/Scripts/Grid/CreateIssue.js"
