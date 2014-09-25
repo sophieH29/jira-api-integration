@@ -27,7 +27,7 @@
     <div class="create-form" style="width: 85%;">
 
         <div>
-            <label style="width: 100px">Type:</label>
+            <label style="width: 100px">* Type:</label>
             <select class="input-validation-valid" id="type_to_create">
                 <option>Bug</option>
                 <option>New Feature</option>
@@ -35,18 +35,26 @@
         </div>
 
         <div>
-            <label style="width: 100px">Summary:</label>
+            <label style="width: 100px">* Summary:</label>
             <input type="text" class="input-validation-valid" id="summary_to_create" />
 
         </div>
         <div>
-            <label style="width: 100px">Priority:</label>
+            <label style="width: 100px">* Priority:</label>
             <select class="input-validation-valid" id="priority_to_create">
                 <option>High</option>
                 <option>Immediate</option>
                 <option>Medium</option>
                 <option>Low</option>
                 <option>On Hold</option>
+            </select>
+        </div>
+
+         <div>
+            <label style="width: 100px">Project Relation:</label>
+            <select class="input-validation-valid" id="labels_to_create">
+                <option value="ShoppingCart">Shopping Cart</option>
+                <option value="JIRA_Integration">JIRA Integration</option>                
             </select>
         </div>
 
@@ -57,7 +65,9 @@
         </div>
     </div>
     <div>
+        <label style="width: 100px">Attachments:</label>
         <div class="demo-section k-header">
+            
             <input name="files" id="files" type="file" />
         </div>
     </div>
@@ -69,6 +79,7 @@
         <input style="width: 180px" type="button" value="Cancel / Back to table" />
     </a>
     <span id="messageForCreate" style="color: green"></span>
+    <span id="errorMessage" style="color: red"></span>
 </div>
 
 

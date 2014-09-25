@@ -78,7 +78,7 @@ namespace HelloWorld.Controllers
 
 
          [HttpPost]
-        public JsonResult CreateIssue(string type, string priority, string summary, string description)
+        public JsonResult CreateIssue(string type, string priority, string summary, string description, string[] labels)
         {
             string postBody = "";
             if (type == "New Feature")
@@ -86,6 +86,7 @@ namespace HelloWorld.Controllers
                 var data = new IssueToCreate();
                 data.fields.project.key = "IECF";
                 data.fields.summary = summary;
+                data.fields.labels = labels;
                 data.fields.description = description;
                 data.fields.issuetype.name = type;
                 data.fields.priority.name = priority;
@@ -98,6 +99,7 @@ namespace HelloWorld.Controllers
                 var data = new IssueToCreateBug();
                 data.fields.project.key = "IECF";
                 data.fields.summary = summary;
+                data.fields.labels = labels;
                 data.fields.description = description;
                 data.fields.issuetype.name = type;
                 data.fields.priority.name = priority;
@@ -199,7 +201,8 @@ namespace HelloWorld.Controllers
                         Created = issuesList[i].fields["created"].ToString(),
                         Updated = issuesList[i].fields["updated"].ToString(),
                         DueDate = issuesList[i].fields["duedate"].ToString(),
-                        DateResolved = issuesList[i].fields["resolutiondate"].ToString()
+                        DateResolved = issuesList[i].fields["resolutiondate"].ToString(),
+                        Label = issuesList[i].fields["labels"].ToString(),
                     });
                 }
             }

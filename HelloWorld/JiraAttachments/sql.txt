@@ -1,0 +1,145 @@
+-- --------------------------------------------------
+-- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
+-- --------------------------------------------------
+-- Date Created: 09/23/2014 10:03:19
+-- Generated from EDMX file: D:\Projects\JiraIntegration\HelloWorld\App_Data\MvcDemoDb.edmx
+-- --------------------------------------------------
+
+SET QUOTED_IDENTIFIER OFF;
+GO
+USE [UserInfo];
+GO
+IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
+GO
+
+-- --------------------------------------------------
+-- Dropping existing FOREIGN KEY constraints
+-- --------------------------------------------------
+
+IF OBJECT_ID(N'[dbo].[FK_Messages_ContactReasons]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Messages] DROP CONSTRAINT [FK_Messages_ContactReasons];
+GO
+IF OBJECT_ID(N'[dbo].[FK_Users_UserRoles]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Users] DROP CONSTRAINT [FK_Users_UserRoles];
+GO
+
+-- --------------------------------------------------
+-- Dropping existing tables
+-- --------------------------------------------------
+
+IF OBJECT_ID(N'[dbo].[ContactReasons]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ContactReasons];
+GO
+IF OBJECT_ID(N'[dbo].[Messages]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Messages];
+GO
+IF OBJECT_ID(N'[dbo].[UserRoles]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[UserRoles];
+GO
+IF OBJECT_ID(N'[dbo].[Users]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Users];
+GO
+
+-- --------------------------------------------------
+-- Creating all tables
+-- --------------------------------------------------
+
+-- Creating table 'ContactReasons'
+CREATE TABLE [dbo].[ContactReasons] (
+    [ContactReasonId] int IDENTITY(1,1) NOT NULL,
+    [ContactReasonText] nvarchar(100)  NOT NULL
+);
+GO
+
+-- Creating table 'Messages'
+CREATE TABLE [dbo].[Messages] (
+    [MessageId] int IDENTITY(1,1) NOT NULL,
+    [Name] nvarchar(50)  NOT NULL,
+    [Email] nvarchar(50)  NOT NULL,
+    [ContactReasonId] int  NULL,
+    [Subject] nvarchar(100)  NOT NULL,
+    [Message1] varchar(max)  NOT NULL
+);
+GO
+
+-- Creating table 'UserRoles'
+CREATE TABLE [dbo].[UserRoles] (
+    [UserRoleId] int  NOT NULL,
+    [UserRoleName] varchar(50)  NOT NULL
+);
+GO
+
+-- Creating table 'Users'
+CREATE TABLE [dbo].[Users] (
+    [UserId] int IDENTITY(1,1) NOT NULL,
+    [FirstName] varchar(100)  NOT NULL,
+    [LastName] varchar(100)  NOT NULL,
+    [Username] varchar(50)  NOT NULL,
+    [Password] varchar(50)  NOT NULL,
+    [UserRoleId] int  NOT NULL
+);
+GO
+
+-- --------------------------------------------------
+-- Creating all PRIMARY KEY constraints
+-- --------------------------------------------------
+
+-- Creating primary key on [ContactReasonId] in table 'ContactReasons'
+ALTER TABLE [dbo].[ContactReasons]
+ADD CONSTRAINT [PK_ContactReasons]
+    PRIMARY KEY CLUSTERED ([ContactReasonId] ASC);
+GO
+
+-- Creating primary key on [MessageId] in table 'Messages'
+ALTER TABLE [dbo].[Messages]
+ADD CONSTRAINT [PK_Messages]
+    PRIMARY KEY CLUSTERED ([MessageId] ASC);
+GO
+
+-- Creating primary key on [UserRoleId] in table 'UserRoles'
+ALTER TABLE [dbo].[UserRoles]
+ADD CONSTRAINT [PK_UserRoles]
+    PRIMARY KEY CLUSTERED ([UserRoleId] ASC);
+GO
+
+-- Creating primary key on [UserId] in table 'Users'
+ALTER TABLE [dbo].[Users]
+ADD CONSTRAINT [PK_Users]
+    PRIMARY KEY CLUSTERED ([UserId] ASC);
+GO
+
+-- --------------------------------------------------
+-- Creating all FOREIGN KEY constraints
+-- --------------------------------------------------
+
+-- Creating foreign key on [ContactReasonId] in table 'Messages'
+ALTER TABLE [dbo].[Messages]
+ADD CONSTRAINT [FK_Messages_ContactReasons]
+    FOREIGN KEY ([ContactReasonId])
+    REFERENCES [dbo].[ContactReasons]
+        ([ContactReasonId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_Messages_ContactReasons'
+CREATE INDEX [IX_FK_Messages_ContactReasons]
+ON [dbo].[Messages]
+    ([ContactReasonId]);
+GO
+
+-- Creating foreign key on [UserRoleId] in table 'Users'
+ALTER TABLE [dbo].[Users]
+ADD CONSTRAINT [FK_Users_UserRoles]
+    FOREIGN KEY ([UserRoleId])
+    REFERENCES [dbo].[UserRoles]
+        ([UserRoleId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_Users_UserRoles'
+CREATE INDEX [IX_FK_Users_UserRoles]
+ON [dbo].[Users]
+    ([UserRoleId]);
+GO
+
+-- --------------------------------------------------
+-- Script has ended
+-- --------------------------------------------------

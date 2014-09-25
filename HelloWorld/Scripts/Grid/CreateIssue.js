@@ -33,9 +33,18 @@ function Issue() {
             type: $("#type_to_create").val(),
             priority: $("#priority_to_create").val(),
             summary: $("#summary_to_create").val(),
-            description: $("#description_to_create").val()      
-
+            description: $("#description_to_create").val(),
+            labels: $("#labels_to_create").val()
         };
+
+        if ($("#type_to_create").val() == "" || $("#priority_to_create").val() == "" || $("#summary_to_create").val() == "")
+        {
+            $('#errorMessage').hide().html("Fill all fields with '*' ").fadeIn(500, function () {
+                $(this).delay(5000).fadeOut(500);
+            });
+            return;
+        }
+        
 
         $.ajax({
             url: "Issue/CreateIssue",
@@ -56,6 +65,7 @@ function Issue() {
             $("#summary_to_create").val("");
             $("#description_to_create").val("");
             $("#priority_to_create").val("");
+            $("#labels_to_create").val("");
         });
     };
 

@@ -20,7 +20,11 @@ $(function () {
     });
     $("#tabs-2").toggle("fold");
 
-    $("#det_description").autosize();   
+    $("#det_description").autosize();
+
+    $("#det_labels").prop('disabled', true);
+    $("#det_labels").css("border-color", "transparent");
+    $("#det_labels").css("color", "black");
 
 });
 
@@ -47,10 +51,9 @@ function Grid() {
         $("#edit_mode").click(function () {
             $("#det_summary").prop('readonly', false);
             $("#det_summary").css("border", "1px dashed grey");
-
             
             $("#det_priority").css("border", "1px dashed grey");
-            $("#det_priority").prop('disabled', false);
+            $("#det_priority").prop('disabled', false);           
 
             $("#det_description").prop('readonly', false);
             $("#det_description").css("border", "1px dashed grey");
@@ -310,6 +313,7 @@ function Grid() {
                 $("#det_type").val(res[rowIdx].Type);
                 $("#det_summary").val(res[rowIdx].Summary);
                 $("#det_description").val(res[rowIdx].Description);
+                $("#det_labels").val(res[rowIdx].Label);
                 $("#det_priority").val(res[rowIdx].Priority);
                 $("#det_status").val(res[rowIdx].Status);
                 $("#det_created").val(res[rowIdx].Created);
@@ -453,6 +457,10 @@ function Grid() {
         $("#det_priority").prop('disabled', true);        
         $("#det_priority").css("border-color", "transparent");
         $("#det_priority").css("color", "black");
+
+        $("#det_labels").prop('disabled', true);
+        $("#det_labels").css("border-color", "transparent");
+        $("#det_labels").css("color", "black");
 
         $("#det_status").prop('readonly', true);
         $("#det_status").css("border-color", "transparent");

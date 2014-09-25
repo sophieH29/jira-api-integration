@@ -10,6 +10,7 @@ namespace HelloWorld.Models.JiraModels
         public Project project { get; set; }
         public Assignee assignee { get; set; }
         public string summary { get; set; }
+        public string[] labels { get; set; }
         public string description { get; set; }
         public Priority priority { get; set; }
         public IssueType issuetype { get; set; }
