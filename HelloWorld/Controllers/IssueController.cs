@@ -36,6 +36,8 @@ namespace HelloWorld.Controllers
 
         public ActionResult FileUpload(IEnumerable<HttpPostedFileBase> files)//fileUploader name must be the name of uploader Control.
         {
+            
+            ClearFolder();
             // The Name of the Upload component is "fileUploader"
             foreach (var file in files)
             {
@@ -77,7 +79,7 @@ namespace HelloWorld.Controllers
         }
 
 
-         [HttpPost]
+        [HttpPost]
         public JsonResult CreateIssue(string type, string priority, string summary, string description, string[] labels)
         {
             string postBody = "";
@@ -108,7 +110,7 @@ namespace HelloWorld.Controllers
 
                 postBody = ServiceStack.Text.JsonSerializer.SerializeToString(data);
             }
-            HttpClient client = PrepareHttpClient();          
+            HttpClient client = PrepareHttpClient();
 
             System.Net.Http.HttpContent content = new System.Net.Http.StringContent(postBody, Encoding.UTF8, "application/json");
 
@@ -118,8 +120,8 @@ namespace HelloWorld.Controllers
             if (response.IsSuccessStatusCode)
             {
                 dynamic jsonResponse = JsonConvert.DeserializeObject(response.Content.ReadAsStringAsync().Result);
-                key = jsonResponse.key.ToString();                
-                                   
+                key = jsonResponse.key.ToString();
+
             }
             string[] fileNames = Directory.GetFiles(Server.MapPath("~/JiraAttachments/"))
                                     .Select(path => Path.GetFileName(path))
@@ -134,7 +136,7 @@ namespace HelloWorld.Controllers
                     string filepath = "";
                     if (fileName.Length != 0)
                     {
-                        filepath = Path.Combine(Server.MapPath("~/JiraAttachments/"), fileName);                       
+                        filepath = Path.Combine(Server.MapPath("~/JiraAttachments/"), fileName);
                         content2 = new MultipartFormDataContent();
                         HttpContent fileContent = new ByteArrayContent(System.IO.File.ReadAllBytes(filepath));
 
@@ -144,7 +146,7 @@ namespace HelloWorld.Controllers
 
                         content2.Add(fileContent, "file", fileName);
 
-                         response2 = client.PostAsync("issue/" + key + "/attachments", content2).Result;
+                        response2 = client.PostAsync("issue/" + key + "/attachments", content2).Result;
                         if (response2.IsSuccessStatusCode)
                         {
                             var file = Path.GetFileName(fileName);
@@ -160,7 +162,7 @@ namespace HelloWorld.Controllers
                 }
             }
 
-            return Json(key, JsonRequestBehavior.AllowGet);        
+            return Json(key, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -212,7 +214,7 @@ namespace HelloWorld.Controllers
 
         [HttpPost]
         public JsonResult GetComments(string key)
-        {            
+        {
             string queryString = "issue/" + key + "/comment?expand";
             HttpClient client = PrepareHttpClient();
             HttpResponseMessage response = client.GetAsync(queryString).Result;
@@ -226,7 +228,7 @@ namespace HelloWorld.Controllers
                 for (int i = 0; i != issuesList.Count; i++)
                 {
                     comments.Add(new Comment
-                    {                       
+                    {
                         Created = issuesList[i].created.ToString(),
                         Updated = issuesList[i].updated.ToString(),
                         Author = issuesList[i].author["displayName"].ToString(),
@@ -241,22 +243,22 @@ namespace HelloWorld.Controllers
         [HttpPost]
         public JsonResult EditIssue(string key, string priority, string summary, string description)
         {
-                         
-                var data = new IssueToEdit();
-               // data.fields.project.key = "IECF";
-                data.fields.summary = summary;
-                data.fields.description = description;
-                //data.fields.issuetype.name = type;
-                data.fields.priority.name = priority;
-                data.fields.assignee.name = "enviuser";
-            
+
+            var data = new IssueToEdit();
+            // data.fields.project.key = "IECF";
+            data.fields.summary = summary;
+            data.fields.description = description;
+            //data.fields.issuetype.name = type;
+            data.fields.priority.name = priority;
+            data.fields.assignee.name = "enviuser";
+
             HttpClient client = PrepareHttpClient();
 
             string postBody = ServiceStack.Text.JsonSerializer.SerializeToString(data);
 
             System.Net.Http.HttpContent content = new System.Net.Http.StringContent(postBody, Encoding.UTF8, "application/json");
-            
-            System.Net.Http.HttpResponseMessage response = client.PutAsync("issue/"+ key, content).Result;
+
+            System.Net.Http.HttpResponseMessage response = client.PutAsync("issue/" + key, content).Result;
 
             var res = "";
             if (response.IsSuccessStatusCode)
@@ -280,6 +282,27 @@ namespace HelloWorld.Controllers
             return client;
         }
 
-        public string key { get; set; }
+
+        private void ClearFolder()
+        {
+            string[] fileNames = Directory.GetFiles(Server.MapPath("~/JiraAttachments/"))
+                                   .Select(path => Path.GetFileName(path))
+                                   .ToArray();
+
+            foreach (string fileName in fileNames)
+            {
+
+                if (fileName.Length != 0)
+                {
+                    var file = Path.GetFileName(fileName);
+                    var physicalPath = Path.Combine(Server.MapPath("~/JiraAttachments/"), file);
+
+                    if (System.IO.File.Exists(physicalPath))
+                    {
+                        System.IO.File.Delete(physicalPath);
+                    }
+                }
+            }
+        }
     }
 }
