@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
   <!-- EF Runtime content -->
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="MvcDemoModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="MvcDemoModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="MvcDemoModelStoreContainer">
-          <EntitySet Name="ContactReasons" EntityType="MvcDemoModel.Store.ContactReasons" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Messages" EntityType="MvcDemoModel.Store.Messages" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="UserRoles" EntityType="MvcDemoModel.Store.UserRoles" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Users" EntityType="MvcDemoModel.Store.Users" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ContactReasons" EntityType="MvcDemoModel.Store.ContactReasons" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Messages" EntityType="MvcDemoModel.Store.Messages" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="UserRoles" EntityType="MvcDemoModel.Store.UserRoles" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Users" EntityType="MvcDemoModel.Store.Users" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
           <AssociationSet Name="FK_Messages_ContactReasons" Association="MvcDemoModel.Store.FK_Messages_ContactReasons">
             <End Role="ContactReasons" EntitySet="ContactReasons" />
             <End Role="Messages" EntitySet="Messages" />
@@ -82,8 +82,8 @@
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="MvcDemoModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
-        <EntityContainer Name="MvcDemoEntities" annotation:LazyLoadingEnabled="true">
+      <Schema Namespace="MvcDemoModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="MvcDemoEntities" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
           <EntitySet Name="ContactReasons" EntityType="MvcDemoModel.ContactReason" />
           <EntitySet Name="Messages" EntityType="MvcDemoModel.Message" />
           <AssociationSet Name="FK_Messages_ContactReasons" Association="MvcDemoModel.FK_Messages_ContactReasons">
@@ -101,7 +101,7 @@
           <Key>
             <PropertyRef Name="ContactReasonId" />
           </Key>
-          <Property Name="ContactReasonId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ContactReasonId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="ContactReasonText" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Messages" Relationship="MvcDemoModel.FK_Messages_ContactReasons" FromRole="ContactReasons" ToRole="Messages" />
         </EntityType>
@@ -109,7 +109,7 @@
           <Key>
             <PropertyRef Name="MessageId" />
           </Key>
-          <Property Name="MessageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MessageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="Email" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="ContactReasonId" Type="Int32" />
@@ -141,7 +141,7 @@
           <Key>
             <PropertyRef Name="UserId" />
           </Key>
-          <Property Type="Int32" Name="UserId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="UserId" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="String" Name="FirstName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="LastName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Username" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -165,7 +165,7 @@
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="MvcDemoModelStoreContainer" CdmEntityContainer="MvcDemoEntities">
     <EntitySetMapping Name="ContactReasons">
       <EntityTypeMapping TypeName="IsTypeOf(MvcDemoModel.ContactReason)">
@@ -211,7 +211,7 @@
 </Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
-  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <Connection>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
@@ -235,7 +235,7 @@
         </AssociationConnector>
         <EntityTypeShape EntityType="MvcDemoModel.UserRole" Width="1.5" PointX="0.75" PointY="5.5" Height="1.5956835937499996" />
         <EntityTypeShape EntityType="MvcDemoModel.User" Width="1.5" PointX="3" PointY="5" Height="2.7494921874999996" />
-        <AssociationConnector Association="MvcDemoModel.FK_Users_UserRoles" >
+        <AssociationConnector Association="MvcDemoModel.FK_Users_UserRoles">
           <ConnectorPoint PointX="2.25" PointY="6.297841796875" />
           <ConnectorPoint PointX="3" PointY="6.297841796875" />
         </AssociationConnector>

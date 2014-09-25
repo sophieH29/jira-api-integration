@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using System.Web.Mvc;
 using HelloWorld.Code.Security;
 using HelloWorld.Models;
@@ -6,10 +7,12 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
-using System.Web.Mvc;
+using System.Linq;
 using Newtonsoft.Json;
 using HelloWorld.Models.JiraModels;
 using ServiceStack.Text;
+using System.IO;
+
 
 namespace HelloWorld.Controllers
 {
@@ -29,6 +32,48 @@ namespace HelloWorld.Controllers
         {
 
             return View();
+        }
+
+        public ActionResult FileUpload(IEnumerable<HttpPostedFileBase> files)//fileUploader name must be the name of uploader Control.
+        {
+            // The Name of the Upload component is "fileUploader"
+            foreach (var file in files)
+            {
+                // Some browsers send file names with full path. We only care about the file name.
+                var fileName = Path.GetFileName(file.FileName);
+                var destinationPath = Path.Combine(Server.MapPath("~/JiraAttachments/"), fileName);
+
+
+                file.SaveAs(destinationPath);
+            }
+
+
+            // Return an empty string to signify success
+            return Content("");
+
+        }
+
+        public ActionResult Remove(string[] fileNames)
+        {
+            foreach (var fullName in fileNames)
+            {
+                var fileName = Path.GetFileName(fullName);
+                var physicalPath = Path.Combine(Server.MapPath("~/JiraAttachments/"), fileName);
+
+
+                // TODO: Verify user permissions
+
+
+                if (System.IO.File.Exists(physicalPath))
+                {
+                    System.IO.File.Delete(physicalPath);
+                }
+            }
+
+
+            // Return an empty string to signify success
+            return Content("");
+
         }
 
 
@@ -61,20 +106,56 @@ namespace HelloWorld.Controllers
 
                 postBody = ServiceStack.Text.JsonSerializer.SerializeToString(data);
             }
-            HttpClient client = PrepareHttpClient();
-
-           // string postBody = ServiceStack.Text.JsonSerializer.SerializeToString(data);
+            HttpClient client = PrepareHttpClient();          
 
             System.Net.Http.HttpContent content = new System.Net.Http.StringContent(postBody, Encoding.UTF8, "application/json");
 
             System.Net.Http.HttpResponseMessage response = client.PostAsync("issue", content).Result;
 
-            var key = "";
+            string key = "";
             if (response.IsSuccessStatusCode)
             {
                 dynamic jsonResponse = JsonConvert.DeserializeObject(response.Content.ReadAsStringAsync().Result);
                 key = jsonResponse.key.ToString();                
                                    
+            }
+            string[] fileNames = Directory.GetFiles(Server.MapPath("~/JiraAttachments/"))
+                                    .Select(path => Path.GetFileName(path))
+                                    .ToArray();
+            client.DefaultRequestHeaders.Add("X-Atlassian-Token", "nocheck");
+            if (key.Length != 0)
+            {
+                foreach (string fileName in fileNames)
+                {
+                    System.Net.Http.HttpResponseMessage response2 = null;
+                    MultipartFormDataContent content2 = null;
+                    string filepath = "";
+                    if (fileName.Length != 0)
+                    {
+                        filepath = Path.Combine(Server.MapPath("~/JiraAttachments/"), fileName);                       
+                        content2 = new MultipartFormDataContent();
+                        HttpContent fileContent = new ByteArrayContent(System.IO.File.ReadAllBytes(filepath));
+
+                        string mimeType = System.Web.MimeMapping.GetMimeMapping(fileName);
+                        //specifying MIME Type
+                        fileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(mimeType);
+
+                        content2.Add(fileContent, "file", fileName);
+
+                         response2 = client.PostAsync("issue/" + key + "/attachments", content2).Result;
+                        if (response2.IsSuccessStatusCode)
+                        {
+                            var file = Path.GetFileName(fileName);
+                            var physicalPath = Path.Combine(Server.MapPath("~/JiraAttachments/"), file);
+
+                            if (System.IO.File.Exists(physicalPath))
+                            {
+                                System.IO.File.Delete(physicalPath);
+                            }
+
+                        }
+                    }
+                }
             }
 
             return Json(key, JsonRequestBehavior.AllowGet);        

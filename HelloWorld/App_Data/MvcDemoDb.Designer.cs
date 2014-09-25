@@ -205,7 +205,7 @@ namespace HelloWorld.App_Data
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -224,7 +224,7 @@ namespace HelloWorld.App_Data
                 {
                     OnContactReasonIdChanging(value);
                     ReportPropertyChanging("ContactReasonId");
-                    _ContactReasonId = StructuralObject.SetValidValue(value);
+                    _ContactReasonId = StructuralObject.SetValidValue(value, "ContactReasonId");
                     ReportPropertyChanged("ContactReasonId");
                     OnContactReasonIdChanged();
                 }
@@ -249,7 +249,7 @@ namespace HelloWorld.App_Data
             {
                 OnContactReasonTextChanging(value);
                 ReportPropertyChanging("ContactReasonText");
-                _ContactReasonText = StructuralObject.SetValidValue(value, false);
+                _ContactReasonText = StructuralObject.SetValidValue(value, false, "ContactReasonText");
                 ReportPropertyChanged("ContactReasonText");
                 OnContactReasonTextChanged();
             }
@@ -260,7 +260,6 @@ namespace HelloWorld.App_Data
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -320,7 +319,7 @@ namespace HelloWorld.App_Data
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -339,7 +338,7 @@ namespace HelloWorld.App_Data
                 {
                     OnMessageIdChanging(value);
                     ReportPropertyChanging("MessageId");
-                    _MessageId = StructuralObject.SetValidValue(value);
+                    _MessageId = StructuralObject.SetValidValue(value, "MessageId");
                     ReportPropertyChanged("MessageId");
                     OnMessageIdChanged();
                 }
@@ -364,7 +363,7 @@ namespace HelloWorld.App_Data
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, false);
+                _Name = StructuralObject.SetValidValue(value, false, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -388,7 +387,7 @@ namespace HelloWorld.App_Data
             {
                 OnEmailChanging(value);
                 ReportPropertyChanging("Email");
-                _Email = StructuralObject.SetValidValue(value, false);
+                _Email = StructuralObject.SetValidValue(value, false, "Email");
                 ReportPropertyChanged("Email");
                 OnEmailChanged();
             }
@@ -412,7 +411,7 @@ namespace HelloWorld.App_Data
             {
                 OnContactReasonIdChanging(value);
                 ReportPropertyChanging("ContactReasonId");
-                _ContactReasonId = StructuralObject.SetValidValue(value);
+                _ContactReasonId = StructuralObject.SetValidValue(value, "ContactReasonId");
                 ReportPropertyChanged("ContactReasonId");
                 OnContactReasonIdChanged();
             }
@@ -436,7 +435,7 @@ namespace HelloWorld.App_Data
             {
                 OnSubjectChanging(value);
                 ReportPropertyChanging("Subject");
-                _Subject = StructuralObject.SetValidValue(value, false);
+                _Subject = StructuralObject.SetValidValue(value, false, "Subject");
                 ReportPropertyChanged("Subject");
                 OnSubjectChanged();
             }
@@ -460,7 +459,7 @@ namespace HelloWorld.App_Data
             {
                 OnMessage1Changing(value);
                 ReportPropertyChanging("Message1");
-                _Message1 = StructuralObject.SetValidValue(value, false);
+                _Message1 = StructuralObject.SetValidValue(value, false, "Message1");
                 ReportPropertyChanged("Message1");
                 OnMessage1Changed();
             }
@@ -471,7 +470,6 @@ namespace HelloWorld.App_Data
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -549,7 +547,7 @@ namespace HelloWorld.App_Data
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -568,7 +566,7 @@ namespace HelloWorld.App_Data
                 {
                     OnUserIdChanging(value);
                     ReportPropertyChanging("UserId");
-                    _UserId = StructuralObject.SetValidValue(value);
+                    _UserId = StructuralObject.SetValidValue(value, "UserId");
                     ReportPropertyChanged("UserId");
                     OnUserIdChanged();
                 }
@@ -593,7 +591,7 @@ namespace HelloWorld.App_Data
             {
                 OnFirstNameChanging(value);
                 ReportPropertyChanging("FirstName");
-                _FirstName = StructuralObject.SetValidValue(value, false);
+                _FirstName = StructuralObject.SetValidValue(value, false, "FirstName");
                 ReportPropertyChanged("FirstName");
                 OnFirstNameChanged();
             }
@@ -617,7 +615,7 @@ namespace HelloWorld.App_Data
             {
                 OnLastNameChanging(value);
                 ReportPropertyChanging("LastName");
-                _LastName = StructuralObject.SetValidValue(value, false);
+                _LastName = StructuralObject.SetValidValue(value, false, "LastName");
                 ReportPropertyChanged("LastName");
                 OnLastNameChanged();
             }
@@ -641,7 +639,7 @@ namespace HelloWorld.App_Data
             {
                 OnUsernameChanging(value);
                 ReportPropertyChanging("Username");
-                _Username = StructuralObject.SetValidValue(value, false);
+                _Username = StructuralObject.SetValidValue(value, false, "Username");
                 ReportPropertyChanged("Username");
                 OnUsernameChanged();
             }
@@ -665,7 +663,7 @@ namespace HelloWorld.App_Data
             {
                 OnPasswordChanging(value);
                 ReportPropertyChanging("Password");
-                _Password = StructuralObject.SetValidValue(value, false);
+                _Password = StructuralObject.SetValidValue(value, false, "Password");
                 ReportPropertyChanged("Password");
                 OnPasswordChanged();
             }
@@ -689,7 +687,7 @@ namespace HelloWorld.App_Data
             {
                 OnUserRoleIdChanging(value);
                 ReportPropertyChanging("UserRoleId");
-                _UserRoleId = StructuralObject.SetValidValue(value);
+                _UserRoleId = StructuralObject.SetValidValue(value, "UserRoleId");
                 ReportPropertyChanged("UserRoleId");
                 OnUserRoleIdChanged();
             }
@@ -700,7 +698,6 @@ namespace HelloWorld.App_Data
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -770,7 +767,7 @@ namespace HelloWorld.App_Data
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -789,7 +786,7 @@ namespace HelloWorld.App_Data
                 {
                     OnUserRoleIdChanging(value);
                     ReportPropertyChanging("UserRoleId");
-                    _UserRoleId = StructuralObject.SetValidValue(value);
+                    _UserRoleId = StructuralObject.SetValidValue(value, "UserRoleId");
                     ReportPropertyChanged("UserRoleId");
                     OnUserRoleIdChanged();
                 }
@@ -814,7 +811,7 @@ namespace HelloWorld.App_Data
             {
                 OnUserRoleNameChanging(value);
                 ReportPropertyChanging("UserRoleName");
-                _UserRoleName = StructuralObject.SetValidValue(value, false);
+                _UserRoleName = StructuralObject.SetValidValue(value, false, "UserRoleName");
                 ReportPropertyChanged("UserRoleName");
                 OnUserRoleNameChanged();
             }
@@ -825,7 +822,6 @@ namespace HelloWorld.App_Data
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -856,5 +852,4 @@ namespace HelloWorld.App_Data
 
     #endregion
 
-    
 }

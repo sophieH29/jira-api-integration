@@ -15,6 +15,14 @@ function Issue() {
         $("#save").click(function () {
             _this.CreateIssues();
         });
+
+        $("#files").kendoUpload({
+            async: {
+                saveUrl: "Issue/FileUpload",
+                removeUrl: "Issue/Remove",
+                autoUpload: true
+            }
+        });
     };
 
 
