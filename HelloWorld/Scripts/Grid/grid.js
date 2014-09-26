@@ -329,9 +329,9 @@ function Grid() {
                 $("#det_due").val(res[rowIdx].DueDate);
                
                 //$("#tabs-1").toggle("fold");
-                $("#tabs-2").show();
-                _this.DisableFields();
-            });      
+                $("#tabs-2").show();                
+            });
+            _this.DisableFields();
            
         }
     };
