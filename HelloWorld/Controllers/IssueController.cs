@@ -37,7 +37,7 @@ namespace HelloWorld.Controllers
         public ActionResult FileUpload(IEnumerable<HttpPostedFileBase> files)//fileUploader name must be the name of uploader Control.
         {
             
-            ClearFolder();
+            
             // The Name of the Upload component is "fileUploader"
             foreach (var file in files)
             {
@@ -280,29 +280,6 @@ namespace HelloWorld.Controllers
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
             return client;
-        }
-
-
-        private void ClearFolder()
-        {
-            string[] fileNames = Directory.GetFiles(Server.MapPath("~/JiraAttachments/"))
-                                   .Select(path => Path.GetFileName(path))
-                                   .ToArray();
-
-            foreach (string fileName in fileNames)
-            {
-
-                if (fileName.Length != 0)
-                {
-                    var file = Path.GetFileName(fileName);
-                    var physicalPath = Path.Combine(Server.MapPath("~/JiraAttachments/"), file);
-
-                    if (System.IO.File.Exists(physicalPath))
-                    {
-                        System.IO.File.Delete(physicalPath);
-                    }
-                }
-            }
-        }
+        }       
     }
 }
