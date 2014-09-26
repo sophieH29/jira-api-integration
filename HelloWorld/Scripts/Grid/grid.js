@@ -36,13 +36,15 @@ function Grid() {
         _this.DisableFields();
         _this.GetIssues();
         $("#refresh").click(function () {
+            $("#tabs-2").hide();
             $("#tableBody").empty();
             $("#grid").empty();
             $("#grid").append("<table id='dataTable'></table>");
             _this.GetIssues();
         });
 
-        $("#edit").click(function(){
+        $("#edit").click(function () {
+            $("#tabs-2").hide();
             _this.EditIssues();           
     });
         $("#cancel_edit").click(function () {
@@ -85,6 +87,9 @@ function Grid() {
             },
             type: "POST",
             success: _this.ShowTable
+        }).done(function () {
+            _this.DisableFields();
+            $("#tabs-2").hide();
         });
 
     };
@@ -297,6 +302,8 @@ function Grid() {
                 _this.GetComments(selectedDataItems[i].Key);
             }
 
+            _this.DisableFields();
+
         };
 
         function onDataBound(e) {
@@ -322,7 +329,8 @@ function Grid() {
                 $("#det_due").val(res[rowIdx].DueDate);
                
                 //$("#tabs-1").toggle("fold");
-                $("#tabs-2").show();                
+                $("#tabs-2").show();
+                _this.DisableFields();
             });      
            
         }
