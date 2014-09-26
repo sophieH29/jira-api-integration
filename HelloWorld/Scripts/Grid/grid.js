@@ -14,6 +14,14 @@ $(function () {
     $("#dateFrom, #dateTo").kendoDatePicker({
         format: "yyyy-MM-dd"
     });
+
+    $("#tabs-2").kendoTabStrip({
+        animation: {
+            open: {
+                effects: "fadeIn"
+            }
+        }
+    });
     
     $("#hide_det").click(function () {
         $("#tabs-2").toggle("fold");
@@ -37,7 +45,7 @@ function Grid() {
         _this.GetIssues();
         $("#refresh").click(function () {
             $("#tabs-2").hide();
-            $("#tableBody").empty();
+           
             $("#grid").empty();
             $("#grid").append("<table id='dataTable'></table>");
             _this.GetIssues();
@@ -94,8 +102,7 @@ function Grid() {
 
     };
 
-    _this.GetComments = function (key) {
-
+    _this.GetComments = function (key) {       
         countOfTrId = 0;
 
         var data = {
@@ -111,7 +118,11 @@ function Grid() {
                 alert('error:' + data);
             },
             type: "POST",
-            success: _this.ShowTableWithComments
+            success: function (res) {
+                $("#grid2").empty();
+                $("#grid2").append("<table id='commentsTable'></table>");
+                _this.ShowTableWithComments(res);
+            }
         });
     };
 
@@ -296,9 +307,9 @@ function Grid() {
                 selectedDataItems.push(dataItem);
 
                 // $("#det_key").val(selectedDataItems[i].Key);
-                $("#comments").empty();
-                $("#grid2").empty();
-                $("#grid2").append("<table id='commentsTable'></table>");
+                
+                //$("#grid2").empty();
+                //$("#grid2").append("<table id='commentsTable'></table>");
                 _this.GetComments(selectedDataItems[i].Key);
             }
 
