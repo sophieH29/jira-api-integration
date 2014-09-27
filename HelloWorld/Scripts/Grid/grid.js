@@ -126,6 +126,52 @@ function Grid() {
         });
     };
 
+    _this.GetAttachments = function (key) {
+        countOfTrId = 0;
+
+        var data = {
+            key: key
+        };
+
+        $.ajax({
+            url: "Issue/GetAttachments",
+            data: data,
+            dataType: "json",
+            type: "POST",
+            error: function (data) {
+                alert('error:' + data);
+            },
+            type: "POST",
+            success: function (res) {
+                $("#grid3").empty();
+                $("#grid3").append("<table id='attachmentsTable'></table>");
+                _this.ShowTableWithAttachments(res);
+            }
+        });
+    };
+
+    _this.DeleteAttachments = function (Id)
+    {
+        var data = {
+            Id: Id
+        };
+
+        $.ajax({
+            url: "Issue/DeleteAttachments",
+            data: data,
+            dataType: "json",
+            type: "POST",
+            error: function (data) {
+                alert('error:' + data);
+            },
+            type: "POST",
+            success: function (msg) {
+                alert(msg);
+            }
+        });
+    };
+
+
     _this.EditIssues = function () {
        
         var data = {
@@ -156,6 +202,77 @@ function Grid() {
         }).done(function () {
             _this.DisableFields();            
         });
+    };
+
+    _this.ShowTableWithAttachments = function (res) {
+        for (var i = 0; i < res.length; i++) {
+
+            // Append <tr><td> tags with datas
+            $("#attachmentsTable").append("<tr><td><a href=" + res[i].ContentURL + ">" + res[i].Name +
+                "</a></td><td>" + res[i].CreatedDate +    "<td><button id='deleteAttach' onclick='grid.DeleteAttachments(" + res[i].Id + ")'>Delete</button></td>" +           
+                 "</td></tr>");
+
+        }
+
+        $("#attachmentsTable").kendoGrid({
+
+            columns: [
+
+                     {
+                         field: "Created",
+                         title: "Created",
+                         width: 500
+
+                     },
+                     {
+                         field: "File",
+                         title: "File",
+                         width: 500
+
+                     },
+                 {
+                     field: "Action",
+                     title: "Action",
+                     width: 500
+                 }],
+            dataSource: {
+                pageSize: 5
+              },
+            serverPaging: true,
+            dataBound: onDataBound,
+            serverFiltering: true,
+            serverSorting: true,
+            scrollable: false,
+            selectable: "multiple, row",
+            sortable: true,
+            pageable: true,
+            reorderable: true,
+            resizable: true,
+            columnMenu: true
+
+        });
+
+        function onDataBound(e) {
+            var grid = $("#attachmentsTable").data("kendoGrid");
+            var currentPage = grid.dataSource.page();
+            var pageSize = grid.dataSource.pageSize();
+            var attachId = "";
+            
+            //$("#deleteAttach").click(function () {
+            //    $(grid.tbody).on("click", "td", function (e) {
+            //        var row = $(grid.tbody).closest("tr");
+            //        var rowIdx = $("tr", grid.tbody).index(row);
+            //        var colIdx = $("td", row).index(this);
+            //        rowIdx = rowIdx + (currentPage - 1) * pageSize;
+            //        attachId = res[rowIdx].Id;
+            //        _this.DeleteAttachments(attachId);
+            //    });
+                
+           // });
+       
+        };
+
+
     };
 
     // Get list of data, and append it into table
@@ -311,6 +428,7 @@ function Grid() {
                 //$("#grid2").empty();
                 //$("#grid2").append("<table id='commentsTable'></table>");
                 _this.GetComments(selectedDataItems[i].Key);
+                _this.GetAttachments(selectedDataItems[i].Key);
             }
 
             _this.DisableFields();
@@ -342,6 +460,7 @@ function Grid() {
                 //$("#tabs-1").toggle("fold");
                 $("#tabs-2").show();                
             });
+            $("#tabs-2").hide();
             _this.DisableFields();
            
         }

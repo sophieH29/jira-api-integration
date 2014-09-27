@@ -213,6 +213,50 @@ namespace HelloWorld.Controllers
         }
 
         [HttpPost]
+        public JsonResult GetAttachments(string key)
+        {
+            string queryString = "issue/" + key + "?fields=attachment";
+            HttpClient client = PrepareHttpClient();
+            HttpResponseMessage response = client.GetAsync(queryString).Result;
+
+            var attachments = new List<Attachment>();
+            if (response.IsSuccessStatusCode)
+            {
+                dynamic jsonResponse = JsonConvert.DeserializeObject(response.Content.ReadAsStringAsync().Result);
+                var issuesList = jsonResponse.fields.attachment;
+
+                for (int i = 0; i != issuesList.Count; i++)
+                {
+                    attachments.Add(new Attachment
+                    {
+                        Id = issuesList[i].id.ToString(),
+                        CreatedDate = issuesList[i].created.ToString(),
+                        Name = issuesList[i].filename.ToString(),
+                        ContentURL = issuesList[i].content.ToString()                       
+                    });
+                }
+            }
+
+            return Json(attachments, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult DeleteAttachments(string id)
+        {
+            string queryString = "attachment/" + id;
+            HttpClient client = PrepareHttpClient();
+            HttpResponseMessage response = client.DeleteAsync(queryString).Result;
+            var res = "";
+            if (response.IsSuccessStatusCode)
+            {
+                res = "Successfully deleted!";
+            }
+
+            return Json(res, JsonRequestBehavior.AllowGet);
+        }
+
+
+        [HttpPost]
         public JsonResult GetComments(string key)
         {
             string queryString = "issue/" + key + "/comment?expand";
