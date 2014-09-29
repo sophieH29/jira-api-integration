@@ -100,9 +100,9 @@
         <li class="k-state-active">Details
         </li>
         <li>Comments
-        </li>   
+        </li>
         <li>Attachments
-        </li>     
+        </li>
     </ul>
     <div id="tabs-2-1">
         <div id="details">
@@ -129,7 +129,7 @@
             <div>
                 <label style="width: 100px">Project Relation:</label>
                 <select class="input-validation-valid" id="det_labels" style="width: 208px">
-                     <option value="ShoppingCart">Shopping Cart</option>
+                    <option value="ShoppingCart">Shopping Cart</option>
                     <option value="JIRA_Integration">JIRA Integration</option>
                 </select>
 
@@ -186,7 +186,7 @@
             <br>
             <br>
             <div id="buttons2" style="width: 85%; display: inline-block">
-                
+
                 <input type="button" id="edit_mode" value="Edit" />
                 <input type="button" id="cancel_edit" value="Cancel" />
                 <input type="button" id="edit" value="Save" />
@@ -199,16 +199,26 @@
 
     <div id="tabs-2_2">
         <div id="grid2">
-      
-            </div>
+        </div>
     </div>
 
-     <div id="tabs-2_3">
+    <div id="tabs-2_3">
         <div id="grid3">
-      
+        </div>
+        <br>
+        <div id="newattach" style="display: inline-grid; padding-left:5px;">
+            <label style="width: 100px">Add new attachments:</label>
+            <div class="demo-section k-header">
+
+                <input name="files" id="files" type="file" />
             </div>
+             <br>
+           @* <input id="add-new-attach" type="button" value="Add" />*@
+           
+        </div>
+         <br>
     </div>
-    <input id="hide_det" type="button" value="Hide details" style="margin-left:5px" />
+    <input id="hide_det" type="button" value="Hide details" style="margin-left: 5px" />
 </div>
 
 
@@ -218,7 +228,7 @@
 @section scripts{
     <script type="text/javascript">
         document.getElementById("header").innerHTML
-            
+
 
     </script>
 }

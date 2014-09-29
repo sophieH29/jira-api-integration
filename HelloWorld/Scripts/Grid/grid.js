@@ -150,8 +150,9 @@ function Grid() {
         });
     };
 
-    _this.DeleteAttachments = function (Id)
+    _this.DeleteAttachments = function (Id,keyNumber)
     {
+       
         var data = {
             Id: Id
         };
@@ -167,6 +168,15 @@ function Grid() {
             type: "POST",
             success: function (msg) {
                 alert(msg);
+                var grid = $("#attachmentsTable").data("kendoGrid");
+                var row = grid.tbody.closest(">tr");
+
+                //grid.removeRow(grid.tbody.find("tr[class = 'k-state-selected']"));
+                grid.removeRow(row);
+
+                grid.refresh();
+                var key = "IECF-" + keyNumber;
+                _this.GetAttachments(key);
             }
         });
     };
@@ -205,15 +215,21 @@ function Grid() {
     };
 
     _this.ShowTableWithAttachments = function (res) {
+        var key = '';
         for (var i = 0; i < res.length; i++) {
-
+           
+             key = res[i].Key;
+            var id = res[i].Id;
+            var keySplit = key.split("-");
+            var keyNumber = keySplit[1];           
             // Append <tr><td> tags with datas
             $("#attachmentsTable").append("<tr><td><a href=" + res[i].ContentURL + ">" + res[i].Name +
-                "</a></td><td>" + res[i].CreatedDate +    "<td><button id='deleteAttach' onclick='grid.DeleteAttachments(" + res[i].Id + ")'>Delete</button></td>" +           
-                 "</td></tr>");
+                "</a></td><td>" + res[i].CreatedDate + "<td><button id='deleteAttach' onclick='grid.DeleteAttachments(" + id + ','+ keyNumber + ")'>Delete</button></td>" +
+                 "</td></tr>");          
 
         }
-
+      
+      
         $("#attachmentsTable").kendoGrid({
 
             columns: [
@@ -261,14 +277,14 @@ function Grid() {
             //$("#deleteAttach").click(function () {
             //    $(grid.tbody).on("click", "td", function (e) {
             //        var row = $(grid.tbody).closest("tr");
-            //        var rowIdx = $("tr", grid.tbody).index(row);
-            //        var colIdx = $("td", row).index(this);
-            //        rowIdx = rowIdx + (currentPage - 1) * pageSize;
-            //        attachId = res[rowIdx].Id;
-            //        _this.DeleteAttachments(attachId);
+            //        //var rowIdx = $("tr", grid.tbody).index(row);
+            //        //var colIdx = $("td", row).index(this);
+            //        //rowIdx = rowIdx + (currentPage - 1) * pageSize;                   
+            //        //_this.DeleteAttachments(attachId);
+            //        grid.removeRow(row);
             //    });
                 
-           // });
+         //   });
        
         };
 
@@ -328,6 +344,29 @@ function Grid() {
             columnMenu: true
 
         });
+    };
+
+    _this.AddNewAttachments = function (keyNumber) {
+        var key = "IECF-" + keyNumber;
+        var data = {
+            key: key
+        };
+
+        $.ajax({
+            url: "Issue/AddNewAttachments",
+            data: data,
+            dataType: "json",
+            type: "POST",
+            error: function (data) {
+                alert('error:' + data);
+            },
+            type: "POST",
+            success: function (msg) {
+                alert(msg);             
+               _this.GetAttachments(key);
+            }
+        });
+
     };
     // Get list of data, and append it into table
     _this.ShowTable = function (res) {
@@ -429,6 +468,12 @@ function Grid() {
                 //$("#grid2").append("<table id='commentsTable'></table>");
                 _this.GetComments(selectedDataItems[i].Key);
                 _this.GetAttachments(selectedDataItems[i].Key);
+                var key = selectedDataItems[i].Key;
+                var keySplit = key.split("-");
+                var keyNumber = keySplit[1];
+                $("#newattach").append("<button id='addnewAttach' onclick='grid.AddNewAttachments(" + keyNumber + ")'>Add</button>");
+               
+                
             }
 
             _this.DisableFields();

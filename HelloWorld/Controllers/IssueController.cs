@@ -229,6 +229,7 @@ namespace HelloWorld.Controllers
                 {
                     attachments.Add(new Attachment
                     {
+                        Key = key ,
                         Id = issuesList[i].id.ToString(),
                         CreatedDate = issuesList[i].created.ToString(),
                         Name = issuesList[i].filename.ToString(),
@@ -255,6 +256,52 @@ namespace HelloWorld.Controllers
             return Json(res, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public JsonResult AddNewAttachments(string key)
+        {
+            HttpClient client = PrepareHttpClient();
+            string res = "";
+
+            string[] fileNames = Directory.GetFiles(Server.MapPath("~/JiraAttachments/"))
+                                    .Select(path => Path.GetFileName(path))
+                                    .ToArray();
+            client.DefaultRequestHeaders.Add("X-Atlassian-Token", "nocheck");
+            if (key.Length != 0)
+            {
+                foreach (string fileName in fileNames)
+                {
+                    System.Net.Http.HttpResponseMessage response2 = null;
+                    MultipartFormDataContent content2 = null;
+                    string filepath = "";
+                    if (fileName.Length != 0)
+                    {
+                        filepath = Path.Combine(Server.MapPath("~/JiraAttachments/"), fileName);
+                        content2 = new MultipartFormDataContent();
+                        HttpContent fileContent = new ByteArrayContent(System.IO.File.ReadAllBytes(filepath));
+
+                        string mimeType = System.Web.MimeMapping.GetMimeMapping(fileName);
+                        //specifying MIME Type
+                        fileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(mimeType);
+
+                        content2.Add(fileContent, "file", fileName);
+                        
+                        response2 = client.PostAsync("issue/" + key + "/attachments", content2).Result;
+                        if (response2.IsSuccessStatusCode)
+                        {
+                            var file = Path.GetFileName(fileName);
+                            var physicalPath = Path.Combine(Server.MapPath("~/JiraAttachments/"), file);
+                            res = "Attachment was successfully added!";
+                            if (System.IO.File.Exists(physicalPath))
+                            {
+                                System.IO.File.Delete(physicalPath);
+                            }
+
+                        }
+                    }
+                }
+            }
+            return Json(res, JsonRequestBehavior.AllowGet);
+        }
 
         [HttpPost]
         public JsonResult GetComments(string key)
