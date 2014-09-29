@@ -55,9 +55,9 @@ function Grid() {
             $("#tabs-2").hide();
             _this.EditIssues();           
     });
-        $("#cancel_edit").click(function () {
-            _this.DisableFields();
-        });
+        //$("#cancel_edit").click(function () {
+        //    _this.DisableFields();
+        //});
         $("#edit_mode").click(function () {
             $("#det_summary").prop('readonly', false);
             $("#det_summary").css("border", "1px dashed grey");
@@ -167,13 +167,7 @@ function Grid() {
             },
             type: "POST",
             success: function (msg) {
-                alert(msg);
-                var grid = $("#attachmentsTable").data("kendoGrid");
-                var row = grid.tbody.closest(">tr");
-
-                //grid.removeRow(grid.tbody.find("tr[class = 'k-state-selected']"));
-                grid.removeRow(row);
-
+                alert(msg);                
                 grid.refresh();
                 var key = "IECF-" + keyNumber;
                 _this.GetAttachments(key);
@@ -500,7 +494,9 @@ function Grid() {
                 var rowIdx = $("tr", grid.tbody).index(row);
                 var colIdx = $("td", row).index(this);
                 rowIdx = rowIdx + (currentPage - 1) * pageSize;
-
+                $("#cancel_edit").click(function () {
+                        _this.DisableFields();
+                    });
                 $("#det_key").val(res[rowIdx].Key);
                 $("#det_type").val(res[rowIdx].Type);
                 $("#det_summary").val(res[rowIdx].Summary);
@@ -514,7 +510,23 @@ function Grid() {
                 $("#det_due").val(res[rowIdx].DueDate);
                
                 //$("#tabs-1").toggle("fold");
-                $("#tabs-2").show();                
+                $("#tabs-2").show();
+
+                $("#cancel_edit").click(function () {
+                    _this.DisableFields();
+                
+                $("#det_key").val(res[rowIdx].Key);
+                $("#det_type").val(res[rowIdx].Type);
+                $("#det_summary").val(res[rowIdx].Summary);
+                $("#det_description").val(res[rowIdx].Description);
+                $("#det_labels").val(res[rowIdx].Label);
+                $("#det_priority").val(res[rowIdx].Priority);
+                $("#det_status").val(res[rowIdx].Status);
+                $("#det_created").val(res[rowIdx].Created);
+                $("#det_updated").val(res[rowIdx].Updated);
+                $("#det_resolved").val(res[rowIdx].DateResolved);
+                $("#det_due").val(res[rowIdx].DueDate);
+                });
             });
             $("#tabs-2").hide();
             _this.DisableFields();
