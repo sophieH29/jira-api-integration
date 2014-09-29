@@ -21,8 +21,7 @@ $(function () {
                 effects: "fadeIn"
             }
         }
-    });
-    
+    });    
     $("#hide_det").click(function () {
         $("#tabs-2").toggle("fold");
     });
@@ -33,7 +32,6 @@ $(function () {
     $("#det_labels").prop('disabled', true);
     $("#det_labels").css("border-color", "transparent");
     $("#det_labels").css("color", "black");
-
 });
 
 function Grid() {
@@ -55,9 +53,7 @@ function Grid() {
             $("#tabs-2").hide();
             _this.EditIssues();           
     });
-        //$("#cancel_edit").click(function () {
-        //    _this.DisableFields();
-        //});
+       
         $("#edit_mode").click(function () {
             $("#det_summary").prop('readonly', false);
             $("#det_summary").css("border", "1px dashed grey");
@@ -152,6 +148,8 @@ function Grid() {
 
     _this.DeleteAttachments = function (Id,keyNumber)
     {
+        if (!confirm("Are you sure you want to delete attachment?"))
+            return;
        
         var data = {
             Id: Id
@@ -167,7 +165,10 @@ function Grid() {
             },
             type: "POST",
             success: function (msg) {
-                alert(msg);                
+                $('#delete-message').hide().html(msg).fadeIn(700, function () {
+                    $(this).delay(3000).fadeOut(500);
+                });
+                var grid = $("#attachmentsTable").data("kendoGrid");
                 grid.refresh();
                 var key = "IECF-" + keyNumber;
                 _this.GetAttachments(key);
@@ -356,7 +357,15 @@ function Grid() {
             },
             type: "POST",
             success: function (msg) {
-                alert(msg);             
+                if (msg == "You shoud shoose file to attach!") {
+                    $('#delete-message').css("color", "red");
+                }
+                else {
+                    $('#delete-message').css("color", "green");
+                }
+                $('#delete-message').hide().html(msg).fadeIn(500, function () {
+                    $(this).delay(3000).fadeOut(500);
+                });
                 _this.GetAttachments(key);
                 
                 $("#files-input").empty();

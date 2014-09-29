@@ -265,6 +265,7 @@ namespace HelloWorld.Controllers
             string[] fileNames = Directory.GetFiles(Server.MapPath("~/JiraAttachments/"))
                                     .Select(path => Path.GetFileName(path))
                                     .ToArray();
+            if (fileNames.Length == 0) res = "You shoud shoose file to attach!";
             client.DefaultRequestHeaders.Add("X-Atlassian-Token", "nocheck");
             if (key.Length != 0)
             {
@@ -284,7 +285,7 @@ namespace HelloWorld.Controllers
                         fileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(mimeType);
 
                         content2.Add(fileContent, "file", fileName);
-                        
+
                         response2 = client.PostAsync("issue/" + key + "/attachments", content2).Result;
                         if (response2.IsSuccessStatusCode)
                         {
@@ -297,7 +298,7 @@ namespace HelloWorld.Controllers
                             }
 
                         }
-                    }
+                    }                    
                 }
             }
             return Json(res, JsonRequestBehavior.AllowGet);
