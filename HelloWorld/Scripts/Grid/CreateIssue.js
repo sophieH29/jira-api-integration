@@ -58,6 +58,16 @@ function Issue() {
             success: function (msg) {
                 $('#messageForCreate').hide().html("Successfully created issue with key: " + msg).fadeIn(500, function () {
                     $(this).delay(3000).fadeOut(500);
+
+                    $("#files-create").empty();
+                    $("#files-create").append(" <input name='files' id='files' type='file' />");
+                    $("#files").kendoUpload({
+                        async: {
+                            saveUrl: "Issue/FileUpload",
+                            removeUrl: "Issue/Remove",
+                            autoUpload: true
+                        }
+                    });
                 });
             }
         }).done(function () {

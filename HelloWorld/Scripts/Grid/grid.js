@@ -363,7 +363,17 @@ function Grid() {
             type: "POST",
             success: function (msg) {
                 alert(msg);             
-               _this.GetAttachments(key);
+                _this.GetAttachments(key);
+                
+                $("#files-input").empty();
+                $("#files-input").append(" <input name='files' id='files' type='file' />");
+                $("#files").kendoUpload({
+                    async: {
+                        saveUrl: "Issue/FileUpload",
+                        removeUrl: "Issue/Remove",
+                        autoUpload: true
+                    }
+                });
             }
         });
 
@@ -471,6 +481,7 @@ function Grid() {
                 var key = selectedDataItems[i].Key;
                 var keySplit = key.split("-");
                 var keyNumber = keySplit[1];
+                $("#newattach").empty();
                 $("#newattach").append("<button id='addnewAttach' onclick='grid.AddNewAttachments(" + keyNumber + ")'>Add</button>");
                
                 
