@@ -12,8 +12,10 @@ function Issue() {
     var _this = this;
 
     _this.initialize = function () {
+        _this.AjaxLoaderVisibility(false);
         $("#save").click(function () {
             _this.CreateIssues();
+            _this.AjaxLoaderVisibility(true);
         });
 
         $("#files").kendoUpload({
@@ -27,8 +29,7 @@ function Issue() {
 
 
     _this.CreateIssues = function () {
-
-
+        
         var data = {
             type: $("#type_to_create").val(),
             priority: $("#priority_to_create").val(),
@@ -76,7 +77,18 @@ function Issue() {
             $("#description_to_create").val("");
             $("#priority_to_create").val("");
             $("#labels_to_create").val("");
+
+            _this.AjaxLoaderVisibility(false);
         });
+    };
+
+    _this.AjaxLoaderVisibility = function (display) {
+        if (display) {
+            $('.ajax-loading-block-window').show();
+        }
+        else {
+            $('.ajax-loading-block-window').hide('slow');
+        }
     };
 
 };
