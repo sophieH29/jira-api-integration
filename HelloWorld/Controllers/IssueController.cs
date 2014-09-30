@@ -216,6 +216,7 @@ namespace HelloWorld.Controllers
         public JsonResult GetAttachments(string key)
         {
             string queryString = "issue/" + key + "?fields=attachment";
+            string credToUrl = "?&os_username=enviuser&os_password=Env!user2014";
             HttpClient client = PrepareHttpClient();
             HttpResponseMessage response = client.GetAsync(queryString).Result;
 
@@ -224,16 +225,16 @@ namespace HelloWorld.Controllers
             {
                 dynamic jsonResponse = JsonConvert.DeserializeObject(response.Content.ReadAsStringAsync().Result);
                 var issuesList = jsonResponse.fields.attachment;
-
+                
                 for (int i = 0; i != issuesList.Count; i++)
                 {
                     attachments.Add(new Attachment
                     {
-                        Key = key ,
+                        Key = key,
                         Id = issuesList[i].id.ToString(),
                         CreatedDate = issuesList[i].created.ToString(),
                         Name = issuesList[i].filename.ToString(),
-                        ContentURL = issuesList[i].content.ToString()                       
+                        ContentURL = issuesList[i].content.ToString() + credToUrl                      
                     });
                 }
             }

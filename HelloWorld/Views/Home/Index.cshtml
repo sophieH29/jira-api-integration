@@ -24,7 +24,9 @@
 <br />
 
 <br />
-
+<div class="ajax-loading-block-window">
+    <div class="loading-image"></div>
+</div>
 <div id="filterSwitch">Show/Hide Filters</div>
 <div id="filterPane">
     <form style="text-align: left">
@@ -85,9 +87,7 @@
         <input type="button" value="Create Issue" />
     </a>
 </div>
-<div class="ajax-loading-block-window">
-    <div class="loading-image"></div>
-</div>
+
 <div id="tabs-1">
     <div id="grid">
         <table id="dataTable" style="width: auto; float: left;">
@@ -216,7 +216,7 @@
         </div>
          <br>
     </div>
-    <input id="hide_det" type="button" value="Hide details" style="margin-left: 5px" />
+    <input id="hide_det" type="button" value="Hide details" style="margin-left: 5px" />   
 </div>
 
 
@@ -226,8 +226,7 @@
 @section scripts{
     <script type="text/javascript">
         document.getElementById("header").innerHTML
-
-
+        
     </script>
 }
 

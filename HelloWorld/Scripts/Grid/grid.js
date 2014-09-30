@@ -39,11 +39,12 @@ function Grid() {
     var _this = this;
     var countOfTrId = 0;
     _this.initialize = function () {
-        _this.DisableFields();
+        
         _this.GetIssues();
+        _this.DisableFields();
+        
         $("#refresh").click(function () {
-            $("#tabs-2").hide();
-           
+            $("#tabs-2").hide();           
             $("#grid").empty();
             $("#grid").append("<table id='dataTable'></table>");
             _this.GetIssues();
@@ -70,22 +71,20 @@ function Grid() {
     _this.GetIssues = function () {
 
         countOfTrId = 0;
-
+        _this.AjaxLoaderVisibility(true);
         var data = {
             type: $("#type").val(),
             status: $("#status").val(),
             priority: $("#priority").val(),
             createdFrom: $("#dateFrom").val(),
             createdTo: $("#dateTo").val(),
-
         };
 
         $.ajax({
             url: "Issue/GetIssues",
             data: data,
             dataType: "json",
-            type: "POST",
-            beforeSend: _this.AjaxLoaderVisibility(true),
+            type: "POST",            
             error: function (data) {
                 alert('error:' + data);
             },
@@ -218,7 +217,7 @@ function Grid() {
             var keySplit = key.split("-");
             var keyNumber = keySplit[1];           
             // Append <tr><td> tags with datas
-            $("#attachmentsTable").append("<tr><td><a href=" + res[i].ContentURL + ">" + res[i].Name +
+            $("#attachmentsTable").append("<tr><td><a  href=" + res[i].ContentURL + " target='_blank' >" + res[i].Name +
                 "</a></td><td>" + res[i].CreatedDate + "<td><button id='deleteAttach' onclick='grid.DeleteAttachments(" + id + ','+ keyNumber + ")'>Delete</button></td>" +
                  "</td></tr>");          
 
@@ -383,7 +382,7 @@ function Grid() {
     };
     // Get list of data, and append it into table
     _this.ShowTable = function (res) {
-        _this.AjaxLoaderVisibility(false);
+        
         for (var i = 0; i < res.length; i++) {
 
             // Append <tr><td> tags with datas
@@ -397,6 +396,7 @@ function Grid() {
                 "</td><td>" + res[i].DateResolved +
                 "</td><td>" + res[i].DueDate + "</td></tr>");
         }
+        _this.AjaxLoaderVisibility(false);
         $("#dataTable").kendoGrid({
 
             columns: [
@@ -490,7 +490,7 @@ function Grid() {
                 
             }
 
-            _this.DisableFields();
+            _this.DisableFields();            
 
         };
 
