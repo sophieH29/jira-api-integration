@@ -28,6 +28,7 @@ $(function () {
     $("#tabs-2").toggle("fold");
 
     $("#det_description").autosize();
+    _this.AjaxLoaderVisibility(true);
 
     $("#det_labels").prop('disabled', true);
     $("#det_labels").css("border-color", "transparent");
@@ -485,11 +486,9 @@ function Grid() {
                 var keySplit = key.split("-");
                 var keyNumber = keySplit[1];
                 $("#newattach").empty();
-                $("#newattach").append("<button id='addnewAttach' onclick='grid.AddNewAttachments(" + keyNumber + ")'>Add</button>");
-               
+                $("#newattach").append("<button id='addnewAttach' onclick='grid.AddNewAttachments(" + keyNumber + ")'>Add</button>");              
                 
             }
-
             _this.DisableFields();            
 
         };
