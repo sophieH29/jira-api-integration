@@ -384,6 +384,7 @@
     <Content Include="Dynamic Expressions.html" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="JiraAttachments\temp.txt" />
     <Content Include="Libraries\ServiceStack.Text.dll" />
     <Content Include="Scripts\libs\additional-methods.min.js" />
     <Content Include="Scripts\libs\bootstrap-3.1.1.min.js" />
@@ -882,7 +883,9 @@
     <Content Include="Scripts\libs\respond.js" />
     <Content Include="Scripts\libs\respond.min.js" />
     <Content Include="Scripts\libs\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -957,9 +960,7 @@
     <Content Include="Scripts\kendo\2014.1.318\kendo.autocomplete.min.js.map" />
     <Content Include="Scripts\kendo\2014.1.318\jquery.min.map" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="JiraAttachments\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
