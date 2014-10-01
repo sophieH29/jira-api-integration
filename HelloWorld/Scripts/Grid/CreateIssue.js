@@ -12,11 +12,7 @@ function Issue() {
     var _this = this;
 
     _this.initialize = function () {
-        _this.AjaxLoaderVisibility(false);
-        $("#save").click(function () {
-            _this.CreateIssues();
-            _this.AjaxLoaderVisibility(true);
-        });
+        _this.AjaxLoaderVisibility(false);      
 
         $("#files").kendoUpload({
             async: {
@@ -24,6 +20,30 @@ function Issue() {
                 removeUrl: "Issue/Remove",
                 autoUpload: true
             }
+        });
+
+        jQuery.validator.setDefaults({
+            debug: true,
+            success: "valid"
+        });
+        $("#creatingForm").validate({
+            rules: {
+                summary: {
+                    required: true,
+                    maxlength: 255
+                },
+                type: {
+                    required: true
+                },
+                priority:
+                    {
+                        required: true
+                    }
+            }
+        });
+
+        $("#save").click(function () {
+            _this.CreateIssues();
         });
     };
 
@@ -38,15 +58,12 @@ function Issue() {
             labels: $("#labels_to_create").val()
         };
 
-        if ($("#type_to_create").val() == "" || $("#priority_to_create").val() == "" || $("#summary_to_create").val() == "")
+        if ($("#type_to_create").val() == "" || $("#priority_to_create").val() == "" || $("#summary_to_create").val() == "" || $("#summary_to_create").val().length > 255)
         {
-            $('#errorMessage').hide().html("Fill all fields with '*' ").fadeIn(500, function () {
-                $(this).delay(5000).fadeOut(500);
-            });
             return;
         }
         
-
+        _this.AjaxLoaderVisibility(true);
         $.ajax({
             url: "Issue/CreateIssue",
             data: data,

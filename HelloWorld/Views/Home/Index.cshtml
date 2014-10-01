@@ -8,20 +8,22 @@
 
 
 <link href="~/Content/Layout.css" rel="stylesheet" />
+<link href="~/Content/kendo/filters.css" rel="stylesheet" />
 <link href="~/Content/kendo/kendo.common.min.css" rel="stylesheet" />
 <link href="~/Content/kendo/kendo.default.min.css" rel="stylesheet" />
-<link href="~/Content/kendo/filters.css" rel="stylesheet" />
 <link href="~/Content/kendo/kendo.dataviz.css" rel="stylesheet" />
 <link href="~/Content/kendo/kendo.dataviz.default.css" rel="stylesheet" />
+<script src="~/Scripts/libs/jquery-1.10.2.min.js"></script>
 
 <script src="~/Scripts/libs/jquery.autosize.js"></script>
 <script src="~/Scripts/libs/jquery.autosize.min.js"></script>
+<script src="~/Scripts/libs/jquery.validate.min.js"></script>
+<script src="~/Scripts/libs/additional-methods.min.js"></script>
 <script src="~/Scripts/kendo/kendo.core.min.js"></script>
 <script src="~/Scripts/kendo/kendo.grid.min.js"></script>
 <script src="~/Scripts/kendo/kendo.web.min.js"></script>
 <script src="~/Scripts/kendo/kendo.all.js"></script>
 <script src="~/Scripts/Grid/grid.js"></script>
-
 
 <br />
 
@@ -117,15 +119,13 @@
 
             <div>
                 <label style="width: 100px">Type:</label>
-                <input type="text" id="det_type" />
+                <input type="text" id="det_type" name="type"/>
 
             </div>
 
             <div>
                 <label style="width: 100px">Summary:</label>
-                <input type="text" id="det_summary" style="width: 210px" />
-
-
+                <input type="text" id="det_summary" style="width: 210px" name="summary" />
             </div>
 
             <div>
@@ -150,7 +150,7 @@
 
             <div>
                 <label style="width: 100px">Priority:</label>
-                <select class="input-validation-valid" id="det_priority" style="width: 208px">
+                <select class="input-validation-valid" id="det_priority" style="width: 208px" name="priority">
                     <option value="High">High</option>
                     <option value="Immediate">Immediate</option>
                     <option value="Medium">Medium</option>
@@ -191,6 +191,7 @@
                 <input type="button" id="cancel_edit" value="Cancel" />
                 <input type="button" id="edit" value="Save" />
                 <span id="message" style="color: green"></span>
+                <span id="errorMsg" style="color: red"></span>
 
             </div>
 
@@ -205,7 +206,9 @@
     <div id="tabs-2_3">
         <div id="grid3">
         </div>
-        <div><span id="delete-message" style="color: green"></span></div>
+        <div><span id="delete-message" style="color: green"></span>
+            
+        </div>
         <div  style="display: inline-grid; padding-left:5px;">
             <label style="width: 100px">Add new attachments:</label>
             <div id="files-input" class="demo-section k-header">

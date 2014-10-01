@@ -8,12 +8,15 @@
 <h2>@ViewBag.Title</h2>
 
 <link href="~/Content/Layout.css" rel="stylesheet" />
+<link href="~/Content/kendo/filters.css" rel="stylesheet" />
 <link href="~/Content/kendo/kendo.common.min.css" rel="stylesheet" />
 <link href="~/Content/kendo/kendo.default.min.css" rel="stylesheet" />
 <script src="~/Scripts/libs/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/libs/jquery.autosize.js"></script>
 <script src="~/Scripts/libs/jquery.autosize.min.js"></script>
-<link href="~/Content/kendo/filters.css" rel="stylesheet" />
+<script src="~/Scripts/libs/jquery.validate.min.js"></script>
+<script src="~/Scripts/libs/additional-methods.min.js"></script>
+
 <script src="~/Scripts/kendo/kendo.core.min.js"></script>
 <script src="~/Scripts/kendo/kendo.grid.min.js"></script>
 <script src="~/Scripts/kendo/kendo.web.min.js"></script>
@@ -28,21 +31,21 @@
     <div class="create-form" style="width: 85%;">
 
         <div>
-            <label style="width: 100px">* Type:</label>
-            <select class="input-validation-valid" id="type_to_create">
+            <label for="type_to_create" style="width: 100px">* Type:</label>
+            <select class="input-validation-valid" id="type_to_create" name="type">
                 <option>Bug</option>
                 <option>New Feature</option>
             </select>
         </div>
 
         <div>
-            <label style="width: 100px">* Summary:</label>
-            <input type="text" class="input-validation-valid" id="summary_to_create" />
+            <label for="summary_to_create" style="width: 100px">* Summary:</label>                        
+            <input type="text" class="input-validation-valid" id="summary_to_create" name="summary"/>
 
         </div>
         <div>
-            <label style="width: 100px">* Priority:</label>
-            <select class="input-validation-valid" id="priority_to_create">
+            <label for="priority_to_create" style="width: 100px">* Priority:</label>
+            <select class="input-validation-valid" id="priority_to_create" name="priority">
                 <option>High</option>
                 <option>Immediate</option>
                 <option>Medium</option>
@@ -52,7 +55,7 @@
         </div>
 
          <div>
-            <label style="width: 100px">Project Relation:</label>
+             <label for="labels_to_create" style="width: 100px">Project Relation:</label>
             <select class="input-validation-valid" id="labels_to_create">
                 <option value="ShoppingCart">Shopping Cart</option>
                 <option value="JIRA_Integration">JIRA Integration</option>    
@@ -61,32 +64,35 @@
         </div>
 
         <div>
-            <label style="width: 100px">Description:</label>
+            <label for="description_to_create" style="width: 100px">Description:</label>
             <input type="text" class="input-validation-valid" id="description_to_create" />
 
         </div>
     </div>
     <div>
-        <label style="width: 100px">Attachments:</label>
+        <label  for="files-create" style="width: 100px">Attachments:</label>
         <div class="demo-section k-header">
             <div id="files-create">
                 <input name="files" id="files" type="file" />
             </div>
         </div>
     </div>
+
+    <div id="buttons" style="width: 85%; display: inline-block">
+        <input type="submit" name="Save" value="Save" id="save" />
+        <a href="@Url.Action("Index", "Home")">
+            <input style="width: 180px" type="button" value="Cancel / Back to table" />
+        </a>
+        <span id="messageForCreate" style="color: green"></span>
+        <span id="errorMessage" style="color: red"></span>
+    </div>
 </form>
 <div class="ajax-loading-block-window">
     <div class="loading-image"></div>
 </div>
 <br>
-<div id="buttons" style="width: 85%; display: inline-block">
-    <input type="submit" name="Save" value="Save" id="save" />
-    <a href="@Url.Action("Index", "Home")">
-        <input style="width: 180px" type="button" value="Cancel / Back to table" />
-    </a>
-    <span id="messageForCreate" style="color: green"></span>
-    <span id="errorMessage" style="color: red"></span>
-</div>
+
+
 
 
 

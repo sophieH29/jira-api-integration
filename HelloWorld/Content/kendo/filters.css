@@ -116,3 +116,17 @@ form div {
     padding: 4px;
     font-size: 13px;
 }
+
+#creatingForm label.error {
+color:red;
+}
+#creatingForm input.error {
+border:2px solid red;
+}
+
+#details label.error {
+color:red;
+}
+#details input.error {
+border:2px solid red;
+}

@@ -193,7 +193,9 @@
     <Content Include="Content\img\calendar_button.png" />
     <Content Include="Content\img\calendar_off.png" />
     <Content Include="Content\img\calendar_on.png" />
+    <Content Include="Content\img\checked.gif" />
     <Content Include="Content\img\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\img\unchecked.gif" />
     <Content Include="Content\jquery-ui-datepicker.css" />
     <Content Include="Content\kendo\2014.1.318\Black\editor.png" />
     <Content Include="Content\kendo\2014.1.318\Black\imagebrowser.png" />
@@ -383,6 +385,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Libraries\ServiceStack.Text.dll" />
+    <Content Include="Scripts\libs\additional-methods.min.js" />
     <Content Include="Scripts\libs\bootstrap-3.1.1.min.js" />
     <Content Include="Scripts\libs\bootstrap.js" />
     <Content Include="Scripts\libs\bootstrap.min.js" />

@@ -24,7 +24,7 @@ $(function () {
     // create DatePicker from input HTML element
     $("#dateFrom, #dateTo").kendoDatePicker({
         format: "yyyy-MM-dd"
-    });
+    });    
     grid.initialize();     
     
 });
@@ -40,9 +40,26 @@ function Grid() {
             $("#grid").append("<table id='dataTable'></table>");
             _this.GetIssues();
         });
-
-        $("#edit").click(function () {
-            $("#tabs-2").hide();
+        //jQuery.validator.setDefaults({
+        //    debug: true,
+        //    success: "valid"
+        //});
+        //$("#details").validate({
+        //    rules: {
+        //        summary: {
+        //            required: true,
+        //            maxlength: 255
+        //        },
+        //        type: {
+        //            required: true
+        //        },
+        //        priority:
+        //            {
+        //                required: true
+        //            }
+        //    }
+        //});
+        $("#edit").click(function () {            
             _this.EditIssues();
         });
 
@@ -171,7 +188,25 @@ function Grid() {
 
 
     _this.EditIssues = function () {
+
+
+        if ($("#det_priority").val() == "" || $("#det_type").val() == "" || $("#det_summary").val() == "" ) {
+            $('#errorMsg').hide().html("Fill all fields with '*' ").fadeIn(500, function () {
+                $(this).delay(5000).fadeOut(500);
+            });
+            
+            return;
+        }
+    if($("#det_summary").val().length > 255)
+    {
+        $('#errorMsg').hide().html("Summary length should be less than 255 characters").fadeIn(500, function () {
+            $(this).delay(5000).fadeOut(500);
+        });
        
+        return;
+
+    }
+    $("#tabs-2").hide();
         var data = {
             key: $("#det_key").val(),
             description: $("#det_description").val(),
