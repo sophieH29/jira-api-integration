@@ -521,7 +521,7 @@ function Grid() {
                 var keySplit = key.split("-");
                 var keyNumber = keySplit[1];
                 $("#newattach").empty();
-                $("#newattach").append("<button id='addnewAttach' onclick='grid.AddNewAttachments(" + keyNumber + ")'>Add</button>");              
+                $("#newattach").append("<button id='addnewAttach' style='margin-top:13px; margin-left:13px' onclick='grid.AddNewAttachments(" + keyNumber + ")'>Add</button>");              
                 
             }
             _this.DisableFields();            
