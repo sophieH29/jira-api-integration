@@ -248,12 +248,18 @@ function Grid() {
             var keySplit = key.split("-");
             var keyNumber = keySplit[1];           
             // Append <tr><td> tags with datas
-            $("#attachmentsTable").append("<tr><td><a class='fancy-image' href=" + res[i].ContentURL + " target='_blank' >" + res[i].Name +
-                "</a></td><td>" + res[i].CreatedDate + "<td><button id='deleteAttach' onclick='grid.DeleteAttachments(" + id + ','+ keyNumber + ")'>Delete</button></td>" +
-                 "</td></tr>");          
-
+            if (res[i].IsImage) {
+                $("#attachmentsTable").append("<tr><td><a class='fancy-image' href=" + res[i].ContentURL + " target='_blank' >" + res[i].Name +
+                    "</a></td><td>" + res[i].CreatedDate + "<td><button id='deleteAttach' onclick='grid.DeleteAttachments(" + id + ',' + keyNumber + ")'>Delete</button></td>" +
+                    "</td></tr>");
+            }
+            else {
+                $("#attachmentsTable").append("<tr><td><a href=" + res[i].ContentURL + " target='_blank' >" + res[i].Name +
+                   "</a></td><td>" + res[i].CreatedDate + "<td><button id='deleteAttach' onclick='grid.DeleteAttachments(" + id + ',' + keyNumber + ")'>Delete</button></td>" +
+                   "</td></tr>");
+            }
         }
-        $("a.fancy-image").fancybox();
+        
       
       
         $("#attachmentsTable").kendoGrid({
@@ -313,8 +319,7 @@ function Grid() {
          //   });
        
         };
-
-
+        $("a.fancy-image").fancybox();
     };
 
     // Get list of data, and append it into table

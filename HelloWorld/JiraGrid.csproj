@@ -189,25 +189,25 @@
     <Content Include="Content\fonts\segoeuii.svg" />
     <Content Include="Content\fonts\segoeuil.svg" />
     <Content Include="Content\fonts\segoeuisb.svg" />
-    <Content Include="Content\images\fancybox\fancybox-x.png" />
-    <Content Include="Content\images\fancybox\fancybox-y.png" />
-    <Content Include="Content\images\fancybox\fancybox.png" />
-    <Content Include="Content\images\fancybox\fancy_close.png" />
-    <Content Include="Content\images\fancybox\fancy_loading.png" />
-    <Content Include="Content\images\fancybox\fancy_nav_left.png" />
-    <Content Include="Content\images\fancybox\fancy_nav_right.png" />
-    <Content Include="Content\images\fancybox\fancy_shadow_e.png" />
-    <Content Include="Content\images\fancybox\fancy_shadow_n.png" />
-    <Content Include="Content\images\fancybox\fancy_shadow_ne.png" />
-    <Content Include="Content\images\fancybox\fancy_shadow_nw.png" />
-    <Content Include="Content\images\fancybox\fancy_shadow_s.png" />
-    <Content Include="Content\images\fancybox\fancy_shadow_se.png" />
-    <Content Include="Content\images\fancybox\fancy_shadow_sw.png" />
-    <Content Include="Content\images\fancybox\fancy_shadow_w.png" />
-    <Content Include="Content\images\fancybox\fancy_title_left.png" />
-    <Content Include="Content\images\fancybox\fancy_title_main.png" />
-    <Content Include="Content\images\fancybox\fancy_title_over.png" />
-    <Content Include="Content\images\fancybox\fancy_title_right.png" />
+    <Content Include="images\fancybox\fancybox-x.png" />
+    <Content Include="images\fancybox\fancybox-y.png" />
+    <Content Include="images\fancybox\fancybox.png" />
+    <Content Include="images\fancybox\fancy_close.png" />
+    <Content Include="images\fancybox\fancy_loading.png" />
+    <Content Include="images\fancybox\fancy_nav_left.png" />
+    <Content Include="images\fancybox\fancy_nav_right.png" />
+    <Content Include="images\fancybox\fancy_shadow_e.png" />
+    <Content Include="images\fancybox\fancy_shadow_n.png" />
+    <Content Include="images\fancybox\fancy_shadow_ne.png" />
+    <Content Include="images\fancybox\fancy_shadow_nw.png" />
+    <Content Include="images\fancybox\fancy_shadow_s.png" />
+    <Content Include="images\fancybox\fancy_shadow_se.png" />
+    <Content Include="images\fancybox\fancy_shadow_sw.png" />
+    <Content Include="images\fancybox\fancy_shadow_w.png" />
+    <Content Include="images\fancybox\fancy_title_left.png" />
+    <Content Include="images\fancybox\fancy_title_main.png" />
+    <Content Include="images\fancybox\fancy_title_over.png" />
+    <Content Include="images\fancybox\fancy_title_right.png" />
     <Content Include="Content\img\ajax_loader_large.gif" />
     <Content Include="Content\img\calendar_button.png" />
     <Content Include="Content\img\calendar_off.png" />
@@ -404,7 +404,6 @@
     <Content Include="Dynamic Expressions.html" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="JiraAttachments\temp.txt" />
     <Content Include="Libraries\ServiceStack.Text.dll" />
     <Content Include="Scripts\Grid\grid.js" />
     <Content Include="Scripts\libs\additional-methods.min.js" />
@@ -983,7 +982,9 @@
     <Content Include="Scripts\kendo\2014.1.318\kendo.autocomplete.min.js.map" />
     <Content Include="Scripts\kendo\2014.1.318\jquery.min.map" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="JiraAttachments\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>

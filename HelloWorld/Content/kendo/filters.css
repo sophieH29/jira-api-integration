@@ -2,6 +2,7 @@
     height: 30px;
     font-size: 18px;
     margin-top: 5px;
+    margin-bottom: 5px;
     padding: 5px;
     color: white;
     border: 1px solid grey;
@@ -12,10 +13,8 @@
     background-color: #678597;
 }
 
-#tabs {
-    width: 1460px;
-    margin: 0px;
-    height: 500px;
+#tabs-1 {
+    margin-top: 5px;
 }
 
 
@@ -27,8 +26,6 @@
 #tabs-2-1 {
     padding: 10px;
 }
-
-
 
 #tabs-2 h2 {
     font-weight: lighter;
@@ -51,6 +48,7 @@
 
 #filterPane {
     margin-top: 3px;
+    margin-bottom: 5px;
     border: 1px solid grey;
     -ms-border-radius: 3px 4px;
     border-radius: 3px 4px;

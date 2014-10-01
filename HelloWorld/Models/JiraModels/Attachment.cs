@@ -18,5 +18,7 @@ namespace HelloWorld.Models.JiraModels
         public string Author { get; set; }
 
         public string ContentURL { get; set; }
+
+        public bool IsImage { get; set; }
     }
 }

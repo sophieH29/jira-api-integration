@@ -228,13 +228,17 @@ namespace HelloWorld.Controllers
                 
                 for (int i = 0; i != issuesList.Count; i++)
                 {
+                   string mimeType = issuesList[i].mimeType.ToString();
+                    string[] type = mimeType.Split('/');
+                    bool isImage = type[0] == "image" ? true : false;
                     attachments.Add(new Attachment
                     {
                         Key = key,
                         Id = issuesList[i].id.ToString(),
                         CreatedDate = issuesList[i].created.ToString(),
                         Name = issuesList[i].filename.ToString(),
-                        ContentURL = issuesList[i].content.ToString() + credToUrl                      
+                        ContentURL = issuesList[i].content.ToString() + credToUrl,
+                        IsImage = isImage
                     });
                 }
             }
