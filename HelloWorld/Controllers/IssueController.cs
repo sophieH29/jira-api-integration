@@ -219,7 +219,7 @@ namespace HelloWorld.Controllers
             string credToUrl = "?&os_username=enviuser&os_password=Env!user2014";
             HttpClient client = PrepareHttpClient();
             HttpResponseMessage response = client.GetAsync(queryString).Result;
-
+            
             var attachments = new List<Attachment>();
             if (response.IsSuccessStatusCode)
             {

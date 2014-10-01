@@ -3,8 +3,19 @@
 
 $(function () {
     grid = new Grid();
-    grid.initialize();
-    $('#filterPane').toggle("fold");
+    $("#tabs-2").kendoTabStrip({
+        animation: {
+            open: {
+                effects: "fadeIn"
+            }
+        }
+    });
+    $("#hide_det").click(function () {
+        $("#tabs-2").toggle("fold");
+    });
+    $("#tabs-2").hide();
+    $('#filterPane').hide();
+    $("#det_description").autosize();
     $('#filterSwitch').click(function () {
         $('#filterPane').toggle("fold");
         if ($('#error_message_span').length)
@@ -14,38 +25,17 @@ $(function () {
     $("#dateFrom, #dateTo").kendoDatePicker({
         format: "yyyy-MM-dd"
     });
-
-    $("#tabs-2").kendoTabStrip({
-        animation: {
-            open: {
-                effects: "fadeIn"
-            }
-        }
-    });    
-    $("#hide_det").click(function () {
-        $("#tabs-2").toggle("fold");
-    });
-    $("#tabs-2").toggle("fold");
-
-    $("#det_description").autosize();
-    _this.AjaxLoaderVisibility(true);
-
-    $("#det_labels").prop('disabled', true);
-    $("#det_labels").css("border-color", "transparent");
-    $("#det_labels").css("color", "black");
+    grid.initialize();     
+    
 });
 
 function Grid() {
-
+    
     var _this = this;
     var countOfTrId = 0;
     _this.initialize = function () {
-        
-        _this.GetIssues();
-        _this.DisableFields();
-        
         $("#refresh").click(function () {
-            $("#tabs-2").hide();           
+            $("#tabs-2").hide();
             $("#grid").empty();
             $("#grid").append("<table id='dataTable'></table>");
             _this.GetIssues();
@@ -53,19 +43,22 @@ function Grid() {
 
         $("#edit").click(function () {
             $("#tabs-2").hide();
-            _this.EditIssues();           
-    });
-       
+            _this.EditIssues();
+        });
+
         $("#edit_mode").click(function () {
             $("#det_summary").prop('readonly', false);
             $("#det_summary").css("border", "1px dashed grey");
-            
+
             $("#det_priority").css("border", "1px dashed grey");
-            $("#det_priority").prop('disabled', false);           
+            $("#det_priority").prop('disabled', false);
 
             $("#det_description").prop('readonly', false);
             $("#det_description").css("border", "1px dashed grey");
         });
+        _this.DisableFields();
+         _this.GetIssues();           
+           
     };
 
 
@@ -397,7 +390,7 @@ function Grid() {
                 "</td><td>" + res[i].DateResolved +
                 "</td><td>" + res[i].DueDate + "</td></tr>");
         }
-        _this.AjaxLoaderVisibility(false);
+        
         $("#dataTable").kendoGrid({
 
             columns: [
@@ -467,7 +460,7 @@ function Grid() {
             columnMenu: true
 
         });
-
+        
         function onDataChange(e)
         {
             var selectedRows = this.select();
@@ -490,7 +483,7 @@ function Grid() {
                 
             }
             _this.DisableFields();            
-
+            
         };
 
         function onDataBound(e) {
@@ -540,6 +533,7 @@ function Grid() {
             _this.DisableFields();
            
         }
+        _this.AjaxLoaderVisibility(false);
     };
 
 
@@ -672,9 +666,8 @@ function Grid() {
         $("#det_priority").css("border-color", "transparent");
         $("#det_priority").css("color", "black");
 
-        $("#det_labels").prop('disabled', true);
-        $("#det_labels").css("border-color", "transparent");
-        $("#det_labels").css("color", "black");
+        $("#det_labels").prop('readonly', true);
+        $("#det_labels").css("border-color", "transparent");        
 
         $("#det_status").prop('readonly', true);
         $("#det_status").css("border-color", "transparent");
