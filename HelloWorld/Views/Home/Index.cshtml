@@ -13,12 +13,17 @@
 <link href="~/Content/kendo/kendo.default.min.css" rel="stylesheet" />
 <link href="~/Content/kendo/kendo.dataviz.css" rel="stylesheet" />
 <link href="~/Content/kendo/kendo.dataviz.default.css" rel="stylesheet" />
-<script src="~/Scripts/libs/jquery-1.10.2.min.js"></script>
+<link href="~/Content/jquery.fancybox-1.3.4.css" rel="stylesheet" />
 
+
+<script src="~/Scripts/libs/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/libs/jquery.autosize.js"></script>
 <script src="~/Scripts/libs/jquery.autosize.min.js"></script>
 <script src="~/Scripts/libs/jquery.validate.min.js"></script>
 <script src="~/Scripts/libs/additional-methods.min.js"></script>
+<script src="~/Scripts/libs/jquery.fancybox-1.3.4.js"></script>
+<script src="~/Scripts/libs/jquery.easing-1.4.pack.js"></script>
+<script src="~/Scripts/libs/jquery.mousewheel-3.0.4.pack.js"></script>
 <script src="~/Scripts/kendo/kendo.core.min.js"></script>
 <script src="~/Scripts/kendo/kendo.grid.min.js"></script>
 <script src="~/Scripts/kendo/kendo.web.min.js"></script>
@@ -130,10 +135,7 @@
 
             <div>
                 <label style="width: 100px">Project Relation:</label>
-                <select class="input-validation-valid" id="det_labels" style="width: 208px">
-                    <option value="ShoppingCart">Shopping Cart</option>
-                    <option value="JIRA_Integration">JIRA Integration</option>
-                </select>
+                <input type="text" id="det_labels" style="width: 210px"/>              
 
             </div>
 
@@ -209,10 +211,9 @@
         <div><span id="delete-message" style="color: green"></span>
             
         </div>
-        <div  style="display: inline-grid; padding-left:5px;">
+        <div  style="display: inline; padding-left:5px;">
             <label style="width: 100px">Add new attachments:</label>
-            <div id="files-input" class="demo-section k-header">
-
+            <div id="files-input" class="k-header">
                 <input name="files" id="files" type="file" />
             </div>
              <br>

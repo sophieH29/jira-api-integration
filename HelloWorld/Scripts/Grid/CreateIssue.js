@@ -69,8 +69,8 @@ function Issue() {
             data: data,
             dataType: "json",
             type: "POST",
-            error: function (data) {
-                alert('error:' + data);
+            error: function (res) {
+                alert('error:' + res);
             },
             type: "POST",
             success: function (msg) {

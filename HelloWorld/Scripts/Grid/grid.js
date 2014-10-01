@@ -34,6 +34,13 @@ function Grid() {
     var _this = this;
     var countOfTrId = 0;
     _this.initialize = function () {
+        $("#files").kendoUpload({
+            async: {
+                saveUrl: "Issue/FileUpload",
+                removeUrl: "Issue/Remove",
+                autoUpload: true
+            }
+        });
         $("#refresh").click(function () {
             $("#tabs-2").hide();
             $("#grid").empty();
@@ -99,7 +106,6 @@ function Grid() {
             error: function (data) {
                 alert('error:' + data);
             },
-            type: "POST",
             success: _this.ShowTable
         }).done(function () {
             _this.DisableFields();
@@ -123,7 +129,6 @@ function Grid() {
             error: function (data) {
                 alert('error:' + data);
             },
-            type: "POST",
             success: function (res) {
                 $("#grid2").empty();
                 $("#grid2").append("<table id='commentsTable'></table>");
@@ -147,7 +152,6 @@ function Grid() {
             error: function (data) {
                 alert('error:' + data);
             },
-            type: "POST",
             success: function (res) {
                 $("#grid3").empty();
                 $("#grid3").append("<table id='attachmentsTable'></table>");
@@ -173,7 +177,6 @@ function Grid() {
             error: function (data) {
                 alert('error:' + data);
             },
-            type: "POST",
             success: function (msg) {
                 $('#delete-message').hide().html(msg).fadeIn(700, function () {
                     $(this).delay(3000).fadeOut(500);
@@ -219,10 +222,9 @@ function Grid() {
             data: data,
             dataType: "json",
             type: "POST",
-            error: function (data) {
-                alert('error:' + data);
+            error: function (res) {
+                alert('error:' + res);
             },
-            type: "POST",
             success: function (msg) {               
                 $('#message').hide().html(msg).fadeIn(500, function () {
                     $(this).delay(3000).fadeOut(500);
@@ -246,11 +248,12 @@ function Grid() {
             var keySplit = key.split("-");
             var keyNumber = keySplit[1];           
             // Append <tr><td> tags with datas
-            $("#attachmentsTable").append("<tr><td><a  href=" + res[i].ContentURL + " target='_blank' >" + res[i].Name +
+            $("#attachmentsTable").append("<tr><td><a class='fancy-image' href=" + res[i].ContentURL + " target='_blank' >" + res[i].Name +
                 "</a></td><td>" + res[i].CreatedDate + "<td><button id='deleteAttach' onclick='grid.DeleteAttachments(" + id + ','+ keyNumber + ")'>Delete</button></td>" +
                  "</td></tr>");          
 
         }
+        $("a.fancy-image").fancybox();
       
       
         $("#attachmentsTable").kendoGrid({
@@ -380,10 +383,9 @@ function Grid() {
             data: data,
             dataType: "json",
             type: "POST",
-            error: function (data) {
-                alert('error:' + data);
+            error: function (res) {
+                alert('error:' + res);
             },
-            type: "POST",
             success: function (msg) {
                 if (msg == "You shoud shoose file to attach!") {
                     $('#delete-message').css("color", "red");
