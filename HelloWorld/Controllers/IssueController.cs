@@ -26,13 +26,7 @@ namespace HelloWorld.Controllers
 
             return View();
         }
-
-        [HttpGet]
-        public ActionResult Details()
-        {
-
-            return View();
-        }
+       
 
         public ActionResult FileUpload(IEnumerable<HttpPostedFileBase> files)//fileUploader name must be the name of uploader Control.
         {
@@ -216,7 +210,6 @@ namespace HelloWorld.Controllers
         public JsonResult GetAttachments(string key)
         {
             string queryString = "issue/" + key + "?fields=attachment";
-            string credToUrl = "?&os_username=enviuser&os_password=Env!user2014";
             HttpClient client = PrepareHttpClient();
             HttpResponseMessage response = client.GetAsync(queryString).Result;
             
@@ -237,7 +230,9 @@ namespace HelloWorld.Controllers
                         Id = issuesList[i].id.ToString(),
                         CreatedDate = issuesList[i].created.ToString(),
                         Name = issuesList[i].filename.ToString(),
-                        ContentURL = issuesList[i].content.ToString() + credToUrl,
+                        ContentURL = issuesList[i].content.ToString(),
+                        MimeType = issuesList[i].mimeType.ToString(),
+                        Size = issuesList[i].size.ToString(),
                         IsImage = isImage
                     });
                 }
@@ -246,6 +241,46 @@ namespace HelloWorld.Controllers
             return Json(attachments, JsonRequestBehavior.AllowGet);
         }
 
+       [HttpGet]
+        public FileContentResult ShowAttachment(string id, string fileName)
+       {
+           string fullUrl = "https://ioscorp.jira.com/secure/attachment/" + id + "/" + fileName;
+           string mimeType = System.Web.MimeMapping.GetMimeMapping(fileName);
+           // int sizeToInt = Convert.ToInt32(size);
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new System.Uri(fullUrl);
+            byte[] cred = UTF8Encoding.UTF8.GetBytes("enviuser:Env!user2014");
+            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(cred));
+            client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+            byte[] result = new byte[100000];
+            System.Net.Http.HttpResponseMessage response2 = client.GetAsync(fullUrl).Result;
+            if (response2.IsSuccessStatusCode)
+            {
+                result = response2.Content.ReadAsByteArrayAsync().Result;
+
+            }
+            return new FileContentResult(result, mimeType);
+        }
+
+        [HttpGet]
+        public FileContentResult Attach()
+        {
+            string url2 = "https://ioscorp.jira.com/secure/attachment/22527/sa_cred.txt";
+            HttpClient client = new HttpClient();
+
+            client.BaseAddress = new System.Uri(url2);
+            byte[] cred = UTF8Encoding.UTF8.GetBytes("enviuser:Env!user2014");
+            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(cred));
+            client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+            byte[] result = new byte[1000000];
+            System.Net.Http.HttpResponseMessage response2 = client.GetAsync(url2).Result;
+            if (response2.IsSuccessStatusCode)
+            {
+                result = response2.Content.ReadAsByteArrayAsync().Result;
+
+            }
+            return new FileContentResult(result, "text/plain");
+        }
         [HttpPost]
         public JsonResult DeleteAttachments(string id)
         {

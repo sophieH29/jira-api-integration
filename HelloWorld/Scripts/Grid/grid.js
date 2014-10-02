@@ -239,22 +239,43 @@ function Grid() {
         });
     };
 
+    _this.ShowAttachments = function (url, mimetype, size) {
+        
+        var data = {
+            url: url,
+            mimeType: mimetype,
+            size: size
+        };
+        $.ajax({
+            url: "Issue/ShowAttachment",
+            data: data,
+            dataType: "json",
+            type: "POST",
+            error: function(res) {
+                alert('error:' + res);
+            }
+           
+            
+        });
+
+    };
     _this.ShowTableWithAttachments = function (res) {
         var key = '';
+        
         for (var i = 0; i < res.length; i++) {
-           
              key = res[i].Key;
             var id = res[i].Id;
             var keySplit = key.split("-");
-            var keyNumber = keySplit[1];           
+            var keyNumber = keySplit[1];
+            
             // Append <tr><td> tags with datas
             if (res[i].IsImage) {
-                $("#attachmentsTable").append("<tr><td><a class='fancy-image' href=" + res[i].ContentURL + " target='_blank' >" + res[i].Name +
+                $("#attachmentsTable").append("<tr><td><a class='fancy-image' href='/Issue/ShowAttachment/" + res[i].Id + "?fileName=" + res[i].Name + "' >" + res[i].Name +
                     "</a></td><td>" + res[i].CreatedDate + "<td><button id='deleteAttach' onclick='grid.DeleteAttachments(" + id + ',' + keyNumber + ")'>Delete</button></td>" +
                     "</td></tr>");
             }
             else {
-                $("#attachmentsTable").append("<tr><td><a href=" + res[i].ContentURL + " target='_blank' >" + res[i].Name +
+                $("#attachmentsTable").append("<tr><td><a href='/Issue/ShowAttachment/" + res[i].Id + "?fileName=" + res[i].Name + "' target='_blank' >" + res[i].Name +
                    "</a></td><td>" + res[i].CreatedDate + "<td><button id='deleteAttach' onclick='grid.DeleteAttachments(" + id + ',' + keyNumber + ")'>Delete</button></td>" +
                    "</td></tr>");
             }

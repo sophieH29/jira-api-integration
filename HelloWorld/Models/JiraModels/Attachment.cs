@@ -19,6 +19,10 @@ namespace HelloWorld.Models.JiraModels
 
         public string ContentURL { get; set; }
 
+        public string MimeType { get; set; }
+
+        public string Size { get; set; }
+
         public bool IsImage { get; set; }
     }
 }
