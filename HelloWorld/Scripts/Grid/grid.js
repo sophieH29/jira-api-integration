@@ -56,7 +56,8 @@ function Grid() {
                 saveUrl: "Issue/FileUpload",
                 removeUrl: "Issue/Remove",
                 autoUpload: true
-            }
+            },
+            select: onSelect
         });
         $("#refresh").click(function () {
             $("#tabs-2").hide();
@@ -100,6 +101,21 @@ function Grid() {
         _this.DisableFields();
          _this.GetIssues();           
            
+    };
+    
+    function onSelect(e) {
+        var selected = e.files;
+        var filesInList = $(".k-upload-files .k-filename");
+
+        for (var i = 0; i < selected.length; i++) {
+            var filename = selected[i].name;
+
+            filesInList.each(function () {
+                if ($(this).text() === filename) {
+                    e.preventDefault();
+                }
+            });
+        }
     };
 
 

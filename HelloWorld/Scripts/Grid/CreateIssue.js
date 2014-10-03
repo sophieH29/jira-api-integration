@@ -34,7 +34,8 @@ function Issue() {
                 saveUrl: "Issue/FileUpload",
                 removeUrl: "Issue/Remove",
                 autoUpload: true
-            }
+            },
+            select: onSelect
         });
 
         jQuery.validator.setDefaults({
@@ -60,6 +61,20 @@ function Issue() {
         $("#save").click(function () {
             _this.CreateIssues();
         });
+    };
+    function onSelect(e) {
+        var selected = e.files;
+        var filesInList = $(".k-upload-files .k-filename");
+
+        for (var i = 0; i < selected.length; i++) {
+            var filename = selected[i].name;
+
+            filesInList.each(function () {
+                if ($(this).text() === filename) {
+                    e.preventDefault();
+                }
+            });
+        }
     };
 
 
