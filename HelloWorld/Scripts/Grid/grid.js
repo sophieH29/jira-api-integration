@@ -303,12 +303,12 @@ function Grid() {
             
             // Append <tr><td> tags with datas
             if (res[i].IsImage) {
-                $("#attachmentsTable").append("<tr><td><a class='fancy-image' href='/Issue/ShowAttachment/" + res[i].Id + "?fileName=" + res[i].Name + "' >" + res[i].Name +
+                $("#attachmentsTable").append("<tr><td><a class='fancy-image' href='Issue/ShowAttachment/" + res[i].Id + "?fileName=" + res[i].Name + "' >" + res[i].Name +
                     "</a></td><td>" + res[i].CreatedDate + "<td><button id='deleteAttach' onclick='grid.DeleteAttachments(" + id + ',' + keyNumber + ")'>Delete</button></td>" +
                     "</td></tr>");
             }
             else {
-                $("#attachmentsTable").append("<tr><td><a href='/Issue/ShowAttachment/" + res[i].Id + "?fileName=" + res[i].Name + "' target='_blank' >" + res[i].Name +
+                $("#attachmentsTable").append("<tr><td><a href='Issue/ShowAttachment/" + res[i].Id + "?fileName=" + res[i].Name + "' target='_blank' >" + res[i].Name +
                    "</a></td><td>" + res[i].CreatedDate + "<td><button id='deleteAttach' onclick='grid.DeleteAttachments(" + id + ',' + keyNumber + ")'>Delete</button></td>" +
                    "</td></tr>");
             }
@@ -611,11 +611,27 @@ function Grid() {
 
                 $("#cancel_edit").click(function () {
                     _this.DisableFields();
-                
                 $("#det_key").val(res[rowIdx].Key);
                 $("#det_type").val(res[rowIdx].Type);
                 $("#det_summary").val(res[rowIdx].Summary);
                 $("#det_description").val(res[rowIdx].Description);
+                $("#det_description").keyup(function (e) {
+                    autoheight(this);
+                });
+
+                function autoheight(a) {
+                    if (!$(a).prop('scrollTop')) {
+                        do {
+                            var b = $(a).prop('scrollHeight');
+                            var h = $(a).height();
+                            $(a).height(h - 5);
+                        }
+                        while (b && (b != $(a).prop('scrollHeight')));
+                    };
+                    $(a).height($(a).prop('scrollHeight') + 20);
+                }
+
+                autoheight($("#det_description"));
                 $("#det_labels").val(res[rowIdx].Label);
                 $("#det_priority").val(res[rowIdx].Priority);
                 $("#det_status").val(res[rowIdx].Status);
@@ -629,6 +645,22 @@ function Grid() {
             _this.DisableFields();
            
         }
+        
+        function resizeTextarea(id) {
+            var a = document.getElementById(id);
+            a.style.height = 'auto';
+            a.style.height = a.scrollHeight + 'px';
+        }
+
+        function init() {
+            var a = document.getElementsByTagName('textarea');
+            for (var i = 0, inb = a.length; i < inb; i++) {
+                if (a[i].getAttribute('data-resizable') == 'true')
+                    resizeTextarea(a[i].id);
+            }
+        }
+
+        addEventListener('DOMContentLoaded', init);
         _this.AjaxLoaderVisibility(false);
     };
 
