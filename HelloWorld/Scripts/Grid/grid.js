@@ -34,6 +34,23 @@ function Grid() {
     var _this = this;
     var countOfTrId = 0;
     _this.initialize = function () {
+        
+        var position1 = $("#type").on('change', function () {
+            position1.find('option:selected').prependTo(position1);
+        });
+
+        var position2 = $("#priority").on('change', function () {
+            position2.find('option:selected').prependTo(position2);
+        });
+
+        var position3 = $("#status").on('change', function () {
+            position3.find('option:selected').prependTo(position3);
+        });
+        
+        var position4 = $("#det_priority").on('change', function () {
+            position4.find('option:selected').prependTo(position4);
+        });
+
         $("#files").kendoUpload({
             async: {
                 saveUrl: "Issue/FileUpload",

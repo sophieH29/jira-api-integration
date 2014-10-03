@@ -12,8 +12,23 @@ function Issue() {
     var _this = this;
 
     _this.initialize = function () {
-        _this.AjaxLoaderVisibility(false);      
-
+        _this.AjaxLoaderVisibility(false);
+        
+        var position1 = $("#priority_to_create").on('change', function () {
+            position1.find('option:selected').prependTo(position1);
+        });
+        
+        var position2 = $("#labels_to_create").on('change', function () {
+            position2.find('option:selected').prependTo(position2);
+        });
+        
+        var position3 = $("#type_to_create").on('change', function () {
+            position3.find('option:selected').prependTo(position3);
+        });
+        //$("#priority_to_create").kendoDropDownList();
+        //$("#labels_to_create").kendoDropDownList();
+        //$("#type_to_create").kendoDropDownList();
+        
         $("#files").kendoUpload({
             async: {
                 saveUrl: "Issue/FileUpload",

@@ -80,9 +80,7 @@
 
     <div id="buttons" style="width: 85%; display: inline-block">
         <input type="submit" name="Save" value="Save" id="save" />
-        <a href="@Url.Action("Index", "Home")">
-            <input style="width: 180px" type="button" value="Cancel / Back to table" />
-        </a>
+        <button type="button" style="width: 180px" onclick="location.href='@Url.Action("Index", "Home")'">Cancel / Back to table</button>
         <span id="messageForCreate" style="color: green"></span>
         <span id="errorMessage" style="color: red"></span>
     </div>
