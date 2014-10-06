@@ -50,7 +50,7 @@ function Grid() {
         var position4 = $("#det_priority").on('change', function () {
             position4.find('option:selected').prependTo(position4);
         });
-
+        
         $("#files").kendoUpload({
             async: {
                 saveUrl: "Issue/FileUpload",
@@ -102,6 +102,17 @@ function Grid() {
          _this.GetIssues();           
            
     };
+    function autoheight(a) {
+        if (!$(a).prop('scrollTop')) {
+            do {
+                var b = $(a).prop('scrollHeight');
+                var h = $(a).height();
+                $(a).height(h - 5);
+            }
+            while (b && (b != $(a).prop('scrollHeight')));
+        };
+        $(a).height($(a).prop('scrollHeight') + 20);
+    }
     
     function onSelect(e) {
         var selected = e.files;
@@ -597,7 +608,8 @@ function Grid() {
                 $("#det_key").val(res[rowIdx].Key);
                 $("#det_type").val(res[rowIdx].Type);
                 $("#det_summary").val(res[rowIdx].Summary);
-                $("#det_description").val(res[rowIdx].Description);
+                // $("#det_description").val(res[rowIdx].Description);
+                $("#det_description").val(res[rowIdx].Description).trigger('autosize.resize');
                 $("#det_labels").val(res[rowIdx].Label);
                 $("#det_priority").val(res[rowIdx].Priority);
                 $("#det_status").val(res[rowIdx].Status);
@@ -614,24 +626,7 @@ function Grid() {
                 $("#det_key").val(res[rowIdx].Key);
                 $("#det_type").val(res[rowIdx].Type);
                 $("#det_summary").val(res[rowIdx].Summary);
-                $("#det_description").val(res[rowIdx].Description);
-                $("#det_description").keyup(function (e) {
-                    autoheight(this);
-                });
-
-                function autoheight(a) {
-                    if (!$(a).prop('scrollTop')) {
-                        do {
-                            var b = $(a).prop('scrollHeight');
-                            var h = $(a).height();
-                            $(a).height(h - 5);
-                        }
-                        while (b && (b != $(a).prop('scrollHeight')));
-                    };
-                    $(a).height($(a).prop('scrollHeight') + 20);
-                }
-
-                autoheight($("#det_description"));
+                $("#det_description").val(res[rowIdx].Description).trigger('autosize.resize');
                 $("#det_labels").val(res[rowIdx].Label);
                 $("#det_priority").val(res[rowIdx].Priority);
                 $("#det_status").val(res[rowIdx].Status);

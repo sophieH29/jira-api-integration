@@ -59,13 +59,15 @@
                  left:12%;
                  
             }
-            #container input[type=text], input[type=password], select, textarea  
+
+            input[type=text], input[type=password], select, textarea  
             {
                 width: 200px;               
                 box-sizing: border-box;
                 -moz-box-sizing: border-box;
                 -webkit-box-sizing: border-box;
             }
+
             .control-label {
                 width: 120px;
                 display: inline-block;
@@ -96,6 +98,20 @@ input[type=button], input[type=submit] {
 
 .ajax-loading-block-window{position:fixed;top:50%;left:50%;width:128px;height:128px;overflow:hidden;z-index:1104;}
 .ajax-loading-block-window .loading-image{position:absolute;top:0;left:0;width:128px;height:128px;background-image:url('img/ajax_loader_large.gif');}
+
+#det_description {
+ 
+    width: 900px;
+    height: 20px;
+    resize: none;
+    overflow: hidden;
+    
+
+}
+
+#det_summary {
+    width: 900px;
+}
 
 
 
