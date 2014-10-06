@@ -585,9 +585,10 @@ function Grid() {
                 var key = selectedDataItems[i].Key;
                 var keySplit = key.split("-");
                 var keyNumber = keySplit[1];
-                $("#newattach").empty();
-                $("#newattach").append("<button id='addnewAttach' style='margin-top:13px; margin-left:13px' onclick='grid.AddNewAttachments(" + keyNumber + ")'>Add</button>");              
-                
+                          
+                $("#addnewAttach").click(function () {
+                    grid.AddNewAttachments(keyNumber);
+                });
             }
             _this.DisableFields();            
             
@@ -608,7 +609,6 @@ function Grid() {
                 $("#det_key").val(res[rowIdx].Key);
                 $("#det_type").val(res[rowIdx].Type);
                 $("#det_summary").val(res[rowIdx].Summary);
-                // $("#det_description").val(res[rowIdx].Description);
                 $("#det_description").val(res[rowIdx].Description).trigger('autosize.resize');
                 $("#det_labels").val(res[rowIdx].Label);
                 $("#det_priority").val(res[rowIdx].Priority);

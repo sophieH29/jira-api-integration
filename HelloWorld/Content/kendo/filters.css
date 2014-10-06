@@ -9,7 +9,6 @@
     -ms-border-radius: 3px 4px;
     border-radius: 3px 4px;
     cursor: pointer;
-    /*background: #cccccc url(/Content/img/ui-bg_highlight-soft_75_cccccc_1x100.png) 50% 50% repeat-x;*/
     background-color: #678597;
 }
 
@@ -18,7 +17,7 @@
 }
 
 
-#tabs-2-1, #tabs-2-2,#tabs-2-3  {
+#tabs-2-1, #tabs-2-2, #tabs-2-3 {
     margin-left: 5px;
     padding: 0px;
 }
@@ -34,12 +33,14 @@
     margin: 0;
 }
 
-    #tabs-2 h2 span {
+ #tabs-2 h2 span {
+
         background: none;
         padding-left: 5px;
         font-size: .5em;
         vertical-align: top;
-    }
+
+ }
 
 #tabs-2 p {
     margin: 0;
@@ -116,15 +117,17 @@ form div {
 }
 
 #creatingForm label.error {
-color:red;
+    color: red;
 }
+
 #creatingForm input.error {
-border:2px solid red;
+    border: 2px solid red;
 }
 
 #details label.error {
-color:red;
+    color: red;
 }
+
 #details input.error {
-border:2px solid red;
+    border: 2px solid red;
 }

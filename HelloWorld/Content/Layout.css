@@ -81,9 +81,21 @@
             .validation-summary-errors {
                 color: red;
             }
-input[type=button], input[type=submit] {
+input[type=button], input[type=submit], button {
     width: 120px;
+    border-color:rgb(221, 221, 221);
+    border-radius: 5px;
+     padding-bottom: 0px;
+    padding-top: 0px;
 }
+
+#addnewAttach {
+    
+    margin: 5px;
+    width: 115px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+ }
 .create-form {
     margin-top: 50px;
 }
@@ -105,8 +117,6 @@ input[type=button], input[type=submit] {
     height: 20px;
     resize: none;
     overflow: hidden;
-    
-
 }
 
 #det_summary {
