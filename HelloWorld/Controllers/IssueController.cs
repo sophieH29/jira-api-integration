@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Linq;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using HelloWorld.Models.JiraModels;
 using ServiceStack.Text;
@@ -38,8 +39,6 @@ namespace HelloWorld.Controllers
                 // Some browsers send file names with full path. We only care about the file name.
                 var fileName = Path.GetFileName(file.FileName);
                 var destinationPath = Path.Combine(Server.MapPath("~/JiraAttachments/"), fileName);
-
-
                 file.SaveAs(destinationPath);
             }
 
@@ -56,17 +55,11 @@ namespace HelloWorld.Controllers
                 var fileName = Path.GetFileName(fullName);
                 var physicalPath = Path.Combine(Server.MapPath("~/JiraAttachments/"), fileName);
 
-
-                // TODO: Verify user permissions
-
-
                 if (System.IO.File.Exists(physicalPath))
                 {
                     System.IO.File.Delete(physicalPath);
                 }
             }
-
-
             // Return an empty string to signify success
             return Content("");
 
@@ -74,7 +67,7 @@ namespace HelloWorld.Controllers
 
 
         [HttpPost]
-        public JsonResult CreateIssue(string type, string priority, string summary, string description, string[] labels)
+        public async Task<JsonResult> CreateIssue(string type, string priority, string summary, string description, string[] labels)
         {
             string postBody = "";
             if (type == "New Feature")
@@ -105,10 +98,8 @@ namespace HelloWorld.Controllers
                 postBody = ServiceStack.Text.JsonSerializer.SerializeToString(data);
             }
             HttpClient client = PrepareHttpClient();
-
-            System.Net.Http.HttpContent content = new System.Net.Http.StringContent(postBody, Encoding.UTF8, "application/json");
-
-            System.Net.Http.HttpResponseMessage response = client.PostAsync("issue", content).Result;
+            HttpContent content = new StringContent(postBody, Encoding.UTF8, "application/json");
+            var response = await client.PostAsync("issue", content);
 
             string key = "";
             if (response.IsSuccessStatusCode)
@@ -125,8 +116,7 @@ namespace HelloWorld.Controllers
             {
                 foreach (string fileName in fileNames)
                 {
-                    System.Net.Http.HttpResponseMessage response2 = null;
-                    MultipartFormDataContent content2 = null;
+                   MultipartFormDataContent content2 = null;
                     string filepath = "";
                     if (fileName.Length != 0)
                     {
@@ -140,7 +130,7 @@ namespace HelloWorld.Controllers
 
                         content2.Add(fileContent, "file", fileName);
 
-                        response2 = client.PostAsync("issue/" + key + "/attachments", content2).Result;
+                        var response2 = await client.PostAsync("issue/" + key + "/attachments", content2);
                         if (response2.IsSuccessStatusCode)
                         {
                             var file = Path.GetFileName(fileName);
@@ -160,7 +150,7 @@ namespace HelloWorld.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetIssues(string type, string status, string priority, string createdFrom, string createdTo)
+        public async Task<JsonResult> GetIssues(string type, string status, string priority, string createdFrom, string createdTo)
         {
 
             string query = "project = IECF ";
@@ -176,8 +166,7 @@ namespace HelloWorld.Controllers
                 query = query + " AND created <= " + createdTo;
             string queryString = "search?jql=" + query;
             HttpClient client = PrepareHttpClient();
-            HttpResponseMessage response = client.GetAsync(queryString).Result;
-
+            var response = await client.GetAsync(queryString);
             var issues = new List<Issue>();
             if (response.IsSuccessStatusCode)
             {
@@ -202,16 +191,31 @@ namespace HelloWorld.Controllers
                     });
                 }
             }
+            
+            //foreach (var issue in issues)
+            //{
+            //    var response2 = await client.GetAsync("issue/" + issue.Key + "?fields=attachment");
+            //    if (response2.IsSuccessStatusCode)
+            //    {
+            //        dynamic jsonResponse2 = JsonConvert.DeserializeObject(response2.Content.ReadAsStringAsync().Result);
+            //        var attachList = jsonResponse2.fields.attachment;
+            //        if (attachList.Count !=0)
+            //        {
+            //            issue.HasAttach = "<img src='Content/img/attach.jpg' alt='attachment' height='50' width='50'>";
+            //        }
+            //        else issue.HasAttach = "";
+            //    }
+            //}
 
             return Json(issues, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public JsonResult GetAttachments(string key)
+        public async Task<JsonResult> GetAttachments(string key)
         {
             string queryString = "issue/" + key + "?fields=attachment";
             HttpClient client = PrepareHttpClient();
-            HttpResponseMessage response = client.GetAsync(queryString).Result;
+            var response = await client.GetAsync(queryString);
             
             var attachments = new List<Attachment>();
             if (response.IsSuccessStatusCode)
@@ -262,31 +266,14 @@ namespace HelloWorld.Controllers
             return new FileContentResult(result, mimeType);
         }
 
-        [HttpGet]
-        public FileContentResult Attach()
-        {
-            string url2 = "https://ioscorp.jira.com/secure/attachment/22527/sa_cred.txt";
-            HttpClient client = new HttpClient();
+        
 
-            client.BaseAddress = new System.Uri(url2);
-            byte[] cred = UTF8Encoding.UTF8.GetBytes("enviuser:Env!user2014");
-            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(cred));
-            client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-            byte[] result = new byte[1000000];
-            System.Net.Http.HttpResponseMessage response2 = client.GetAsync(url2).Result;
-            if (response2.IsSuccessStatusCode)
-            {
-                result = response2.Content.ReadAsByteArrayAsync().Result;
-
-            }
-            return new FileContentResult(result, "text/plain");
-        }
         [HttpPost]
-        public JsonResult DeleteAttachments(string id)
+        public async Task<JsonResult> DeleteAttachments(string id)
         {
             string queryString = "attachment/" + id;
             HttpClient client = PrepareHttpClient();
-            HttpResponseMessage response = client.DeleteAsync(queryString).Result;
+            var response = await client.DeleteAsync(queryString);
             var res = "";
             if (response.IsSuccessStatusCode)
             {
@@ -297,7 +284,7 @@ namespace HelloWorld.Controllers
         }
 
         [HttpPost]
-        public JsonResult AddNewAttachments(string key)
+        public async  Task<JsonResult> AddNewAttachments(string key)
         {
             HttpClient client = PrepareHttpClient();
             string res = "";
@@ -311,7 +298,6 @@ namespace HelloWorld.Controllers
             {
                 foreach (string fileName in fileNames)
                 {
-                    System.Net.Http.HttpResponseMessage response2 = null;
                     MultipartFormDataContent content2 = null;
                     string filepath = "";
                     if (fileName.Length != 0)
@@ -326,7 +312,7 @@ namespace HelloWorld.Controllers
 
                         content2.Add(fileContent, "file", fileName);
 
-                        response2 = client.PostAsync("issue/" + key + "/attachments", content2).Result;
+                        var response2 = await client.PostAsync("issue/" + key + "/attachments", content2);
                         if (response2.IsSuccessStatusCode)
                         {
                             var file = Path.GetFileName(fileName);
@@ -345,11 +331,11 @@ namespace HelloWorld.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetComments(string key)
+        public async Task<JsonResult> GetComments(string key)
         {
             string queryString = "issue/" + key + "/comment?expand";
             HttpClient client = PrepareHttpClient();
-            HttpResponseMessage response = client.GetAsync(queryString).Result;
+            var response = await client.GetAsync(queryString);
 
             var comments = new List<Comment>();
             if (response.IsSuccessStatusCode)
@@ -373,7 +359,7 @@ namespace HelloWorld.Controllers
         }
 
         [HttpPost]
-        public JsonResult EditIssue(string key, string priority, string summary, string description)
+        public async Task<JsonResult> EditIssue(string key, string priority, string summary, string description)
         {
 
             var data = new IssueToEdit();
@@ -385,19 +371,14 @@ namespace HelloWorld.Controllers
             data.fields.assignee.name = "enviuser";
 
             HttpClient client = PrepareHttpClient();
-
             string postBody = ServiceStack.Text.JsonSerializer.SerializeToString(data);
-
-            System.Net.Http.HttpContent content = new System.Net.Http.StringContent(postBody, Encoding.UTF8, "application/json");
-
-            System.Net.Http.HttpResponseMessage response = client.PutAsync("issue/" + key, content).Result;
-
+            HttpContent content = new System.Net.Http.StringContent(postBody, Encoding.UTF8, "application/json");
+            var response = await client.PutAsync("issue/" + key, content);
             var res = "";
             if (response.IsSuccessStatusCode)
             {
                 res = "Successfully edited!";
             }
-
             return Json(res, JsonRequestBehavior.AllowGet);
         }
 

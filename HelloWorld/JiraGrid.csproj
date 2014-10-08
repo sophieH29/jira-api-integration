@@ -189,6 +189,7 @@
     <Content Include="Content\fonts\segoeuii.svg" />
     <Content Include="Content\fonts\segoeuil.svg" />
     <Content Include="Content\fonts\segoeuisb.svg" />
+    <Content Include="Content\img\attach.jpg" />
     <Content Include="images\fancybox\fancybox-x.png" />
     <Content Include="images\fancybox\fancybox-y.png" />
     <Content Include="images\fancybox\fancybox.png" />
@@ -982,6 +983,7 @@
     <Content Include="Scripts\kendo\2014.1.318\kendo.binder.min.js.map" />
     <Content Include="Scripts\kendo\2014.1.318\kendo.autocomplete.min.js.map" />
     <Content Include="Scripts\kendo\2014.1.318\jquery.min.map" />
+    <Content Include="store.appcache" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

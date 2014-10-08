@@ -1,226 +1,228 @@
 ﻿@using System.Web
 @using System.Web.Optimization
 
-@{
-    ViewBag.Title = "IECF";
-}
+
 <h2>Hello from Jira view.</h2>
 
+<html manifest="store.appcache">
+    <head>
+        <title>@ViewBag.Title = "IECF"</title>  
+        <link href="~/Content/Layout.css" rel="stylesheet" />
+        <link href="~/Content/kendo/filters.css" rel="stylesheet" />
+        <link href="~/Content/kendo/kendo.common.min.css" rel="stylesheet" />
+        <link href="~/Content/kendo/kendo.default.min.css" rel="stylesheet" />
+        <link href="~/Content/kendo/kendo.dataviz.css" rel="stylesheet" />
+        <link href="~/Content/kendo/kendo.dataviz.default.css" rel="stylesheet" />
+        <link href="~/Content/jquery.fancybox-1.3.4.css" rel="stylesheet" />
 
-<link href="~/Content/Layout.css" rel="stylesheet" />
-<link href="~/Content/kendo/filters.css" rel="stylesheet" />
-<link href="~/Content/kendo/kendo.common.min.css" rel="stylesheet" />
-<link href="~/Content/kendo/kendo.default.min.css" rel="stylesheet" />
-<link href="~/Content/kendo/kendo.dataviz.css" rel="stylesheet" />
-<link href="~/Content/kendo/kendo.dataviz.default.css" rel="stylesheet" />
-<link href="~/Content/jquery.fancybox-1.3.4.css" rel="stylesheet" />
 
-
-<script src="~/Scripts/libs/jquery-1.10.2.min.js"></script>
-<script src="~/Scripts/libs/jquery.autosize.js"></script>
-<script src="~/Scripts/libs/jquery.autosize.min.js"></script>
-<script src="~/Scripts/libs/jquery.validate.min.js"></script>
-<script src="~/Scripts/libs/additional-methods.min.js"></script>
-<script src="~/Scripts/libs/jquery.fancybox-1.3.4.js"></script>
-<script src="~/Scripts/libs/jquery.easing-1.4.pack.js"></script>
-<script src="~/Scripts/libs/jquery.mousewheel-3.0.4.pack.js"></script>
-<script src="~/Scripts/kendo/kendo.core.min.js"></script>
-<script src="~/Scripts/kendo/kendo.grid.min.js"></script>
-<script src="~/Scripts/kendo/kendo.web.min.js"></script>
-<script src="~/Scripts/kendo/kendo.all.js"></script>
-<script src="~/Scripts/Grid/grid.js"></script>
-
-<br />
-<br />
-<div class="ajax-loading-block-window">
-    <div class="loading-image"></div>
-</div>
-<div id="filterSwitch">Show/Hide Filters</div>
-<div id="filterPane">
-    <form style="text-align: left">
-        <div style="width: 85%; display: inline">
-            <div>
+        <script src="~/Scripts/libs/jquery-1.10.2.min.js"></script>
+        <script src="~/Scripts/libs/jquery.autosize.js"></script>
+        <script src="~/Scripts/libs/jquery.autosize.min.js"></script>
+        <script src="~/Scripts/libs/jquery.validate.min.js"></script>
+        <script src="~/Scripts/libs/additional-methods.min.js"></script>
+        <script src="~/Scripts/libs/jquery.fancybox-1.3.4.js"></script>
+        <script src="~/Scripts/libs/jquery.easing-1.4.pack.js"></script>
+        <script src="~/Scripts/libs/jquery.mousewheel-3.0.4.pack.js"></script>
+        <script src="~/Scripts/kendo/kendo.core.min.js"></script>
+        <script src="~/Scripts/kendo/kendo.grid.min.js"></script>
+        <script src="~/Scripts/kendo/kendo.web.min.js"></script>
+        <script src="~/Scripts/kendo/kendo.all.js"></script>
+        <script src="~/Scripts/Grid/grid.js"></script>
+    </head>
+    <body>
+    <br />
+    <br />
+    <div class="ajax-loading-block-window">
+        <div class="loading-image"></div>
+    </div>
+    <div id="filterSwitch">Show/Hide Filters</div>
+    <div id="filterPane">
+        <form style="text-align: left">
+            <div style="width: 85%; display: inline">
                 <div>
-                    <label>Type:</label>
-                    <select class="input-validation-valid" id="type">
-                        <option value="">All</option>
-                        <option value="Bug">Bug</option>
-                        <option value="New Feature">New Feature</option>
-                    </select>
+                    <div>
+                        <label>Type:</label>
+                        <select class="input-validation-valid" id="type">
+                            <option value="">All</option>
+                            <option value="Bug">Bug</option>
+                            <option value="New Feature">New Feature</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Priority:</label>
+                        <select class="input-validation-valid" id="priority">
+                            <option value="">All</option>
+                            <option value="High">High</option>
+                            <option value="Immediate">Immediate</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Low">Low</option>
+                            <option value="On Hold">On Hold</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Status:</label>
+                        <select class="input-validation-valid" id="status">
+                            <option value="">All</option>
+                            <option value="Open">Open</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Reopened">Reopened</option>
+                            <option value="Resolved">Resolved</option>
+                            <option value="Closed">Closed</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label>Created From: </label>
+                        <input type="text" id="dateFrom" placeholder="Created From..." />
+                    </div>
+
+                    <div>
+                        <label>Created To: </label>
+                        <input type="text" id="dateTo" placeholder="Created To..." />
+                    </div>
                 </div>
+                <input style="width: 150px" type="button" id="refresh" value="Apply" />
+            </div>
+
+        </form>
+
+    </div>
+
+
+    <div id="buttons" style="width: 85%; display: inline-block">
+
+        <a href="@Url.Action("Index", "Issue")">
+            <input type="button" value="Create Issue" />
+        </a>
+    </div>
+
+    <div id="tabs-1">
+        <div id="grid">
+            <table id="dataTable" style="width: auto; float: left;">
+            </table>
+        </div>
+    </div>
+    <div id="tabs-2">
+
+        <ul>
+            <li class="k-state-active">Details
+            </li>
+            <li>Comments
+            </li>
+            <li>Attachments
+            </li>
+        </ul>
+        <div id="tabs-2-1">
+            <div id="details">
+
                 <div>
-                    <label>Priority:</label>
-                    <select class="input-validation-valid" id="priority">
-                        <option value="">All</option>
+                    <label style="width: 100px">Key:</label>
+                    <input type="text" id="det_key" />
+
+                </div>
+
+                <div>
+                    <label style="width: 100px">Type:</label>
+                    <input type="text" id="det_type" name="type" />
+
+                </div>
+
+                <div>
+                    <label style="width: 100px">Summary:</label>
+                    <input type="text" id="det_summary" name="summary" />
+                </div>
+
+                <div>
+                    <label style="width: 100px">Project Relation:</label>
+                    <input type="text" id="det_labels" style="width: 210px" />
+
+                </div>
+
+                <div id="textareaDescription">
+                    <label style="width: 100px">Description:</label>
+                    <textarea id="det_description" data-role="none" ></textarea>
+                </div>
+
+                <div>
+                    <label style="width: 100px">Status:</label>
+                    <input type="text" id="det_status" />
+
+                </div>
+
+                <div>
+                    <label style="width: 100px">Priority:</label>
+                    <select id="det_priority" style="width: 208px" name="priority">
                         <option value="High">High</option>
                         <option value="Immediate">Immediate</option>
                         <option value="Medium">Medium</option>
                         <option value="Low">Low</option>
                         <option value="On Hold">On Hold</option>
                     </select>
-                </div>
-                <div>
-                    <label>Status:</label>
-                    <select class="input-validation-valid" id="status">
-                        <option value="">All</option>
-                        <option value="Open">Open</option>
-                        <option value="In Progress">In Progress</option>
-                        <option value="Reopened">Reopened</option>
-                        <option value="Resolved">Resolved</option>
-                        <option value="Closed">Closed</option>
-                    </select>
+
                 </div>
 
                 <div>
-                    <label>Created From: </label>
-                    <input type="text" id="dateFrom" placeholder="Created From..." />
+                    <label style="width: 100px">Created:</label>
+                    <input type="text" id="det_created" />
+
                 </div>
 
                 <div>
-                    <label>Created To: </label>
-                    <input type="text" id="dateTo" placeholder="Created To..." />
+                    <label style="width: 100px">Updated:</label>
+                    <input type="text" id="det_updated" />
+
+                </div>
+
+                <div>
+                    <label style="width: 100px">Resolved:</label>
+                    <input type="text" id="det_resolved" />
+
+                </div>
+
+                <div>
+                    <label style="width: 100px">Due:</label>
+                    <input type="text" id="det_due" />
+
+                </div>
+                <br>
+                <br>
+                <div id="buttons2" style="width: 85%; display: inline-block">
+
+                    <input type="button" id="edit_mode" value="Edit" />
+                    <input type="button" id="cancel_edit" value="Cancel" />
+                    <input type="button" id="edit" value="Save" />
+                    <span id="message" style="color: green"></span>
+                    <span id="errorMsg" style="color: red"></span>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div id="tabs-2_2">
+            <div id="grid2">
+            </div>
+        </div>
+
+        <div id="tabs-2_3">
+            <div id="grid3">
+            </div>
+            <div>
+                <span id="delete-message" style="color: green"></span>
+
+            </div>
+            <div style="display: inline; padding-left: 5px;">
+                <label style="width: 100px">Add new attachments:</label>
+                <div id="files-input" class="k-header">
+                    <input name="files" id="files" type="file" />
+                </div>
+                <div id="newattach">
+                    <button id='addnewAttach'>Add</button>
                 </div>
             </div>
-            <input style="width: 150px" type="button" id="refresh" value="Apply" />
         </div>
-
-    </form>
-
-</div>
-
-
-<div id="buttons" style="width: 85%; display: inline-block">
-
-    <a href="@Url.Action("Index", "Issue")">
-        <input type="button" value="Create Issue" />
-    </a>
-</div>
-
-<div id="tabs-1">
-    <div id="grid">
-        <table id="dataTable" style="width: auto; float: left;">
-        </table>
+        <input id="hide_det" type="button" value="Hide details" style="margin-left: 5px" />
     </div>
-</div>
-<div id="tabs-2">
-
-    <ul>
-        <li class="k-state-active">Details
-        </li>
-        <li>Comments
-        </li>
-        <li>Attachments
-        </li>
-    </ul>
-    <div id="tabs-2-1">
-        <div id="details">
-
-            <div>
-                <label style="width: 100px">Key:</label>
-                <input type="text" id="det_key" />
-
-            </div>
-
-            <div>
-                <label style="width: 100px">Type:</label>
-                <input type="text" id="det_type" name="type" />
-
-            </div>
-
-            <div>
-                <label style="width: 100px">Summary:</label>
-                <input type="text" id="det_summary" name="summary" />
-            </div>
-
-            <div>
-                <label style="width: 100px">Project Relation:</label>
-                <input type="text" id="det_labels" style="width: 210px" />
-
-            </div>
-
-            <div id="textareaDescription">
-                <label style="width: 100px">Description:</label>
-                <textarea id="det_description" data-role="none" ></textarea>
-            </div>
-
-            <div>
-                <label style="width: 100px">Status:</label>
-                <input type="text" id="det_status" />
-
-            </div>
-
-            <div>
-                <label style="width: 100px">Priority:</label>
-                <select id="det_priority" style="width: 208px" name="priority">
-                    <option value="High">High</option>
-                    <option value="Immediate">Immediate</option>
-                    <option value="Medium">Medium</option>
-                    <option value="Low">Low</option>
-                    <option value="On Hold">On Hold</option>
-                </select>
-
-            </div>
-
-            <div>
-                <label style="width: 100px">Created:</label>
-                <input type="text" id="det_created" />
-
-            </div>
-
-            <div>
-                <label style="width: 100px">Updated:</label>
-                <input type="text" id="det_updated" />
-
-            </div>
-
-            <div>
-                <label style="width: 100px">Resolved:</label>
-                <input type="text" id="det_resolved" />
-
-            </div>
-
-            <div>
-                <label style="width: 100px">Due:</label>
-                <input type="text" id="det_due" />
-
-            </div>
-            <br>
-            <br>
-            <div id="buttons2" style="width: 85%; display: inline-block">
-
-                <input type="button" id="edit_mode" value="Edit" />
-                <input type="button" id="cancel_edit" value="Cancel" />
-                <input type="button" id="edit" value="Save" />
-                <span id="message" style="color: green"></span>
-                <span id="errorMsg" style="color: red"></span>
-
-            </div>
-
-        </div>
-    </div>
-
-    <div id="tabs-2_2">
-        <div id="grid2">
-        </div>
-    </div>
-
-    <div id="tabs-2_3">
-        <div id="grid3">
-        </div>
-        <div>
-            <span id="delete-message" style="color: green"></span>
-
-        </div>
-        <div style="display: inline; padding-left: 5px;">
-            <label style="width: 100px">Add new attachments:</label>
-            <div id="files-input" class="k-header">
-                <input name="files" id="files" type="file" />
-            </div>
-            <div id="newattach">
-                <button id='addnewAttach'>Add</button>
-            </div>
-        </div>
-    </div>
-    <input id="hide_det" type="button" value="Hide details" style="margin-left: 5px" />
-</div>
-
+        </body>
+</html>

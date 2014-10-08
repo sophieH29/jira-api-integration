@@ -24,17 +24,17 @@ $(function () {
     // create DatePicker from input HTML element
     $("#dateFrom, #dateTo").kendoDatePicker({
         format: "yyyy-MM-dd"
-    });    
-    grid.initialize();     
-    
+    });
+    grid.initialize();
+
 });
 
 function Grid() {
-    
+
     var _this = this;
     var countOfTrId = 0;
     _this.initialize = function () {
-        
+
         var position1 = $("#type").on('change', function () {
             position1.find('option:selected').prependTo(position1);
         });
@@ -46,11 +46,11 @@ function Grid() {
         var position3 = $("#status").on('change', function () {
             position3.find('option:selected').prependTo(position3);
         });
-        
+
         var position4 = $("#det_priority").on('change', function () {
             position4.find('option:selected').prependTo(position4);
         });
-        
+
         $("#files").kendoUpload({
             async: {
                 saveUrl: "Issue/FileUpload",
@@ -84,7 +84,7 @@ function Grid() {
         //            }
         //    }
         //});
-        $("#edit").click(function () {            
+        $("#edit").click(function () {
             _this.EditIssues();
         });
 
@@ -99,8 +99,8 @@ function Grid() {
             $("#det_description").css("border", "1px dashed grey");
         });
         _this.DisableFields();
-         _this.GetIssues();           
-           
+        _this.GetIssues();
+
     };
     function autoheight(a) {
         if (!$(a).prop('scrollTop')) {
@@ -113,7 +113,7 @@ function Grid() {
         };
         $(a).height($(a).prop('scrollHeight') + 20);
     }
-    
+
     function onSelect(e) {
         var selected = e.files;
         var filesInList = $(".k-upload-files .k-filename");
@@ -146,10 +146,7 @@ function Grid() {
             url: "Issue/GetIssues",
             data: data,
             dataType: "json",
-            type: "POST",            
-            error: function (data) {
-                alert('error:' + data);
-            },
+            type: "POST",
             success: _this.ShowTable
         }).done(function () {
             _this.DisableFields();
@@ -158,18 +155,18 @@ function Grid() {
 
     };
 
-    _this.GetComments = function (key) {       
+    _this.GetComments = function (key) {
         countOfTrId = 0;
 
         var data = {
-            key: key            
+            key: key
         };
 
         $.ajax({
             url: "Issue/GetComments",
             data: data,
             dataType: "json",
-            type: "POST",           
+            type: "POST",
             error: function (data) {
                 alert('error:' + data);
             },
@@ -204,11 +201,10 @@ function Grid() {
         });
     };
 
-    _this.DeleteAttachments = function (Id,keyNumber)
-    {
+    _this.DeleteAttachments = function (Id, keyNumber) {
         if (!confirm("Are you sure you want to delete attachment?"))
             return;
-       
+
         var data = {
             Id: Id
         };
@@ -237,28 +233,27 @@ function Grid() {
     _this.EditIssues = function () {
 
 
-        if ($("#det_priority").val() == "" || $("#det_type").val() == "" || $("#det_summary").val() == "" ) {
+        if ($("#det_priority").val() == "" || $("#det_type").val() == "" || $("#det_summary").val() == "") {
             $('#errorMsg').hide().html("Fill all fields with '*' ").fadeIn(500, function () {
                 $(this).delay(5000).fadeOut(500);
             });
-            
+
             return;
         }
-    if($("#det_summary").val().length > 255)
-    {
-        $('#errorMsg').hide().html("Summary length should be less than 255 characters").fadeIn(500, function () {
-            $(this).delay(5000).fadeOut(500);
-        });
-       
-        return;
+        if ($("#det_summary").val().length > 255) {
+            $('#errorMsg').hide().html("Summary length should be less than 255 characters").fadeIn(500, function () {
+                $(this).delay(5000).fadeOut(500);
+            });
 
-    }
-    $("#tabs-2").hide();
+            return;
+
+        }
+        $("#tabs-2").hide();
         var data = {
             key: $("#det_key").val(),
             description: $("#det_description").val(),
             summary: $("#det_summary").val(),
-            priority: $("#det_priority").val()       
+            priority: $("#det_priority").val()
 
         };
         $.ajax({
@@ -269,7 +264,7 @@ function Grid() {
             error: function (res) {
                 alert('error:' + res);
             },
-            success: function (msg) {               
+            success: function (msg) {
                 $('#message').hide().html(msg).fadeIn(500, function () {
                     $(this).delay(3000).fadeOut(500);
                 });
@@ -279,12 +274,12 @@ function Grid() {
                 _this.GetIssues();
             }
         }).done(function () {
-            _this.DisableFields();            
+            _this.DisableFields();
         });
     };
 
     _this.ShowAttachments = function (url, mimetype, size) {
-        
+
         var data = {
             url: url,
             mimeType: mimetype,
@@ -295,23 +290,23 @@ function Grid() {
             data: data,
             dataType: "json",
             type: "POST",
-            error: function(res) {
+            error: function (res) {
                 alert('error:' + res);
             }
-           
-            
+
+
         });
 
     };
     _this.ShowTableWithAttachments = function (res) {
         var key = '';
-        
+
         for (var i = 0; i < res.length; i++) {
-             key = res[i].Key;
+            key = res[i].Key;
             var id = res[i].Id;
             var keySplit = key.split("-");
             var keyNumber = keySplit[1];
-            
+
             // Append <tr><td> tags with datas
             if (res[i].IsImage) {
                 $("#attachmentsTable").append("<tr><td><a class='fancy-image' href='Issue/ShowAttachment/" + res[i].Id + "?fileName=" + res[i].Name + "' >" + res[i].Name +
@@ -324,9 +319,9 @@ function Grid() {
                    "</td></tr>");
             }
         }
-        
-      
-      
+
+
+
         $("#attachmentsTable").kendoGrid({
 
             columns: [
@@ -350,7 +345,7 @@ function Grid() {
                  }],
             dataSource: {
                 pageSize: 5
-              },
+            },
             serverPaging: true,
             dataBound: onDataBound,
             serverFiltering: true,
@@ -370,7 +365,7 @@ function Grid() {
             var currentPage = grid.dataSource.page();
             var pageSize = grid.dataSource.pageSize();
             var attachId = "";
-            
+
             //$("#deleteAttach").click(function () {
             //    $(grid.tbody).on("click", "td", function (e) {
             //        var row = $(grid.tbody).closest("tr");
@@ -380,9 +375,9 @@ function Grid() {
             //        //_this.DeleteAttachments(attachId);
             //        grid.removeRow(row);
             //    });
-                
-         //   });
-       
+
+            //   });
+
         };
         $("a.fancy-image").fancybox();
     };
@@ -467,7 +462,7 @@ function Grid() {
                     $(this).delay(3000).fadeOut(500);
                 });
                 _this.GetAttachments(key);
-                
+
                 $("#files-input").empty();
                 $("#files-input").append(" <input name='files' id='files' type='file' />");
                 $("#files").kendoUpload({
@@ -483,11 +478,11 @@ function Grid() {
     };
     // Get list of data, and append it into table
     _this.ShowTable = function (res) {
-        
+
         for (var i = 0; i < res.length; i++) {
 
             // Append <tr><td> tags with datas
-            $("#dataTable").append("<tr  id= '" + countOfTrId++ + "'><td>" + res[i].Key +
+            $("#dataTable").append("<tr><td>" + res[i].Key +
                 "</td><td>" + res[i].Type +
                 "</td><td>" + res[i].Summary +
                 "</td><td>" + res[i].Priority +
@@ -497,37 +492,37 @@ function Grid() {
                 "</td><td>" + res[i].DateResolved +
                 "</td><td>" + res[i].DueDate + "</td></tr>");
         }
-        
+
         $("#dataTable").kendoGrid({
 
             columns: [
-
+                
                      {
                          field: "Key",
                          title: "Key",
-                         width: 165
+                         width: 95
 
                      },
                      {
                          field: "Type",
                          title: "Type",
-                         width: 165
+                         width: 95
 
                      },
                  {
                      field: "Summary",
                      title: "Summary",
-                     width: 165
+                     width: 500
                  },
                  {
                      field: "Priority",
                      title: "Priority",
-                     width: 165
+                     width: 100
                  },
                  {
                      field: "Status",
                      title: "Status",
-                     width: 165
+                     width: 100
                  },
                  {
                      field: "Created",
@@ -551,7 +546,7 @@ function Grid() {
                  }],
             dataSource: {
 
-                pageSize: 5
+                pageSize: 10
             },
             serverPaging: true,
             serverFiltering: true,
@@ -567,9 +562,8 @@ function Grid() {
             columnMenu: true
 
         });
-        
-        function onDataChange(e)
-        {
+
+        function onDataChange(e) {
             var selectedRows = this.select();
             var selectedDataItems = [];
             for (var i = 0; i < selectedRows.length; i++) {
@@ -577,7 +571,7 @@ function Grid() {
                 selectedDataItems.push(dataItem);
 
                 // $("#det_key").val(selectedDataItems[i].Key);
-                
+
                 //$("#grid2").empty();
                 //$("#grid2").append("<table id='commentsTable'></table>");
                 _this.GetComments(selectedDataItems[i].Key);
@@ -585,13 +579,13 @@ function Grid() {
                 var key = selectedDataItems[i].Key;
                 var keySplit = key.split("-");
                 var keyNumber = keySplit[1];
-                          
+
                 $("#addnewAttach").click(function () {
                     grid.AddNewAttachments(keyNumber);
                 });
             }
-            _this.DisableFields();            
-            
+            _this.DisableFields();
+
         };
 
         function onDataBound(e) {
@@ -604,8 +598,8 @@ function Grid() {
                 var colIdx = $("td", row).index(this);
                 rowIdx = rowIdx + (currentPage - 1) * pageSize;
                 $("#cancel_edit").click(function () {
-                        _this.DisableFields();
-                    });
+                    _this.DisableFields();
+                });
                 $("#det_key").val(res[rowIdx].Key);
                 $("#det_type").val(res[rowIdx].Type);
                 $("#det_summary").val(res[rowIdx].Summary);
@@ -617,30 +611,30 @@ function Grid() {
                 $("#det_updated").val(res[rowIdx].Updated);
                 $("#det_resolved").val(res[rowIdx].DateResolved);
                 $("#det_due").val(res[rowIdx].DueDate);
-               
+
                 //$("#tabs-1").toggle("fold");
                 $("#tabs-2").show();
 
                 $("#cancel_edit").click(function () {
                     _this.DisableFields();
-                $("#det_key").val(res[rowIdx].Key);
-                $("#det_type").val(res[rowIdx].Type);
-                $("#det_summary").val(res[rowIdx].Summary);
-                $("#det_description").val(res[rowIdx].Description).trigger('autosize.resize');
-                $("#det_labels").val(res[rowIdx].Label);
-                $("#det_priority").val(res[rowIdx].Priority);
-                $("#det_status").val(res[rowIdx].Status);
-                $("#det_created").val(res[rowIdx].Created);
-                $("#det_updated").val(res[rowIdx].Updated);
-                $("#det_resolved").val(res[rowIdx].DateResolved);
-                $("#det_due").val(res[rowIdx].DueDate);
+                    $("#det_key").val(res[rowIdx].Key);
+                    $("#det_type").val(res[rowIdx].Type);
+                    $("#det_summary").val(res[rowIdx].Summary);
+                    $("#det_description").val(res[rowIdx].Description).trigger('autosize.resize');
+                    $("#det_labels").val(res[rowIdx].Label);
+                    $("#det_priority").val(res[rowIdx].Priority);
+                    $("#det_status").val(res[rowIdx].Status);
+                    $("#det_created").val(res[rowIdx].Created);
+                    $("#det_updated").val(res[rowIdx].Updated);
+                    $("#det_resolved").val(res[rowIdx].DateResolved);
+                    $("#det_due").val(res[rowIdx].DueDate);
                 });
             });
             $("#tabs-2").hide();
             _this.DisableFields();
-           
+
         }
-        
+
         function resizeTextarea(id) {
             var a = document.getElementById(id);
             a.style.height = 'auto';
@@ -775,9 +769,9 @@ function Grid() {
 
 
     _this.DisableFields = function () {
-       // $("#det_summary").prop('readonly', true);
+        // $("#det_summary").prop('readonly', true);
         $("#det_summary").prop('readonly', true);
-        $("#det_summary").css("border-color", "transparent");        
+        $("#det_summary").css("border-color", "transparent");
 
         $("#det_key").prop('readonly', true);
         $("#det_key").css("border-color", "transparent");
@@ -785,12 +779,12 @@ function Grid() {
         $("#det_type").prop('readonly', true);
         $("#det_type").css("border-color", "transparent");
 
-        $("#det_priority").prop('disabled', true);        
+        $("#det_priority").prop('disabled', true);
         $("#det_priority").css("border-color", "transparent");
         $("#det_priority").css("color", "black");
 
         $("#det_labels").prop('readonly', true);
-        $("#det_labels").css("border-color", "transparent");        
+        $("#det_labels").css("border-color", "transparent");
 
         $("#det_status").prop('readonly', true);
         $("#det_status").css("border-color", "transparent");

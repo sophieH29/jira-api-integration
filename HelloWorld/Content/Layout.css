@@ -113,15 +113,29 @@ input[type=button], input[type=submit], button {
 
 #det_description {
  
-    width: 900px;
+    width: 1000px;
     height: 20px;
     resize: none;
     overflow: hidden;
 }
 
 #det_summary {
-    width: 900px;
+    width: 1000px;
 }
+
+#summary_to_create {
+    width: 1000px;
+}
+
+#description_to_create {
+    width: 1000px;
+    height: 200px;
+}
+select {
+    height: 26px;
+}
+
+
 
 
 

@@ -4,93 +4,94 @@
 @{
     ViewBag.Title = "Create Issue";
 }
-
 <h2>@ViewBag.Title</h2>
+<html>
+<head>
 
-<link href="~/Content/Layout.css" rel="stylesheet" />
-<link href="~/Content/kendo/filters.css" rel="stylesheet" />
-<link href="~/Content/kendo/kendo.common.min.css" rel="stylesheet" />
-<link href="~/Content/kendo/kendo.default.min.css" rel="stylesheet" />
-<script src="~/Scripts/libs/jquery-1.10.2.min.js"></script>
-<script src="~/Scripts/libs/jquery.autosize.js"></script>
-<script src="~/Scripts/libs/jquery.autosize.min.js"></script>
-<script src="~/Scripts/libs/jquery.validate.min.js"></script>
-<script src="~/Scripts/libs/additional-methods.min.js"></script>
+    <link href="~/Content/Layout.css" rel="stylesheet" />
+    <link href="~/Content/kendo/filters.css" rel="stylesheet" />
+    <link href="~/Content/kendo/kendo.common.min.css" rel="stylesheet" />
+    <link href="~/Content/kendo/kendo.default.min.css" rel="stylesheet" />
+    <script src="~/Scripts/libs/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/libs/jquery.autosize.js"></script>
+    <script src="~/Scripts/libs/jquery.autosize.min.js"></script>
+    <script src="~/Scripts/libs/jquery.validate.min.js"></script>
+    <script src="~/Scripts/libs/additional-methods.min.js"></script>
 
-<script src="~/Scripts/kendo/kendo.core.min.js"></script>
-<script src="~/Scripts/kendo/kendo.grid.min.js"></script>
-<script src="~/Scripts/kendo/kendo.web.min.js"></script>
-<script src="~/Scripts/kendo/kendo.all.js"></script>
-<link href="~/Content/kendo/kendo.dataviz.css" rel="stylesheet" />
-<link href="~/Content/kendo/kendo.dataviz.default.css" rel="stylesheet" />
-<script src="~/Scripts/Grid/CreateIssue.js"></script>
+    <script src="~/Scripts/kendo/kendo.core.min.js"></script>
+    <script src="~/Scripts/kendo/kendo.grid.min.js"></script>
+    <script src="~/Scripts/kendo/kendo.web.min.js"></script>
+    <script src="~/Scripts/kendo/kendo.all.js"></script>
+    <link href="~/Content/kendo/kendo.dataviz.css" rel="stylesheet" />
+    <link href="~/Content/kendo/kendo.dataviz.default.css" rel="stylesheet" />
+    <script src="~/Scripts/Grid/CreateIssue.js"></script>
 
+</head>
+<body>
+    <form id="creatingForm">
 
-
-<form id="creatingForm" style="text-align: left">
-    <div class="create-form" style="width: 85%;">
-
-        <div>
+        <p>
             <label for="type_to_create" style="width: 100px">Type: <span style="color:red">*</span></label>
-            <select class="input-validation-valid" id="type_to_create" name="type">
+            <select  id="type_to_create" name="type">
                 <option>Bug</option>
                 <option>New Feature</option>
             </select>
-        </div>
+        </p>
 
-        <div>
+        <p>
             <label for="summary_to_create" style="width: 100px">Summary: <span style="color:red">*</span></label>                        
-            <input type="text" class="input-validation-valid" id="summary_to_create" name="summary"/>
+            <input type="text"  id="summary_to_create" name="summary"/>
 
-        </div>
-        <div>
+        </p>
+        <p>
             <label for="priority_to_create" style="width: 100px">Priority: <span style="color:red">*</span></label>
-            <select class="input-validation-valid" id="priority_to_create" name="priority">
+            <select  id="priority_to_create" name="priority">
                 <option>High</option>
                 <option>Immediate</option>
                 <option>Medium</option>
                 <option>Low</option>
                 <option>On Hold</option>
             </select>
-        </div>
+        </p>
 
-         <div>
-             <label for="labels_to_create" style="width: 100px">Project Relation:</label>
-            <select class="input-validation-valid" id="labels_to_create">
+        <p>
+            <label for="labels_to_create" style="width: 100px">Label:</label>
+            <select id="labels_to_create">
                 <option value="ShoppingCart">Shopping Cart</option>
                 <option value="JIRA_Integration">JIRA Integration</option>    
                 <option value="Development">Development</option>              
             </select>
-        </div>
+        </p>
 
-        <div>
+        <p>
             <label for="description_to_create" style="width: 100px">Description:</label>
-            <input type="text" class="input-validation-valid" id="description_to_create" />
+             <textarea id="description_to_create" data-role="none" ></textarea>
 
-        </div>
-    </div>
-    <div>
-        <label  for="files-create" style="width: 100px">Attachments:</label>
-        <div class="demo-section k-header">
-            <div id="files-create">
-                <input name="files" id="files" type="file" />
+        </p>
+    
+        <div>
+            <label  for="files-create" style="width: 100px">Attachments:</label>
+            <div>
+                <div id="files-create">
+                    <input name="files" id="files" type="file" />
+                </div>
             </div>
         </div>
+
+        <div id="buttons" style="width: 85%; display: inline-block">
+            <input type="submit" name="Save" value="Save" id="save" />
+            <button type="button" style="width: 180px" onclick="location.href='@Url.Action("Index", "Home")'">Cancel / Back to table</button>
+            <span id="messageForCreate" style="color: green"></span>
+            <span id="errorMessage" style="color: red"></span>
+        </div>
+    </form>
+    <div class="ajax-loading-block-window">
+        <div class="loading-image"></div>
     </div>
+    <br>
 
-    <div id="buttons" style="width: 85%; display: inline-block">
-        <input type="submit" name="Save" value="Save" id="save" />
-        <button type="button" style="width: 180px" onclick="location.href='@Url.Action("Index", "Home")'">Cancel / Back to table</button>
-        <span id="messageForCreate" style="color: green"></span>
-        <span id="errorMessage" style="color: red"></span>
-    </div>
-</form>
-<div class="ajax-loading-block-window">
-    <div class="loading-image"></div>
-</div>
-<br>
-
-
+</body>
+    </html>
 
 
 

@@ -116,6 +116,14 @@ form div {
     font-size: 13px;
 }
 
+#creatingForm {
+    margin: 40px;
+    margin-left: 0px;
+    padding: 40px;
+    border: 2px solid #678597;
+    text-align: left;
+    display: block;
+}
 #creatingForm label.error {
     color: red;
 }

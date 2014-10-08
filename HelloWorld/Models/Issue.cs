@@ -28,7 +28,9 @@ namespace HelloWorld.Models
         public string DueDate { get; set; }
 
         public string Label { get; set; }
-       
+
+        public string HasAttach { get; set; }
+
     }
 
    
