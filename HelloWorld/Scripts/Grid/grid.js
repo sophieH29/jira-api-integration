@@ -546,7 +546,7 @@ function Grid() {
                  }],
             dataSource: {
 
-                pageSize: 10
+                pageSize: 7
             },
             serverPaging: true,
             serverFiltering: true,

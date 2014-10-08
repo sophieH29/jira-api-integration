@@ -88,45 +88,44 @@ function Issue() {
             labels: $("#labels_to_create").val()
         };
 
-        if ($("#type_to_create").val() == "" || $("#priority_to_create").val() == "" || $("#summary_to_create").val() == "" || $("#summary_to_create").val().length > 255)
-        {
+        if ($("#type_to_create").val() == undefined || $("#priority_to_create").val() == undefined || $("#summary_to_create").val() == "" || $("#summary_to_create").val().length > 255) {
             return;
         }
-        
-        _this.AjaxLoaderVisibility(true);
-        $.ajax({
-            url: "Issue/CreateIssue",
-            data: data,
-            dataType: "json",
-            type: "POST",
-            error: function (res) {
-                alert('error:' + res);
-            },
-            type: "POST",
-            success: function (msg) {
-                $('#messageForCreate').hide().html("Successfully created issue with key: " + msg).fadeIn(500, function () {
-                    $(this).delay(3000).fadeOut(500);
+        else {
+            _this.AjaxLoaderVisibility(true);
+            $.ajax({
+                url: "Issue/CreateIssue",
+                data: data,
+                dataType: "json",
+                error: function (res) {
+                    alert('error:' + res);
+                },
+                type: "POST",
+                success: function (msg) {
+                    $('#messageForCreate').hide().html("Successfully created issue with key: " + msg).fadeIn(500, function () {
+                        $(this).delay(3000).fadeOut(500);
 
-                    $("#files-create").empty();
-                    $("#files-create").append(" <input name='files' id='files' type='file' />");
-                    $("#files").kendoUpload({
-                        async: {
-                            saveUrl: "Issue/FileUpload",
-                            removeUrl: "Issue/Remove",
-                            autoUpload: true
-                        }
+                        $("#files-create").empty();
+                        $("#files-create").append(" <input name='files' id='files' type='file' />");
+                        $("#files").kendoUpload({
+                            async: {
+                                saveUrl: "Issue/FileUpload",
+                                removeUrl: "Issue/Remove",
+                                autoUpload: true
+                            }
+                        });
                     });
-                });
-            }
-        }).done(function () {
-            $("#type_to_create").val("");
-            $("#summary_to_create").val("");
-            $("#description_to_create").val("");
-            $("#priority_to_create").val("");
-            $("#labels_to_create").val("");
+                }
+            }).done(function () {
+                $("#type_to_create").val("");
+                $("#summary_to_create").val("");
+                $("#description_to_create").val("");
+                $("#priority_to_create").val("");
+                $("#labels_to_create").val("");
 
-            _this.AjaxLoaderVisibility(false);
-        });
+                _this.AjaxLoaderVisibility(false);
+            });
+        }
     };
 
     _this.AjaxLoaderVisibility = function (display) {
