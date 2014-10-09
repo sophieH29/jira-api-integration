@@ -506,13 +506,13 @@ function Grid() {
                      {
                          field: "Type",
                          title: "Type",
-                         width: 95
+                         width: 115
 
                      },
                  {
                      field: "Summary",
                      title: "Summary",
-                     width: 500
+                     width: 480
                  },
                  {
                      field: "Priority",
@@ -546,7 +546,7 @@ function Grid() {
                  }],
             dataSource: {
 
-                pageSize: 7
+                pageSize: 5
             },
             serverPaging: true,
             serverFiltering: true,
