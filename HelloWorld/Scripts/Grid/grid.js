@@ -459,7 +459,9 @@ function Grid() {
     _this.ShowTable = function (res) {
 
         for (var i = 0; i < res.length; i++) {
-
+            if (res[i].Key == "error") {
+                alert("Some error(s) occurred during connecting to Jira system. Please contact support or try again later");
+            }
             // Append <tr><td> tags with datas
             $("#dataTable").append("<tr><td>" + res[i].Key +
                 "</td><td>" + res[i].Type +

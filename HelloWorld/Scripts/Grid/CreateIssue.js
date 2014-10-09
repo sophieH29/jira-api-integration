@@ -102,19 +102,24 @@ function Issue() {
                 },
                 type: "POST",
                 success: function (msg) {
-                    $('#messageForCreate').hide().html("Successfully created issue with key: " + msg).fadeIn(500, function () {
-                        $(this).delay(3000).fadeOut(500);
+                    if (msg == "error") {
+                        alert("Some error(s) occurred during connecting to Jira system. Please contact support or try again later");
+                    }
+                    else {
+                        $('#messageForCreate').hide().html("Successfully created issue with key: " + msg).fadeIn(500, function() {
+                            $(this).delay(3000).fadeOut(500);
 
-                        $("#files-create").empty();
-                        $("#files-create").append(" <input name='files' id='files' type='file' />");
-                        $("#files").kendoUpload({
-                            async: {
-                                saveUrl: "Issue/FileUpload",
-                                removeUrl: "Issue/Remove",
-                                autoUpload: true
-                            }
+                            $("#files-create").empty();
+                            $("#files-create").append(" <input name='files' id='files' type='file' />");
+                            $("#files").kendoUpload({
+                                async: {
+                                    saveUrl: "Issue/FileUpload",
+                                    removeUrl: "Issue/Remove",
+                                    autoUpload: true
+                                }
+                            });
                         });
-                    });
+                    }
                 }
             }).done(function () {
                 $("#type_to_create").val("");

@@ -108,6 +108,11 @@ namespace HelloWorld.Controllers
                 key = jsonResponse.key.ToString();
 
             }
+
+            else
+            {
+                key = "error";
+            }
             string[] fileNames = Directory.GetFiles(Server.MapPath("~/JiraAttachments/"))
                                     .Select(path => Path.GetFileName(path))
                                     .ToArray();
@@ -206,7 +211,13 @@ namespace HelloWorld.Controllers
             //        else issue.HasAttach = "";
             //    }
             //}
-
+            else
+            {
+                issues.Add(new Issue
+                               {
+                                   Key = "error"
+                               });
+            }
             return Json(issues, JsonRequestBehavior.AllowGet);
         }
 
