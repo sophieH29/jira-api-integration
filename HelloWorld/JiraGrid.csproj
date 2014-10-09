@@ -190,6 +190,7 @@
     <Content Include="Content\fonts\segoeuil.svg" />
     <Content Include="Content\fonts\segoeuisb.svg" />
     <Content Include="Content\img\attach.jpg" />
+    <Content Include="images\fancybox\blank.gif" />
     <Content Include="images\fancybox\fancybox-x.png" />
     <Content Include="images\fancybox\fancybox-y.png" />
     <Content Include="images\fancybox\fancybox.png" />

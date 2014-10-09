@@ -131,7 +131,6 @@ function Grid() {
 
 
     _this.GetIssues = function () {
-
         countOfTrId = 0;
         _this.AjaxLoaderVisibility(true);
         var data = {
@@ -152,7 +151,6 @@ function Grid() {
             _this.DisableFields();
             $("#tabs-2").hide();
         });
-
     };
 
     _this.GetComments = function (key) {
@@ -167,9 +165,6 @@ function Grid() {
             data: data,
             dataType: "json",
             type: "POST",
-            error: function (data) {
-                alert('error:' + data);
-            },
             success: function (res) {
                 $("#grid2").empty();
                 $("#grid2").append("<table id='commentsTable'></table>");
@@ -190,9 +185,6 @@ function Grid() {
             data: data,
             dataType: "json",
             type: "POST",
-            error: function (data) {
-                alert('error:' + data);
-            },
             success: function (res) {
                 $("#grid3").empty();
                 $("#grid3").append("<table id='attachmentsTable'></table>");
@@ -214,9 +206,6 @@ function Grid() {
             data: data,
             dataType: "json",
             type: "POST",
-            error: function (data) {
-                alert('error:' + data);
-            },
             success: function (msg) {
                 $('#delete-message').hide().html(msg).fadeIn(700, function () {
                     $(this).delay(3000).fadeOut(500);
@@ -246,7 +235,6 @@ function Grid() {
             });
 
             return;
-
         }
         $("#tabs-2").hide();
         var data = {
@@ -261,9 +249,6 @@ function Grid() {
             data: data,
             dataType: "json",
             type: "POST",
-            error: function (res) {
-                alert('error:' + res);
-            },
             success: function (msg) {
                 $('#message').hide().html(msg).fadeIn(500, function () {
                     $(this).delay(3000).fadeOut(500);
@@ -293,10 +278,7 @@ function Grid() {
             error: function (res) {
                 alert('error:' + res);
             }
-
-
         });
-
     };
     _this.ShowTableWithAttachments = function (res) {
         var key = '';
@@ -448,9 +430,6 @@ function Grid() {
             data: data,
             dataType: "json",
             type: "POST",
-            error: function (res) {
-                alert('error:' + res);
-            },
             success: function (msg) {
                 if (msg == "You shoud shoose file to attach!") {
                     $('#delete-message').css("color", "red");
