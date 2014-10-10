@@ -1,12 +1,14 @@
 ﻿@using System.Web
 @using System.Web.Optimization
 
-
+@{
+    ViewBag.Title = "IECF";
+}
 <h2>Hello from Jira view.</h2>
 
 <html manifest="store.appcache">
     <head>
-        <title>@ViewBag.Title = "IECF"</title>  
+        <title>@ViewBag.Title </title>  
         <link href="~/Content/Layout.css" rel="stylesheet" />
         <link href="~/Content/kendo/filters.css" rel="stylesheet" />
         <link href="~/Content/kendo/kendo.common.min.css" rel="stylesheet" />
@@ -43,7 +45,7 @@
                 <div>
                     <div>
                         <label>Type:</label>
-                        <select class="input-validation-valid" id="type">
+                        <select id="type">
                             <option value="">All</option>
                             <option value="Bug">Bug</option>
                             <option value="New Feature">New Feature</option>
@@ -51,7 +53,7 @@
                     </div>
                     <div>
                         <label>Priority:</label>
-                        <select class="input-validation-valid" id="priority">
+                        <select id="priority">
                             <option value="">All</option>
                             <option value="High">High</option>
                             <option value="Immediate">Immediate</option>
@@ -62,7 +64,7 @@
                     </div>
                     <div>
                         <label>Status:</label>
-                        <select class="input-validation-valid" id="status">
+                        <select id="status">
                             <option value="">All</option>
                             <option value="Open">Open</option>
                             <option value="In Progress">In Progress</option>

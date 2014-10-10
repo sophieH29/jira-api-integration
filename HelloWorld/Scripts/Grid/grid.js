@@ -493,7 +493,7 @@ function Grid() {
                  {
                      field: "Summary",
                      title: "Summary",
-                     width: 480
+                     width: 370
                  },
                  {
                      field: "Priority",
@@ -533,7 +533,7 @@ function Grid() {
             serverFiltering: true,
             serverSorting: true,
             dataBound: onDataBound,
-            scrollable: false,
+            scrollable: true,
             selectable: "multiple, row",
             change: onDataChange,
             sortable: true,
