@@ -35,17 +35,20 @@
                  height:60px; 
                  left:0; 
                  position:relative; 
-                 width:100%; 
+                 width:1920px; 
                  top:0;
             }
             #header {
                  line-height:60px; 
-                 margin:0; 
-                 padding-left: 50px; 
+                 margin:0;
+                width: 1920px;
+                 position:relative;
+                 padding: 0px; 
                  font-weight: bold;
                  font-size: 18pt;
             }
             #header a, #header a:valid, #header a:active, #header a:hover {
+                position:relative;
                 color: white;
                 padding-right: 50px;
                 padding-left: 50px;
