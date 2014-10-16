@@ -34,7 +34,7 @@ function Grid() {
     var _this = this;
     var countOfTrId = 0;
     _this.initialize = function () {
-
+        // hack for IE dropdowns
         var position1 = $("#type").on('change', function () {
             position1.find('option:selected').prependTo(position1);
         });
@@ -84,20 +84,6 @@ function Grid() {
         //            }
         //    }
         //});
-        $("#edit").click(function () {
-            _this.EditIssues();
-        });
-
-        $("#edit_mode").click(function () {
-            $("#det_summary").prop('readonly', false);
-            $("#det_summary").css("border", "1px dashed grey");
-
-            $("#det_priority").css("border", "1px dashed grey");
-            $("#det_priority").prop('disabled', false);
-
-            $("#det_description").prop('readonly', false);
-            $("#det_description").css("border", "1px dashed grey");
-        });
         _this.DisableFields();
         _this.GetIssues();
 
@@ -193,12 +179,32 @@ function Grid() {
         });
     };
 
-    _this.DeleteAttachments = function (Id, keyNumber) {
+    _this.GetUserStoriesUnderEpic = function(key) {
+        countOfTrId = 0;
+
+        var data = {
+            epicKey: key
+        };
+
+        $.ajax({
+            url: "Issue/GetUserStoriesUnderEpic",
+            data: data,
+            dataType: "json",
+            type: "POST",
+            success: function (res) {
+                $("#grid4").empty();
+                $("#grid4").append("<table id='userStoriesTable'></table>");
+                _this.ShowTableWithUserStories(res);
+            }
+        });
+    };
+
+    _this.DeleteAttachments = function (id, keyNumber) {
         if (!confirm("Are you sure you want to delete attachment?"))
             return;
 
         var data = {
-            Id: Id
+            Id: id
         };
 
         $.ajax({
@@ -280,6 +286,91 @@ function Grid() {
             }
         });
     };
+    _this.ShowTableWithUserStories = function (res){
+        for (var i = 0; i < res.length; i++) {
+            if (res[i].Key == "error") {
+                alert("Some error(s) occurred during connecting to Jira system. Please contact support or try again later");
+            }
+            // Append <tr><td> tags with datas
+            $("#userStoriesTable").append("<tr><td>" + res[i].Key +
+                "</td><td>" + res[i].Type +
+                "</td><td>" + res[i].Summary +
+                "</td><td>" + res[i].Priority +
+                "</td><td>" + res[i].Status +
+                "</td><td>" + res[i].Created +
+                "</td><td>" + res[i].Updated +
+                "</td><td>" + res[i].DateResolved +
+                "</td><td>" + res[i].DueDate + "</td></tr>");
+        }
+        
+        $("#userStoriesTable").kendoGrid({
+
+            columns: [
+
+                     {
+                         field: "Key",
+                         title: "Key",
+                         width: 90
+
+                     },
+                     {
+                         field: "Type",
+                         title: "Type",
+                         width: 100
+
+                     },
+                 {
+                     field: "Summary",
+                     title: "Summary",
+                     width: 350
+                 },
+                 {
+                     field: "Priority",
+                     title: "Priority",
+                     width: 110
+                 },
+                 {
+                     field: "Status",
+                     title: "Status",
+                     width: 110
+                 },
+                 {
+                     field: "Created",
+                     title: "Date Created",
+                     width: 160
+                 },
+                 {
+                     field: "Updated",
+                     title: "Date Updated",
+                     width: 160
+                 },
+                 {
+                     field: "DateResolved",
+                     title: "Date Resolved",
+                     width: 160
+                 },
+                 {
+                     field: "DueDate",
+                     title: "Due Date",
+                     width: 160
+                 }],
+            dataSource: {
+
+                pageSize: 5
+            },
+            serverPaging: true,
+            serverFiltering: true,
+            serverSorting: true,
+            scrollable: true,
+            selectable: "multiple, row",
+            sortable: true,
+            pageable: true,
+            reorderable: true,
+            resizable: true,
+            columnMenu: true
+        });
+        
+    };
     _this.ShowTableWithAttachments = function (res) {
         var key = '';
 
@@ -301,9 +392,6 @@ function Grid() {
                    "</td></tr>");
             }
         }
-
-
-
         $("#attachmentsTable").kendoGrid({
 
             columns: [
@@ -347,19 +435,6 @@ function Grid() {
             var currentPage = grid.dataSource.page();
             var pageSize = grid.dataSource.pageSize();
             var attachId = "";
-
-            //$("#deleteAttach").click(function () {
-            //    $(grid.tbody).on("click", "td", function (e) {
-            //        var row = $(grid.tbody).closest("tr");
-            //        //var rowIdx = $("tr", grid.tbody).index(row);
-            //        //var colIdx = $("td", row).index(this);
-            //        //rowIdx = rowIdx + (currentPage - 1) * pageSize;                   
-            //        //_this.DeleteAttachments(attachId);
-            //        grid.removeRow(row);
-            //    });
-
-            //   });
-
         };
         $("a.fancy-image").fancybox();
     };
@@ -418,6 +493,8 @@ function Grid() {
 
         });
     };
+    
+
 
     _this.AddNewAttachments = function (keyNumber) {
         var key = "IECF-" + keyNumber;
@@ -557,6 +634,9 @@ function Grid() {
                 //$("#grid2").append("<table id='commentsTable'></table>");
                 _this.GetComments(selectedDataItems[i].Key);
                 _this.GetAttachments(selectedDataItems[i].Key);
+               // if (selectedDataItems[i].Type == "Epic") {
+                    _this.GetUserStoriesUnderEpic(selectedDataItems[i].Key);
+               // }
                 var key = selectedDataItems[i].Key;
                 var keySplit = key.split("-");
                 var keyNumber = keySplit[1];
@@ -760,9 +840,8 @@ function Grid() {
         $("#det_type").prop('readonly', true);
         $("#det_type").css("border-color", "transparent");
 
-        $("#det_priority").prop('disabled', true);
+        $("#det_priority").prop('readonly', true);
         $("#det_priority").css("border-color", "transparent");
-        $("#det_priority").css("color", "black");
 
         $("#det_labels").prop('readonly', true);
         $("#det_labels").css("border-color", "transparent");

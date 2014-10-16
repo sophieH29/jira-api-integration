@@ -37,7 +37,7 @@ namespace HelloWorld.Controllers
             foreach (var file in files)
             {
                 // Some browsers send file names with full path. We only care about the file name.
-                var fileName = Path.GetFileName(file.FileName);
+                string fileName = Path.GetFileName(file.FileName);
                 var destinationPath = Path.Combine(Server.MapPath("~/JiraAttachments/"), fileName);
                 file.SaveAs(destinationPath);
             }
@@ -155,7 +155,7 @@ namespace HelloWorld.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> GetIssues(string type, string status, string priority, string createdFrom, string createdTo)
+        public async Task<JsonResult> GetIssues(string status, string priority, string createdFrom, string createdTo, string type = "Epic")
         {
 
             string query = "project = IECF ";
@@ -196,27 +196,52 @@ namespace HelloWorld.Controllers
                     });
                 }
             }
-            
-            //foreach (var issue in issues)
-            //{
-            //    var response2 = await client.GetAsync("issue/" + issue.Key + "?fields=attachment");
-            //    if (response2.IsSuccessStatusCode)
-            //    {
-            //        dynamic jsonResponse2 = JsonConvert.DeserializeObject(response2.Content.ReadAsStringAsync().Result);
-            //        var attachList = jsonResponse2.fields.attachment;
-            //        if (attachList.Count !=0)
-            //        {
-            //            issue.HasAttach = "<img src='Content/img/attach.jpg' alt='attachment' height='50' width='50'>";
-            //        }
-            //        else issue.HasAttach = "";
-            //    }
-            //}
             else
             {
                 issues.Add(new Issue
                                {
                                    Key = "error"
                                });
+            }
+            return Json(issues, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> GetUserStoriesUnderEpic(string epicKey)
+        {
+            string queryString = "search?jql=cf[11010]=" + epicKey;
+            HttpClient client = PrepareHttpClient();
+            var response = await client.GetAsync(queryString);
+            var issues = new List<Issue>();
+            if (response.IsSuccessStatusCode)
+            {
+                dynamic jsonResponse = JsonConvert.DeserializeObject(response.Content.ReadAsStringAsync().Result);
+                dynamic issuesList = jsonResponse.issues;
+
+                for (int i = 0; i != issuesList.Count; i++)
+                {
+                    issues.Add(new Issue
+                    {
+                        Key = issuesList[i].key.ToString(),
+                        Summary = issuesList[i].fields["summary"].ToString(),
+                        Description = issuesList[i].fields["description"].ToString(),
+                        Priority = issuesList[i].fields["priority"]["name"].ToString(),
+                        Status = issuesList[i].fields["status"]["name"].ToString(),
+                        Type = issuesList[i].fields["issuetype"]["name"].ToString(),
+                        Created = issuesList[i].fields["created"].ToString(),
+                        Updated = issuesList[i].fields["updated"].ToString(),
+                        DueDate = issuesList[i].fields["duedate"].ToString(),
+                        DateResolved = issuesList[i].fields["resolutiondate"].ToString(),
+                        Label = issuesList[i].fields["labels"].ToString(),
+                    });
+                }
+            }
+            else
+            {
+                issues.Add(new Issue
+                {
+                    Key = "error"
+                });
             }
             return Json(issues, JsonRequestBehavior.AllowGet);
         }
