@@ -656,9 +656,36 @@ function Grid() {
                 //$("#grid2").append("<table id='commentsTable'></table>");
                 _this.GetComments(selectedDataItems[i].Key);
                 _this.GetAttachments(selectedDataItems[i].Key);
-               // if (selectedDataItems[i].Type == "Epic") {
+                if (selectedDataItems[i].Type == "Epic") {
+                    var tabStrip2 = $("#tabs-2").kendoTabStrip().data("kendoTabStrip");
+                    //Find the last tab item's index from the items list
+                    var lastIndex2 = tabStrip2.items().length - 1;
+                    //Use jQuery's hide method on the element
+                    $(tabStrip2.items()[lastIndex2]).show();
+                    $("#tabs-2").kendoTabStrip({
+                        animation: {
+                            open: {
+                                effects: "fadeIn"
+                            }
+                        }
+                    }).data("kendoTabStrip").select(0);
                     _this.GetUserStoriesUnderEpic(selectedDataItems[i].Key);
-               // }
+                    
+                } else {
+
+                    var tabStrip = $("#tabs-2").kendoTabStrip().data("kendoTabStrip");
+                    //Find the last tab item's index from the items list
+                    var lastIndex = tabStrip.items().length - 1;
+                    //Use jQuery's hide method on the element
+                    $(tabStrip.items()[lastIndex]).hide();
+                    $("#tabs-2").kendoTabStrip({
+                        animation: {
+                            open: {
+                                effects: "fadeIn"
+                            }
+                        }
+                    }).data("kendoTabStrip").select(0);
+                }
                 var key = selectedDataItems[i].Key;
                 var keySplit = key.split("-");
                 var keyNumber = keySplit[1];
