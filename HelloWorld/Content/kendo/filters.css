@@ -123,6 +123,8 @@ form div {
     border: 2px solid #678597;
     text-align: left;
     display: block;
+    width: 100%;
+    overflow: auto;
 }
 #creatingForm label.error {
     color: red;

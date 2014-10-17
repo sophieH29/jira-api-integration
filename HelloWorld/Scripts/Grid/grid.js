@@ -622,7 +622,7 @@ function Grid() {
                      field: "DueDate",
                      title: "Due Date",
                      width: "160px",
-                     headerTemplate: '<div style="width:143px"></div><label>Date Date</label>'
+                     headerTemplate: '<div style="width:143px;"></div><label>Date Date</label>'
                  }],
             dataSource: {
 

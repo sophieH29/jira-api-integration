@@ -159,10 +159,11 @@ select {
 .k-grid-header .k-header > .k-link {
     margin: 0px;
     padding: 0px;
-
 }
 
-
+#refresh {
+    margin: 5px;
+}
 
 
 
