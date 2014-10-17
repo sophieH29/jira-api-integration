@@ -4,7 +4,7 @@
                  padding:0;
               
             }
-            table {
+            /*table {
 	            border-width: 1px;
 	            border-spacing: 0px;
 	            border-style: solid;
@@ -28,24 +28,28 @@
 	            padding: 2px;
 	            border-style: solid;
 	            border-color: black;	          
-            }          
+            }*/          
             #header_container {
                  background: #678597; 
                  color: white; 
-                 height:60px; 
+                 height:auto; 
                  left:0; 
                  position:relative; 
-                 width:1920px; 
+                 width:100%; 
                  top:0;
             }
             #header {
                  line-height:60px; 
                  margin:0;
-                width: 1920px;
+                width:100%; 
                  position:relative;
                  padding: 0px; 
                  font-weight: bold;
                  font-size: 18pt;
+                display: inline-block;
+            }
+            #header i {
+                margin-left: 15px;
             }
             #header a, #header a:valid, #header a:active, #header a:hover {
                 position:relative;
@@ -55,13 +59,23 @@
             }
             #container {
                  margin:0; 
-                 /*overflow:auto;*/ 
-                 padding:0px; 
-                 width:1460px;
+                 padding:0px;
+                width: 75%;
                  position:relative;
-                 left:12%;
+                left: 13%;
+                right: 12%
+            }
+            #content {
+                 margin:0; 
+                 padding:0px;
+                width: 100%;
+                 position:relative;
                  
             }
+            #dataTable {
+                height: 100%;
+            }
+            
 
             input[type=text], input[type=password], select, textarea  
             {
@@ -84,6 +98,8 @@
             .validation-summary-errors {
                 color: red;
             }
+
+           
 input[type=button], input[type=submit], button {
     width: 120px;
     border-color:rgb(221, 221, 221);
@@ -140,7 +156,11 @@ select {
 #grid {
     height: 100%;
 }
+.k-grid-header .k-header > .k-link {
+    margin: 0px;
+    padding: 0px;
 
+}
 
 
 

@@ -26,6 +26,7 @@ $(function () {
         format: "yyyy-MM-dd"
     });
     grid.initialize();
+   
 
 });
 
@@ -62,7 +63,7 @@ function Grid() {
         $("#refresh").click(function () {
             $("#tabs-2").hide();
             $("#grid").empty();
-            $("#grid").append("<table id='dataTable'></table>");
+            $("#grid").append("<table id='dataTable' style='width:100%'></table>");
             _this.GetIssues();
         });
         //jQuery.validator.setDefaults({
@@ -193,7 +194,7 @@ function Grid() {
             type: "POST",
             success: function (res) {
                 $("#grid4").empty();
-                $("#grid4").append("<table id='userStoriesTable'></table>");
+                $("#grid4").append("<table id='userStoriesTable' style='width:100%'></table>");
                 _this.ShowTableWithUserStories(res);
             }
         });
@@ -310,49 +311,58 @@ function Grid() {
                      {
                          field: "Key",
                          title: "Key",
-                         width: 90
+                         width: 88,
+                         headerTemplate: '<div style="width:71px"></div><label>Key</label>'
 
                      },
                      {
                          field: "Type",
                          title: "Type",
-                         width: 100
+                         width: 91,
+                         headerTemplate: '<div style="width:74px"></div><label>Type</label>'
 
                      },
                  {
                      field: "Summary",
                      title: "Summary",
-                     width: 350
+                     width: 340,
+                     headerTemplate: '<div style="width:323px"></div><label>Summary</label>'
                  },
                  {
                      field: "Priority",
                      title: "Priority",
-                     width: 110
+                     width: 115,
+                     headerTemplate: '<div style="width:98px"></div><label>Priority</label>'
                  },
                  {
                      field: "Status",
                      title: "Status",
-                     width: 110
+                     width: 109,
+                     headerTemplate: '<div style="width:92px"></div><label>Status</label>'
                  },
                  {
                      field: "Created",
                      title: "Date Created",
-                     width: 160
+                     width: 159,
+                     headerTemplate: '<div style="width:142px"></div><label>Date Created</label>'
                  },
                  {
                      field: "Updated",
                      title: "Date Updated",
-                     width: 160
+                     width: 159,
+                     headerTemplate: '<div style="width:142px"></div><label>Date Updated</label>'
                  },
                  {
                      field: "DateResolved",
                      title: "Date Resolved",
-                     width: 160
+                     width: 158,
+                     headerTemplate: '<div style="width:141px"></div><label>Date Resolved</label>'
                  },
                  {
                      field: "DueDate",
                      title: "Due Date",
-                     width: 160
+                     width: 158,
+                     headerTemplate: '<div style="width:141px"></div><label>Due Date</label>'
                  }],
             dataSource: {
 
@@ -366,8 +376,7 @@ function Grid() {
             sortable: true,
             pageable: true,
             reorderable: true,
-            resizable: true,
-            columnMenu: true
+            resizable: true
         });
         
     };
@@ -558,49 +567,62 @@ function Grid() {
                      {
                          field: "Key",
                          title: "Key",
-                         width: 95
-
+                         width: "94px",
+                         headerTemplate: '<div style="width:77px"></div><label for="check-all">Key</label>'
+                         //headerAttributes: {
+                         //   "class": "table-header-cell",
+                         //    style: " width:94px"
+                         //}
                      },
                      {
                          field: "Type",
                          title: "Type",
-                         width: 115
+                         width: "100px",
+                         headerTemplate: '<div style="width:83px"></div><label>Type</label>'
 
                      },
                  {
                      field: "Summary",
                      title: "Summary",
-                     width: 370
+                     width: "342px",
+                     headerTemplate: '<div style="width:325px"; padding:"0px"; margin:"0px"; ></div><label>Summary</label>'
                  },
                  {
                      field: "Priority",
                      title: "Priority",
-                     width: 100
+                     width: "145px",
+                     headerTemplate: '<div style="width:128px"></div><label>Priority</label>'
                  },
                  {
                      field: "Status",
                      title: "Status",
-                     width: 100
+                     width: "100px",
+                     headerTemplate: '<div style="width:83px"></div><label>Status</label>'
+                     
                  },
                  {
                      field: "Created",
                      title: "Date Created",
-                     width: 165
+                     width: "160px",
+                     headerTemplate: '<div style="width:143px"></div><label>Created</label>'
                  },
                  {
                      field: "Updated",
                      title: "Date Updated",
-                     width: 165
+                     width: "160px",
+                     headerTemplate: '<div style="width:143px"></div><label>Date Updated</label>'
                  },
                  {
                      field: "DateResolved",
                      title: "Date Resolved",
-                     width: 165
+                     width: "160px",
+                     headerTemplate: '<div style="width:143px"></div><label>Date Resolved</label>'
                  },
                  {
                      field: "DueDate",
                      title: "Due Date",
-                     width: 165
+                     width: "160px",
+                     headerTemplate: '<div style="width:143px"></div><label>Date Date</label>'
                  }],
             dataSource: {
 
@@ -610,14 +632,14 @@ function Grid() {
             serverFiltering: true,
             serverSorting: true,
             dataBound: onDataBound,
-            scrollable: true,
+          //  scrollable: true,
             selectable: "multiple, row",
             change: onDataChange,
             sortable: true,
             pageable: true,
             reorderable: true,
-            resizable: true,
-            columnMenu: true
+            resizable: true
+          // columnMenu: true
 
         });
 
@@ -692,28 +714,16 @@ function Grid() {
                 });
             });
             $("#tabs-2").hide();
-            _this.DisableFields();
-
+            _this.DisableFields();          
         }
 
-        function resizeTextarea(id) {
-            var a = document.getElementById(id);
-            a.style.height = 'auto';
-            a.style.height = a.scrollHeight + 'px';
-        }
+        
 
-        function init() {
-            var a = document.getElementsByTagName('textarea');
-            for (var i = 0, inb = a.length; i < inb; i++) {
-                if (a[i].getAttribute('data-resizable') == 'true')
-                    resizeTextarea(a[i].id);
-            }
-        }
-
-        addEventListener('DOMContentLoaded', init);
+        //addEventListener('DOMContentLoaded', init);
         _this.AjaxLoaderVisibility(false);
     };
 
+    
 
     //_this.GetJiraIssues = function () {
     //    var data = {
