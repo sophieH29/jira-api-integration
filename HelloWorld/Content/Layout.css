@@ -165,6 +165,14 @@ select {
     margin: 5px;
 }
 
+#dateFrom, #dateTo {
+    padding: 0px;
+}
+.k-icon  {
+    margin-bottom: 5px;
+
+}
+
 
 
       
