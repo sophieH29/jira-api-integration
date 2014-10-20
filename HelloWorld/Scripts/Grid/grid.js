@@ -26,7 +26,6 @@ $(function () {
         format: "yyyy-MM-dd"
     });
     grid.initialize();
-   
 
 });
 
@@ -35,6 +34,7 @@ function Grid() {
     var _this = this;
     var countOfTrId = 0;
     _this.initialize = function () {
+        
         // hack for IE dropdowns
         var position1 = $("#type").on('change', function () {
             position1.find('option:selected').prependTo(position1);
@@ -87,8 +87,16 @@ function Grid() {
         //});
         _this.DisableFields();
         _this.GetIssues();
+       
+        $(window).resize(function() {
+            _this.MainGridResizeColumns("#dataTable");
+            _this.UserStoryGridResizeColumns("#userStoriesTable");
+
+        });
 
     };
+
+   
     function autoheight(a) {
         if (!$(a).prop('scrollTop')) {
             do {
@@ -312,57 +320,57 @@ function Grid() {
                          field: "Key",
                          title: "Key",
                          width: 88,
-                         headerTemplate: '<div style="width:71px"></div><label>Key</label>'
+                         headerTemplate: '<div class="divKey1" style="width:71px"></div><label>Key</label>'
 
                      },
                      {
                          field: "Type",
                          title: "Type",
                          width: 91,
-                         headerTemplate: '<div style="width:74px"></div><label>Type</label>'
+                         headerTemplate: '<div class="divType1" style="width:74px"></div><label>Type</label>'
 
                      },
                  {
                      field: "Summary",
                      title: "Summary",
                      width: 340,
-                     headerTemplate: '<div style="width:323px"></div><label>Summary</label>'
+                     headerTemplate: '<div class="divSummary1" style="width:323px"></div><label>Summary</label>'
                  },
                  {
                      field: "Priority",
                      title: "Priority",
                      width: 115,
-                     headerTemplate: '<div style="width:98px"></div><label>Priority</label>'
+                     headerTemplate: '<div class="divPriority1" style="width:98px"></div><label>Priority</label>'
                  },
                  {
                      field: "Status",
                      title: "Status",
                      width: 109,
-                     headerTemplate: '<div style="width:92px"></div><label>Status</label>'
+                     headerTemplate: '<div class="divStatus1" style="width:92px"></div><label>Status</label>'
                  },
                  {
                      field: "Created",
                      title: "Date Created",
                      width: 159,
-                     headerTemplate: '<div style="width:142px"></div><label>Date Created</label>'
+                     headerTemplate: '<div class="divCreated1" style="width:142px"></div><label>Date Created</label>'
                  },
                  {
                      field: "Updated",
                      title: "Date Updated",
                      width: 159,
-                     headerTemplate: '<div style="width:142px"></div><label>Date Updated</label>'
+                     headerTemplate: '<div class="divUpdated1" style="width:142px"></div><label>Date Updated</label>'
                  },
                  {
                      field: "DateResolved",
                      title: "Date Resolved",
                      width: 158,
-                     headerTemplate: '<div style="width:141px"></div><label>Date Resolved</label>'
+                     headerTemplate: '<div  class="divDateResolved1" style="width:141px"></div><label>Date Resolved</label>'
                  },
                  {
                      field: "DueDate",
                      title: "Due Date",
                      width: 158,
-                     headerTemplate: '<div style="width:141px"></div><label>Due Date</label>'
+                     headerTemplate: '<div class="divDueDate1" style="width:141px"></div><label>Due Date</label>'
                  }],
             dataSource: {
 
@@ -378,6 +386,8 @@ function Grid() {
             reorderable: true,
             resizable: true
         });
+        
+        _this.UserStoryGridResizeColumns("#userStoriesTable");
         
     };
     _this.ShowTableWithAttachments = function (res) {
@@ -568,61 +578,60 @@ function Grid() {
                          field: "Key",
                          title: "Key",
                          width: "94px",
-                         headerTemplate: '<div style="width:77px"></div><label for="check-all">Key</label>'
-                         //headerAttributes: {
-                         //   "class": "table-header-cell",
-                         //    style: " width:94px"
-                         //}
+                         headerTemplate: '<div class="divKey" style="width:80px;"></div><label for="check-all">Key</label>'
+                        
                      },
                      {
                          field: "Type",
                          title: "Type",
                          width: "100px",
-                         headerTemplate: '<div style="width:83px"></div><label>Type</label>'
+                         headerTemplate: '<div class="divType" style="width:85px"></div><label>Type</label>'
+                        
 
                      },
                  {
                      field: "Summary",
                      title: "Summary",
                      width: "342px",
-                     headerTemplate: '<div style="width:325px"; padding:"0px"; margin:"0px"; ></div><label>Summary</label>'
+                     headerTemplate: '<div class="divSummary" style="width:330px";></div><label>Summary</label>'
+                    
                  },
                  {
                      field: "Priority",
                      title: "Priority",
                      width: "145px",
-                     headerTemplate: '<div style="width:128px"></div><label>Priority</label>'
+                     headerTemplate: '<div  class="divPriority" style="width:130px"></div><label>Priority</label>'
                  },
                  {
                      field: "Status",
                      title: "Status",
                      width: "100px",
-                     headerTemplate: '<div style="width:83px"></div><label>Status</label>'
+                     headerTemplate: '<div  class="divStatus" style="width:85px"></div><label>Status</label>'
                      
                  },
                  {
                      field: "Created",
                      title: "Date Created",
                      width: "160px",
-                     headerTemplate: '<div style="width:143px"></div><label>Created</label>'
+                     headerTemplate: '<div class="divCreated" style="width:144px"></div><label>Created</label>'
                  },
                  {
                      field: "Updated",
                      title: "Date Updated",
                      width: "160px",
-                     headerTemplate: '<div style="width:143px"></div><label>Date Updated</label>'
+                     headerTemplate: '<div class="divUpdated" style="width:144px"></div><label>Date Updated</label>'
                  },
                  {
                      field: "DateResolved",
                      title: "Date Resolved",
                      width: "160px",
-                     headerTemplate: '<div style="width:143px"></div><label>Date Resolved</label>'
+                     headerTemplate: '<div class="divDateResolved" style="width:144px"></div><label>Date Resolved</label>'
                  },
                  {
                      field: "DueDate",
                      title: "Due Date",
                      width: "160px",
-                     headerTemplate: '<div style="width:143px;"></div><label>Date Date</label>'
+                     headerTemplate: '<div class="divDueDate" style="width:144px;"></div><label>Date Date</label>'
                  }],
             dataSource: {
 
@@ -638,10 +647,19 @@ function Grid() {
             sortable: true,
             pageable: true,
             reorderable: true,
-            resizable: true
+            resizable: true,
+            columnResize: function (e) {
+                $(".k-header").each(function() {
+                    if ($(this).width() < 300) {
+                        $(this).css("width", "300px");
+                    }
+                });
+            }
           // columnMenu: true
 
         });
+
+       
 
         function onDataChange(e) {
             var selectedRows = this.select();
@@ -743,9 +761,7 @@ function Grid() {
             $("#tabs-2").hide();
             _this.DisableFields();          
         }
-
-        
-
+        _this.MainGridResizeColumns("#dataTable");
         //addEventListener('DOMContentLoaded', init);
         _this.AjaxLoaderVisibility(false);
     };
@@ -909,5 +925,29 @@ function Grid() {
         else {
             $('.ajax-loading-block-window').hide('slow');
         }
+    };
+
+    _this.MainGridResizeColumns = function (a) {
+        $(".divKey").width($(a).find("tr:nth-child(1) > td:nth-child(1)").width());
+        $(".divType").width($(a).find("tr:nth-child(1) > td:nth-child(2)").width());
+        $(".divSummary").width($(a).find("tr:nth-child(1) > td:nth-child(3)").width());
+        $(".divPriority").width($(a).find("tr:nth-child(1) > td:nth-child(4)").width());
+        $(".divStatus").width($(a).find("tr:nth-child(1) > td:nth-child(5)").width());
+        $(".divCreated").width($(a).find("tr:nth-child(1) > td:nth-child(6)").width());
+        $(".divUpdated").width($(a).find("tr:nth-child(1) > td:nth-child(7)").width());
+        $(".divDateResolved").width($(a).find("tr:nth-child(1) > td:nth-child(8)").width());
+        $(".divDueDate").width($(a).find("tr:nth-child(1) > td:nth-child(9)").width());
+    };
+    
+    _this.UserStoryGridResizeColumns = function (a) {
+        $(".divKey1").width($(a).find("tr:nth-child(1) > td:nth-child(1)").width());
+        $(".divType1").width($(a).find("tr:nth-child(1) > td:nth-child(2)").width());
+        $(".divSummary1").width($(a).find("tr:nth-child(1) > td:nth-child(3)").width());
+        $(".divPriority1").width($(a).find("tr:nth-child(1) > td:nth-child(4)").width());
+        $(".divStatus1").width($(a).find("tr:nth-child(1) > td:nth-child(5)").width());
+        $(".divCreated1").width($(a).find("tr:nth-child(1) > td:nth-child(6)").width());
+        $(".divUpdated1").width($(a).find("tr:nth-child(1) > td:nth-child(7)").width());
+        $(".divDateResolved1").width($(a).find("tr:nth-child(1) > td:nth-child(8)").width());
+        $(".divDueDate1").width($(a).find("tr:nth-child(1) > td:nth-child(9)").width());
     };
 };

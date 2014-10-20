@@ -72,9 +72,6 @@
                  position:relative;
                  
             }
-            #dataTable {
-                height: 100%;
-            }
             
 
             input[type=text], input[type=password], select, textarea  
@@ -156,10 +153,6 @@ select {
 #grid {
     height: 100%;
 }
-.k-grid-header .k-header > .k-link {
-    margin: 0px;
-    padding: 0px;
-}
 
 #refresh {
     margin: 5px;
@@ -175,4 +168,4 @@ select {
 
 
 
-      
+    
