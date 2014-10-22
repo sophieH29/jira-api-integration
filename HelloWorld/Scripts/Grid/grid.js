@@ -308,15 +308,17 @@ function Grid() {
                 alert("Some error(s) occurred during connecting to Jira system. Please contact support or try again later");
             }
             // Append <tr><td> tags with datas
-            $("#userStoriesTable").append("<tr><td>" + res[i].Key +
-                "</td><td>" + res[i].Type +
-                "</td><td>" + res[i].Summary +
-                "</td><td>" + res[i].Priority +
-                "</td><td>" + res[i].Status +
-                "</td><td>" + res[i].Created +
-                "</td><td>" + res[i].Updated +
-                "</td><td>" + res[i].DateResolved +
-                "</td><td>" + res[i].DueDate + "</td></tr>");
+            if (res[i].Type == "Story") {
+                $("#userStoriesTable").append("<tr><td>" + res[i].Key +
+                    "</td><td>" + res[i].Type +
+                    "</td><td>" + res[i].Summary +
+                    "</td><td>" + res[i].Priority +
+                    "</td><td>" + res[i].Status +
+                    "</td><td>" + res[i].Created +
+                    "</td><td>" + res[i].Updated +
+                    "</td><td>" + res[i].DateResolved +
+                    "</td><td>" + res[i].DueDate + "</td></tr>");
+            }
         }
         
         $("#userStoriesTable").kendoGrid({
