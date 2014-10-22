@@ -8,7 +8,7 @@ $(function () {
             open: {
                 effects: "fadeIn"
             }
-        }
+        }       
     });
     $("#hide_det").click(function () {
         $("#tabs-2").toggle("fold");
@@ -91,10 +91,18 @@ function Grid() {
         $(window).resize(function() {
             _this.MainGridResizeColumns("#dataTable");
             _this.UserStoryGridResizeColumns("#userStoriesTable");
-
         });
-
-    };
+        
+        $(".divKey1").width($("#userStoriesTable").find("tr:nth-child(1) > td:nth-child(1)").width());
+        $(".divType1").width($("#userStoriesTable").find("tr:nth-child(1) > td:nth-child(2)").width());
+        $(".divSummary1").width($("#userStoriesTable").find("tr:nth-child(1) > td:nth-child(3)").width());
+        $(".divPriority1").width($("#userStoriesTable").find("tr:nth-child(1) > td:nth-child(4)").width());
+        $(".divStatus1").width($("#userStoriesTable").find("tr:nth-child(1) > td:nth-child(5)").width());
+        $(".divCreated1").width($("#userStoriesTable").find("tr:nth-child(1) > td:nth-child(6)").width());
+        $(".divUpdated1").width($("#userStoriesTable").find("tr:nth-child(1) > td:nth-child(7)").width());
+        $(".divDateResolved1").width($("#userStoriesTable").find("tr:nth-child(1) > td:nth-child(8)").width());
+        $(".divDueDate1").width($("#userStoriesTable").find("tr:nth-child(1) > td:nth-child(9)").width());
+      };
 
    
     function autoheight(a) {
@@ -123,7 +131,6 @@ function Grid() {
             });
         }
     };
-
 
     _this.GetIssues = function () {
         countOfTrId = 0;
@@ -320,57 +327,57 @@ function Grid() {
                          field: "Key",
                          title: "Key",
                          width: 88,
-                         headerTemplate: '<div class="divKey1" style="width:71px"></div><label>Key</label>'
+                         headerTemplate: '<div class="divKey1" style="width:86px"></div><label>Key</label>'
 
                      },
                      {
                          field: "Type",
                          title: "Type",
                          width: 91,
-                         headerTemplate: '<div class="divType1" style="width:74px"></div><label>Type</label>'
+                         headerTemplate: '<div class="divType1" style="width:90px"></div><label>Type</label>'
 
                      },
                  {
                      field: "Summary",
                      title: "Summary",
                      width: 340,
-                     headerTemplate: '<div class="divSummary1" style="width:323px"></div><label>Summary</label>'
+                     headerTemplate: '<div class="divSummary1" style="width:380px"></div><label>Summary</label>'
                  },
                  {
                      field: "Priority",
                      title: "Priority",
                      width: 115,
-                     headerTemplate: '<div class="divPriority1" style="width:98px"></div><label>Priority</label>'
+                     headerTemplate: '<div class="divPriority1" style="width:117px"></div><label>Priority</label>'
                  },
                  {
                      field: "Status",
                      title: "Status",
                      width: 109,
-                     headerTemplate: '<div class="divStatus1" style="width:92px"></div><label>Status</label>'
+                     headerTemplate: '<div class="divStatus1" style="width:110px"></div><label>Status</label>'
                  },
                  {
                      field: "Created",
                      title: "Date Created",
                      width: 159,
-                     headerTemplate: '<div class="divCreated1" style="width:142px"></div><label>Date Created</label>'
+                     headerTemplate: '<div class="divCreated1" style="width:168px"></div><label>Date Created</label>'
                  },
                  {
                      field: "Updated",
                      title: "Date Updated",
                      width: 159,
-                     headerTemplate: '<div class="divUpdated1" style="width:142px"></div><label>Date Updated</label>'
+                     headerTemplate: '<div class="divUpdated1" style="width:168px"></div><label>Date Updated</label>'
                  },
                  {
                      field: "DateResolved",
                      title: "Date Resolved",
                      width: 158,
-                     headerTemplate: '<div  class="divDateResolved1" style="width:141px"></div><label>Date Resolved</label>'
+                     headerTemplate: '<div  class="divDateResolved1" style="width:167px"></div><label>Date Resolved</label>'
                  },
                  {
                      field: "DueDate",
                      title: "Due Date",
                      width: 158,
-                     headerTemplate: '<div class="divDueDate1" style="width:141px"></div><label>Due Date</label>'
+                     headerTemplate: '<div class="divDueDate1" style="width:167px"></div><label>Due Date</label>'
                  }],
             dataSource: {
 
@@ -386,9 +393,7 @@ function Grid() {
             reorderable: true,
             resizable: true
         });
-        
-        _this.UserStoryGridResizeColumns("#userStoriesTable");
-        
+      _this.UserStoryGridResizeColumns("#userStoriesTable");
     };
     _this.ShowTableWithAttachments = function (res) {
         var key = '';
@@ -631,7 +636,7 @@ function Grid() {
                      field: "DueDate",
                      title: "Due Date",
                      width: "160px",
-                     headerTemplate: '<div class="divDueDate" style="width:144px;"></div><label>Date Date</label>'
+                     headerTemplate: '<div class="divDueDate" style="width:144px;"></div><label>Due Date</label>'
                  }],
             dataSource: {
 
@@ -641,22 +646,13 @@ function Grid() {
             serverFiltering: true,
             serverSorting: true,
             dataBound: onDataBound,
-          //  scrollable: true,
+            scrollable: true,
             selectable: "multiple, row",
             change: onDataChange,
             sortable: true,
             pageable: true,
             reorderable: true,
-            resizable: true,
-            columnResize: function (e) {
-                $(".k-header").each(function() {
-                    if ($(this).width() < 300) {
-                        $(this).css("width", "300px");
-                    }
-                });
-            }
-          // columnMenu: true
-
+            resizable: true
         });
 
        
@@ -685,10 +681,10 @@ function Grid() {
                             open: {
                                 effects: "fadeIn"
                             }
-                        }
-                    }).data("kendoTabStrip").select(0);
+                        },
+                    }).data("kendoTabStrip").select(3);
                     _this.GetUserStoriesUnderEpic(selectedDataItems[i].Key);
-                    
+                    _this.UserStoryGridResizeColumns("#userStoriesTable");
                 } else {
 
                     var tabStrip = $("#tabs-2").kendoTabStrip().data("kendoTabStrip");

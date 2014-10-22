@@ -60,10 +60,10 @@
             #container {
                  margin:0; 
                  padding:0px;
-                width: 75%;
+                width: 86%;
                  position:relative;
-                left: 13%;
-                right: 12%
+                left: 7%;
+                right: 7%
             }
             #content {
                  margin:0; 
@@ -163,9 +163,7 @@ select {
 }
 .k-icon  {
     margin-bottom: 5px;
-
 }
-
 
 
     
